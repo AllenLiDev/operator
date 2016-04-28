@@ -33,7 +33,7 @@ public class SolutionGen2 {
                         /*
                          * 1 is addition
                          * 2 is subtraction
-                         * 3 is multipilcation
+                         * 3 is multiplication
                          * 4 is division
                          * so 123 is (((c1 + c2) - c3) * c4)
                          */
