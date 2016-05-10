@@ -101,7 +101,7 @@
 			step2 = false;
 			step1 = true;
 		} else if (button == 3) {
-			if(step1){
+			if(step1 && !step2){
 				step2 = true;
 			}
 			else{
@@ -110,7 +110,7 @@
 				step3 = false;
 			}
 		} else if (button == 1) {
-			if(step1 && step2){
+			if(step1 && step2 && !step3){
 				step3 = true;
 			}
 			else{
