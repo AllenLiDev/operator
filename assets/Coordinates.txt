@@ -1,0 +1,43 @@
+-----------
+Menu
+-----------
+
+Time attack:: x-20 y-270 h-120 -455
+Endless:: x-485 y-270 h-120 w-455
+Settings:: x-20 y-400 h-120 w-300
+Guide:: x-331 y-400 h-120 w-300
+Leaderboards:: x-640 y-400 h-120 w-300
+Volume:: x-854 y-35 h-60 w-65
+
+-----------
+Game Screen
+-----------
+
+Exit:: x-20 y-20 h-90 w-200
+ScoreBoard::x-260 y-20 h-178 w-439
+Skip:: x-740 y-20 h-90 w-200
+Cards:: x-20 y-208 h-220 w-920
+1stSlot:: x-200 y-283 h-70 w-80
+2ndSlot:: x-440 y-283 h-70 w-80
+3rdSlot:: x-680 y-283 h-70 w-80
+plusOperator:: x-260 y-449 h-80 w-80
+minusOperator:: x-380 y-449 h-80 w-80
+multiOperator:: x-500 y-449 h-80 w-80
+divOperator:: x-620 y-449 h-80 w-80
+
+-----------
+Font/Text
+-----------
+
+Card Numbers:: style: Calibri bold, size: 200pt
+1st: x-49 y-208 h-164 w-141
+2nd: x-289 y-208 h-164 w-141
+3rd: x-530 y-208 h-164 w-141
+4th: x-770 y-208 h-164 w-141
+
+Score:: style: digital7, size: 36pt
+x-424 y-29 h-26 w-91
+
+Timer:: style: digital7, size: 120pt
+x-328 y-70 h-80 w-304
+
