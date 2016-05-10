@@ -1,0 +1,16 @@
+-----------
+Font/Text
+-----------
+
+Card Numbers:: style: Calibri bold, size: 200pt
+1st: x-49 y-208 h-164 w-141
+2nd: x-289 y-208 h-164 w-141
+3rd: x-530 y-208 h-164 w-141
+4th: x-770 y-208 h-164 w-141
+
+Score:: style: digital7, size: 36pt
+x-424 y-29 h-26 w-91
+
+Timer:: style: digital7, size: 120pt
+x-328 y-70 h-80 w-304
+
