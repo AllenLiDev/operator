@@ -471,31 +471,160 @@
 				index : 0
 			}
 			
+			var minusOperator = new Image();
+			minusOperator = {
+				src : "./assets/gameAssets/minusOperator.png",
+				width : 80,
+				height : 80,
+				xPos : 380,
+				yPos : 449,
+				xInit : 380,
+				yInit : 449,
+				index : 0,
+				xMin : 380,
+				yMin : 449,
+				xMax : 460,
+				yMax : 529,
+				caseOp : 1,
+				isDraggable : true,
+				isClicked : false
+			}
+
+			var minusOp2 = new Image();
+			minusOp2 = {
+				src : "./assets/gameAssets/minusOperator.png",
+				width : 80,
+				height : 80,
+				index : 0
+			}
+
+			var minusOp3 = new Image();
+			minusOp3 = {
+				src : "./assets/gameAssets/minusOperator.png",
+				width : 80,
+				height : 80,
+				index : 0
+			}
+
+			var minusOp4 = new Image();
+			minusOp4 = {
+				src : "./assets/gameAssets/minusOperator.png",
+				width : 80,
+				height : 80,
+				index : 0
+			}
+
+			var multiOperator = new Image();
+			multiOperator = {
+				src : "./assets/gameAssets/multiOperator.png",
+				width : 80,
+				height : 80,
+				xPos : 500,
+				yPos : 449,
+				xInit : 500,
+				yInit : 449,
+				index : 0,
+				xMin : 500,
+				yMin : 449,
+				xMax : 580,
+				yMax : 529,
+				caseOp : 1,
+				isDraggable : true,
+				isClicked : false
+			}
+
+			var multiOp2 = new Image();
+			multiOp2 = {
+				src : "./assets/gameAssets/multiOperator.png",
+				width : 80,
+				height : 80,
+				index : 0
+			}
+
+			var multiOp3 = new Image();
+			multiOp3 = {
+				src : "./assets/gameAssets/multiOperator.png",
+				width : 80,
+				height : 80,
+				index : 0
+			}
+
+			var multiOp4 = new Image();
+			multiOp4 = {
+				src : "./assets/gameAssets/multiOperator.png",
+				width : 80,
+				height : 80,
+				index : 0
+			}
+
+			var divOperator = new Image();
+			divOperator = {
+				src : "./assets/gameAssets/divOperator.png",
+				width : 80,
+				height : 80,
+				xPos : 620,
+				yPos : 449,
+				xInit : 620,
+				yInit : 449,
+				index : 0,
+				xMin : 620,
+				yMin : 449,
+				xMax : 700,
+				yMax : 529,
+				caseOp : 1,
+				isDraggable : true,
+				isClicked : false
+			}
+
+			var divOp2 = new Image();
+			divOp2 = {
+				src : "./assets/gameAssets/divOperator.png",
+				width : 80,
+				height : 80,
+				index : 0
+			}
+
+			var divOp3 = new Image();
+			divOp3 = {
+				src : "./assets/gameAssets/divOperator.png",
+				width : 80,
+				height : 80,
+				index : 0
+			}
+
+			var divOp4 = new Image();
+			divOp4 = {
+				src : "./assets/gameAssets/divOperator.png",
+				width : 80,
+				height : 80,
+				index : 0
+			}
+
 			var firstDrop = {
 				xMin : 200,
-				yMin : 283,
+				yMin : 278,
 				xMax : 280,
-				yMax : 353,
+				yMax : 358,
 				isFilled : false
 			}
 
 			var secondDrop = {
 				xMin : 440,
-				yMin : 283,
+				yMin : 278,
 				xMax : 520,
-				yMax : 353,
+				yMax : 358,
 				isFilled : false
 			}
 
 			var thirdDrop = {
 				xMin : 680,
-				yMin : 283,
+				yMin : 278,
 				xMax : 760,
-				yMax : 353,
+				yMax : 358,
 				isFilled : false
 			}
 
-			load.entities.push(background, gameBorderImage, scoreImage, cardsImage, quitImage, skipImage, plusOperator, plusOp2, plusOp3, plusOp4);
+			load.entities.push(background, gameBorderImage, scoreImage, cardsImage, quitImage, skipImage, plusOperator, plusOp2, plusOp3, plusOp4, minusOperator, minusOp2, minusOp3, minusOp4, multiOperator, multiOp2, multiOp3, multiOp4, divOperator, divOp2, divOp3, divOp4);
 			load.clickable.push(quitBox);
 			load.droppable.push(firstDrop, secondDrop, thirdDrop);
 
