@@ -81,6 +81,13 @@
 			} else {
 				alert("Programmer error. Empty entities list.");
 			}
+			if (load.strings.length > 0) {
+				console.log("There's some stuff in the list");
+				for (var i = 0; i < load.strings.length; i++) {
+					this.ctx.font = load.strings[i].font;
+					this.ctx.fillText(load.strings[i].parameter, load.strings[i].xPos * gameArea.ratioX, load.strings[i].yPos * gameArea.ratioY);
+				}
+			}
 		}
 	}
 
@@ -142,10 +149,15 @@
 		entities : [],
 		clickable : [],
 		droppable : [],
-		menuScreen : function() {
+		strings : [],
+		clear : function() {
 			load.entities = [];
 			load.clickable = [];
 			load.droppable = [];
+			load.strings = [];
+		},
+		menuScreen : function() {
+			load.clear();
 
 			var background = new Image();
 			background = {
@@ -205,7 +217,9 @@
 				yMax : 390,
 				clicked : function() {
 					gameArea.entities = [];
-					gameArea.entities = load.gameScreen();
+					gameArea.entities = load.preGameScreen();
+					gameArea.state = 2;
+					gameArea.refTime = gameArea.gameTime;
 				}
 			}
 			
@@ -342,18 +356,35 @@
 			return load.entities;
 		},
 		preGameScreen : function() {
-			load.entities = [];
-			load.clickable = [];
-			load.droppable = [];
+			load.clear();
 
-			load.entities.push(oneImage, twoImage, threeImage, instructImage);
+			var background = new Image();
+			background = {
+				src : "./assets/gameAssets/background.png",
+				width : 960,
+				height : 540,
+				xPos : 0,
+				yPos : 0,
+				index: 0
+			}
+
+			var countSprite = new Image();
+			countSprite = {
+				src : "./assets/gameAssets/gamestart.png",
+				width : 200,
+				height : 200,
+				xPos : 380,
+				yPos : 170,
+				index : 0,
+				frames : 5
+			}
+
+			load.entities.push(background, countSprite);
 
 			return load.entities;
 		},
 		gameScreen : function() {
-			load.entities = [];
-			load.clickable = [];
-			load.droppable = [];
+			load.clear();
 
 			var background = new Image();
 			background = {
@@ -414,6 +445,8 @@
 				yMax : 110,
 				clicked : function() {
 					gameArea.entities = [];
+					gameArea.state = 0;
+					gameArea.refTime = 0;
 					gameArea.entities = load.menuScreen();
 				}
 			}
@@ -632,22 +665,19 @@
 
 		},
 		settingScreen : function() {
-			load.entities = [];
-			load.clickable = [];
+			load.clear();
 
 			return load.entities;
 
 		},
 		leaderScreen : function() {
-			load.entities = [];
-			load.clickable = [];
+			load.clear();
 
 			return load.entities;
 
 		},
 		guideScreen : function() {
-			load.entities = [];
-			load.clickable = [];
+			load.clear();
 
 			return load.entities;
 		}
@@ -655,26 +685,31 @@
 
 	function update(dt) {
 		gameArea.gameTime += dt;
+		//console.log(gameArea.refTime);
 
 		switch(gameArea.state) {
 			case 1: //time attack logic
-				if (gameArea.gameTime - gameArea.refTime > 1 && gameArea.entities.length == 1) {
-					gameArea.refTime = gameArea.gameTime;
+			gameArea.refTime += dt;
+				if (gameArea.gameTime - gameArea.refTime > 1 && gameArea.entities[1].index == gameArea.entities[1].frames) {
+					gameArea.entities = [];
+					gameArea.refTime = 0;
 					gameArea.entities = load.gameScreen();
-				} else if (gameArea.gameTime - gameArea.refTime > 1 && gameArea.entities.length > 1) {
-					gameArea.entities.pop();
-					gameArea.refTime = gameArea.gameTime;
+				} else if (gameArea.refTime > 1 && gameArea.entities[1].index < gameArea.entities[1].frames - 1) {
+					gameArea.refTime -= 1;
+					gameArea.entities[1].index += 1;
 				} else {//post-loading game logic
 
 				}
 				break;
 			case 2: //endless logic
-				if (gameArea.gameTime - gameArea.refTime > 1 && gameArea.entities.length == 1) {
-					gameArea.refTime = gameArea.gameTime;
+			gameArea.refTime += dt;
+				if (gameArea.refTime > 1 && gameArea.entities[1].index == gameArea.entities[1].frames) {
+					gameArea.entities = [];
+					gameArea.refTime = 0;
 					gameArea.entities = load.gameScreen();
-				} else if (gameArea.gameTime - gameArea.refTime > 1 && gameArea.entities.length > 1) {
-					gameArea.entities.pop();
-					gameArea.refTime = gameArea.gameTime;
+				} else if (gameArea.refTime > 1 && gameArea.entities[1].index < gameArea.entities[1].frames - 1) {
+					gameArea.refTime -= 1;
+					gameArea.entities[1].index += 1;
 				} else {//post-loading game logic
 
 				}
