@@ -22,6 +22,7 @@ function createProblem() {
 
 when all operators are filled...
 
+if (validate(card1, card2, card3, card4, op1, op2, op3)) {
     if (problemNumber == 10) {
         game over -> score menu and shit  // GAME ENDS WHEN PROBLEM 10 IS COMPLETED
     } else {
