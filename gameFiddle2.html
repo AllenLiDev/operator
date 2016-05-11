@@ -305,7 +305,8 @@
 				xMax : 320,
 				yMax : 520,
 				clicked : function() {
-					load.settingScreen();
+					gameArea.entities = [];
+					gameArea.entities = load.settingScreen();
 				}
 			}
 
@@ -666,6 +667,165 @@
 		},
 		settingScreen : function() {
 			load.clear();
+
+			var background = new Image();
+			background = {
+				src : "./assets/menuAssets/background.png",
+				width : 960,
+				height : 540,
+				xPos : 0,
+				yPos : 0,
+				index: 0
+			}
+
+			var border = new Image();
+			border = {
+				src : "./assets/settingsAssets/border.png",
+				width : 960,
+				height : 540,
+				xPos : 0,
+				yPos : 0,
+				index: 0
+			}
+
+			var quitImage = new Image();
+			quitImage = {
+				src : "./assets/gameAssets/quitImage.png",
+				width : 220,
+				height : 208,
+				xPos : 0,
+				yPos : 0,
+				index: 0
+
+			}
+
+			var quitBox = {
+				xMin : 20,
+				yMin : 20,
+				xMax : 220,
+				yMax : 110,
+				clicked : function() {
+					gameArea.entities = [];
+					gameArea.entities = load.menuScreen();
+				}
+			}
+
+			var settingsTitle = new Image();
+			settingsTitle = {
+				src : "./assets/settingsAssets/settingsLabel.png",
+				width : 392,
+				height : 110,
+				xPos : 284,
+				yPos : 48,
+				index : 0
+			}
+
+			var difficultyWindow = new Image();
+			difficultyWindow = {
+				src : "./assets/settingsAssets/difficultyWindow.png",
+				width : 365,
+				height : 180,
+				xPos : 84,
+				yPos : 225,
+				index : 0
+			}
+
+			var difficultyOptions = new Image();
+			difficultyOptions = {
+				src : "./assets/settingsAssets/difficultyOptions.png",
+				width : 280,
+				height : 68,
+				xPos : 130,
+				yPos : 325,
+				index: 0,
+				frames: 2
+			}
+
+			var easyBox = {
+				xMin : 116,
+				yMin : 326,
+				xMax : 246,
+				yMax : 390,
+				clicked : function() {
+					if (gameArea.entities[4].index < gameArea.entities[4].frames - 1) {
+						gameArea.entities[4].index += 1;
+						//code needs to be here one day
+					} else {
+						gameArea.entities[4].index = 0;
+					}
+				}
+			}
+
+			var hardBox = {
+				xMin : 284,
+				yMin : 326,
+				xMax : 410,
+				yMax : 390,
+				clicked : function() {
+					if (gameArea.entities[4].index < gameArea.entities[4].frames - 1) {
+						gameArea.entities[4].index += 1;
+						//code needs to be here one day
+					} else {
+						gameArea.entities[4].index = 0;
+					}
+				}
+			}
+
+
+			var audioWindow = new Image();
+			audioWindow = {
+				src : "./assets/settingsAssets/audioWindow.png",
+				width : 365,
+				height : 180,
+				xPos : 515,
+				yPos : 225,
+				index : 0
+			}
+
+			var audioOptions = new Image();
+			audioOptions = {
+				src : "./assets/settingsAssets/audioOptions.png",
+				width : 280,
+				height : 68,
+				xPos : 563,
+				yPos : 325,
+				index: 0,
+				frames: 2
+			}
+
+			var onBox = {
+				xMin : 576,
+				yMin : 326,
+				xMax : 676,
+				yMax : 390,
+				clicked : function() {
+					if (gameArea.entities[4].index < gameArea.entities[4].frames - 1) {
+						gameArea.entities[4].index += 1;
+						//code needs to be here one day
+					} else {
+						gameArea.entities[4].index = 0;
+					}
+				}
+			}
+
+			var offBox = {
+				xMin : 713,
+				yMin : 326,
+				xMax : 813,
+				yMax : 390,
+				clicked : function() {
+					if (gameArea.entities[4].index < gameArea.entities[4].frames - 1) {
+						gameArea.entities[4].index += 1;
+						//code needs to be here one day
+					} else {
+						gameArea.entities[4].index = 0;
+					}
+				}
+			}
+
+
+			load.entities.push(background, border, quitImage, settingsTitle, difficultyWindow, difficultyOptions, audioWindow, audioOptions);
+			load.clickable.push(quitBox);
 
 			return load.entities;
 
