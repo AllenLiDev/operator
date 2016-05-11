@@ -10,13 +10,6 @@ Leaderboards:: x-640 y-400 h-120 w-300
 Volume:: x-854 y-35 h-60 w-65
 
 -----------
-Pre-Game
------------
-
-Countdown Location:: x-395 y-151 w-170 h-231
-
-
------------
 Settings
 -----------
 
@@ -35,6 +28,12 @@ On:: x-576 y-326 h-64 w-100
 On:: x-713 y-326 h-64 w-100
 
 -----------
+Pre-Game
+-----------
+
+Countdown Location:: x-395 y-151 w-170 h-231
+
+-----------
 Game Screen
 -----------
 
@@ -50,6 +49,13 @@ minusOperator:: x-380 y-449 h-80 w-80
 multiOperator:: x-500 y-449 h-80 w-80
 divOperator:: x-620 y-449 h-80 w-80
 
+-----------
+Time Attack Score
+-----------
+
+Submit:: x-330 y-413 w-300 h-67 xMax-630 yMax-480
+Name Input Area:: x-395 y-331 w-170 h-67 xMax-565 yMax-398
+replay:: same as skip
 -----------
 Font/Text
 -----------
