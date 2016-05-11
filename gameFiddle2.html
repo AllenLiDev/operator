@@ -746,12 +746,13 @@
 				yMin : 326,
 				xMax : 246,
 				yMax : 390,
+				isClicked : true,
 				clicked : function() {
-					if (gameArea.entities[4].index < gameArea.entities[4].frames - 1) {
-						gameArea.entities[4].index += 1;
+					if (load.clickable[2].isClicked) {
+						gameArea.entities[5].index -= 1;
+						load.clickable[2].isClicked = false;
+						load.clickable[1].isClicked = true;
 						//code needs to be here one day
-					} else {
-						gameArea.entities[4].index = 0;
 					}
 				}
 			}
@@ -761,12 +762,13 @@
 				yMin : 326,
 				xMax : 410,
 				yMax : 390,
+				isClicked : false,
 				clicked : function() {
-					if (gameArea.entities[4].index < gameArea.entities[4].frames - 1) {
-						gameArea.entities[4].index += 1;
+					if (load.clickable[1].isClicked) {
+						gameArea.entities[5].index +=1;
+						load.clickable[1].isClicked = false;
+						load.clickable[2].isClicked = true;
 						//code needs to be here one day
-					} else {
-						gameArea.entities[4].index = 0;
 					}
 				}
 			}
@@ -798,12 +800,13 @@
 				yMin : 326,
 				xMax : 676,
 				yMax : 390,
+				isClicked : true,
 				clicked : function() {
-					if (gameArea.entities[4].index < gameArea.entities[4].frames - 1) {
-						gameArea.entities[4].index += 1;
+					if (load.clickable[4].isClicked) {
+						gameArea.entities[7].index -= 1;
+						load.clickable[4].isClicked = false;
+						load.clickable[3].isClicked = true;
 						//code needs to be here one day
-					} else {
-						gameArea.entities[4].index = 0;
 					}
 				}
 			}
@@ -813,19 +816,20 @@
 				yMin : 326,
 				xMax : 813,
 				yMax : 390,
+				isClicked : false,
 				clicked : function() {
-					if (gameArea.entities[4].index < gameArea.entities[4].frames - 1) {
-						gameArea.entities[4].index += 1;
+					if (load.clickable[3].isClicked) {
+						gameArea.entities[7].index += 1;
+						load.clickable[3].isClicked = false;
+						load.clickable[4].isClicked = true;
 						//code needs to be here one day
-					} else {
-						gameArea.entities[4].index = 0;
 					}
 				}
 			}
 
 
 			load.entities.push(background, border, quitImage, settingsTitle, difficultyWindow, difficultyOptions, audioWindow, audioOptions);
-			load.clickable.push(quitBox);
+			load.clickable.push(quitBox, easyBox, hardBox, onBox, offBox);
 
 			return load.entities;
 
