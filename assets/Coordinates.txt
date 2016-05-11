@@ -10,6 +10,13 @@ Leaderboards:: x-640 y-400 h-120 w-300
 Volume:: x-854 y-35 h-60 w-65
 
 -----------
+Pre-Game
+-----------
+
+Countdown Location:: x-395 y-151 w-170 h-231
+
+
+-----------
 Settings
 -----------
 
