@@ -100,6 +100,44 @@
 		window.requestAnimFrame(main);
 	}
 
+	var step1 = false;
+	var step2 = false;
+	var step3 = false;
+	function easterEgg(button){
+		if (button == 4) {
+			step3 = false;
+			step2 = false;
+			step1 = true;
+		} else if (button == 3) {
+			if(step1 && !step2){
+				step2 = true;
+			}
+			else{
+				step1 = false;
+				step2 = false;
+				step3 = false;
+			}
+		} else if (button == 1) {
+			if(step1 && step2 && !step3){
+				step3 = true;
+			}
+			else{
+				step1 = false;
+				step2 = false;
+				step3 = false;
+			}
+		} else if (button == 2) {
+			if (step1 && step2 && step3) {
+				window.alert("Now you know BEDMAS!");
+			}
+			else{				
+				step1 = false;
+				step2 = false;
+				step3 = false;
+			}
+		}
+	}
+
 	var load = {
 		entities : [],
 		clickable : [],
@@ -257,9 +295,49 @@
 				}
 			}
 
+			var symbolAdd = {
+				xMin : 348,
+				yMin : 174,
+				xMax : 413,
+				yMax : 243,
+				clicked : function(){
+					easterEgg(1);
+				}
+			}
+
+			var symbolMinus = {
+				xMin : 414,
+				yMin : 174,
+				xMax : 479,
+				yMax : 243,
+				clicked : function(){
+					easterEgg(2);
+				}
+			}
+
+			var symbolMulti = {
+				xMin : 480,
+				yMin : 174,
+				xMax : 545,
+				yMax : 243,
+				clicked : function(){
+					easterEgg(3);
+				}
+			}
+
+			var symbolDivide = {
+				xMin : 546,
+				yMin : 174,
+				xMax : 611,
+				yMax : 243,
+				clicked : function(){
+					easterEgg(4);
+				}
+			}
+
 			load.entities.push(background, staticImage, timeAtkImage, endlessImage, audioImage, leaderImage, guideImage, settingImage);
 
-			load.clickable.push(timeAtkBox, endlessBox, audioBox, leaderBox, guideBox, settingBox);
+			load.clickable.push(timeAtkBox, endlessBox, audioBox, leaderBox, guideBox, settingBox, symbolAdd, symbolMinus, symbolMulti, symbolDivide);
 
 			return load.entities;
 		},
