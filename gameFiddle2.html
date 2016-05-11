@@ -82,10 +82,10 @@
 				alert("Programmer error. Empty entities list.");
 			}
 			if (load.strings.length > 0) {
-				console.log("There's some stuff in the list");
 				for (var i = 0; i < load.strings.length; i++) {
-					this.ctx.font = load.strings[i].font;
-					this.ctx.fillText(load.strings[i].parameter, load.strings[i].xPos * gameArea.ratioX, load.strings[i].yPos * gameArea.ratioY);
+					load.strings[i].maxWidth = load.strings[i].maxWidthInit * gameArea.ratioX;
+					this.ctx.font = (load.strings[i].sizeInit * gameArea.ratioY) + load.strings[i].font;
+					this.ctx.fillText(load.strings[i].parameter, load.strings[i].xPos * gameArea.ratioX, load.strings[i].yPos * gameArea.ratioY, load.strings[i].maxWidth);
 				}
 			}
 		}
@@ -658,9 +658,20 @@
 				isFilled : false
 			}
 
+			var timerString = {
+				font : "px Calibri",
+				sizeInit : 80,
+				xPos : 328,
+				yPos : 145,
+				parameter : gameArea.refTime,
+				maxWidth : 304,
+				maxWidthInit : 304
+			}
+
 			load.entities.push(background, gameBorderImage, scoreImage, cardsImage, quitImage, skipImage, plusOperator, plusOp2, plusOp3, plusOp4, minusOperator, minusOp2, minusOp3, minusOp4, multiOperator, multiOp2, multiOp3, multiOp4, divOperator, divOp2, divOp3, divOp4);
 			load.clickable.push(quitBox);
 			load.droppable.push(firstDrop, secondDrop, thirdDrop);
+			load.strings.push(timerString);
 
 			return load.entities;
 
@@ -853,8 +864,8 @@
 
 		switch(gameArea.state) {
 			case 1: //time attack logic
-			gameArea.refTime += dt;
-				if (gameArea.gameTime - gameArea.refTime > 1 && gameArea.entities[1].index == gameArea.entities[1].frames) {
+				gameArea.refTime += dt;
+				/*if (gameArea.gameTime - gameArea.refTime > 1 && gameArea.entities[1].index == gameArea.entities[1].frames) {
 					gameArea.entities = [];
 					gameArea.refTime = 0;
 					gameArea.entities = load.gameScreen();
@@ -863,11 +874,12 @@
 					gameArea.entities[1].index += 1;
 				} else {//post-loading game logic
 
-				}
+				}*/
 				break;
 			case 2: //endless logic
-			gameArea.refTime += dt;
-				if (gameArea.refTime > 1 && gameArea.entities[1].index == gameArea.entities[1].frames) {
+				gameArea.refTime += dt;
+
+				/*if (gameArea.refTime > 1 && gameArea.entities[1].index == gameArea.entities[1].frames) {
 					gameArea.entities = [];
 					gameArea.refTime = 0;
 					gameArea.entities = load.gameScreen();
@@ -876,6 +888,16 @@
 					gameArea.entities[1].index += 1;
 				} else {//post-loading game logic
 
+				}*/
+				if (gameArea.refTime > 1 && gameArea.entities.length == 2 && gameArea.entities[1].index < gameArea.entities[1].frames - 1) {
+					gameArea.refTime -= 1;
+					gameArea.entities[1].index += 1;
+				} else if (gameArea.refTime > 1 && gameArea.entities.length == 2 && gameArea.entities[1].index == gameArea.entities[1].frames - 1) {
+					gameArea.entities = [];
+					gameArea.refTime = 0;
+					gameArea.entities = load.gameScreen();
+				} else if (load.strings.length > 0) {
+					load.strings[0].parameter = ((Math.floor(gameArea.refTime * 100) / 100));
 				}
 				break;
 			default: //main screen null logic
