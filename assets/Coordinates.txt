@@ -10,6 +10,24 @@ Leaderboards:: x-640 y-400 h-120 w-300
 Volume:: x-854 y-35 h-60 w-65
 
 -----------
+Settings
+-----------
+
+Exit:: x-20 y-20 h-90 w-200
+Settings Text:: x-284 y-48 h-110 w-392
+Difficulty:: x-84 y-225 h-180 w-365
+Audio:: x-515 y-225 h-180 w-365
+
+difficultySwitch:: x-130 y-325 h-136 w-280
+audioSwitch:: x-563 y-325 h-136 w-280
+
+HITBOXES--
+Easy:: x-116 y-326 h-64 w-126
+Hard:: x-284 y-326 h-64 w-126
+On:: x-576 y-326 h-64 w-100
+On:: x-713 y-326 h-64 w-100
+
+-----------
 Game Screen
 -----------
 
