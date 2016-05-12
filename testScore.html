@@ -4,9 +4,15 @@
 <script src="https://cdn.jsdelivr.net/jquery/3.0.0-beta1/jquery.min.js"></script>
 <script>
 
-
-
-    function pushTimeAttackScore(date, name, scores, hard) {
+    /*
+    pushTimeAttackScore(String name, double scores, int hard) {
+    @param name 3 letter initials
+    @param scores time in milliseconds
+    @param hard 1 = hard, 0 = easy
+    }
+    */
+    function pushTimeAttackScore(name, scores, hard) {
+        var date = new Date().getTime();
         $.ajax({
             async: true,
             type: "GET",
@@ -25,11 +31,10 @@
     }
     
     function testTimeAttack() {
-        var date = new Date().getTime();
         var name = 'BOB';
         var score = 123;
         var hard = 0;
-        pushTimeAttackScore(date, name, score, hard);
+        pushTimeAttackScore(name, score, hard);
     }
 </script>
 </head>
