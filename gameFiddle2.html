@@ -16,6 +16,7 @@
 		src: url("./assets/digital-7.ttf");
 	}
 	</style>
+	<script src="https://cdn.jsdelivr.net/jquery/3.0.0-beta1/jquery.min.js"></script>
 </head>
 
 <body>
@@ -46,6 +47,8 @@
 		refTime : 0,
 		xMouse : null,
 		yMouse : null,
+		difficulty : 0,
+		score : 9,
 		init : function() {
 			this.canvas.width = window.innerWidth;
 			this.canvas.height = window.innerHeight;
@@ -90,22 +93,6 @@
 				for (var i = 0; i < load.strings.length; i++) {
 					this.ctx.font = load.strings[i].sizeInit + load.strings[i].font;
 					this.ctx.fillText(load.strings[i].parameter, load.strings[i].xPos, load.strings[i].yPos, load.strings[i].maxWidth);
-					/*if ((this.ratioX < 1) && (this.ratioY < 1) && (this.ratioX <= this.ratioY)) {
-						this.ctx.font = (load.strings[i].sizeInit * this.ratioX) + load.strings[i].font;
-						this.ctx.fillText(load.strings[i].parameter, load.strings[i].xPos * this.ratioX, load.strings[i].yPos * this.ratioY, load.strings[i].maxWidth);
-					} else if ((this.ratioX < 1) && (this.ratioY < 1) && (this.ratioX >= this.ratioY)) {
-						this.ctx.font = (load.strings[i].sizeInit * this.ratioY) + load.strings[i].font;
-						this.ctx.fillText(load.strings[i].parameter, load.strings[i].xPos * this.ratioX, load.strings[i].yPos * this.ratioY, load.strings[i].maxWidth);
-					} else if (this.ratioX < 1) {
-						this.ctx.font = (load.strings[i].sizeInit * this.ratioX) + load.strings[i].font;
-						this.ctx.fillText(load.strings[i].parameter, load.strings[i].xPos * this.ratioX, ((load.strings[i].yPos + load.strings[i].height) * this.ratioY), load.strings[i].maxWidth);
-					} else if (this.ratioY < 1) {
-						this.ctx.font = (load.strings[i].sizeInit * this.ratioY) + load.strings[i].font;
-						this.ctx.fillText(load.strings[i].parameter, (load.strings[i].xPos * this.ratioY * (this.ratioX / this.ratioY)), ((load.strings[i].yPos + load.strings[i].height) * this.ratioY) + (17 * this.ratioY), load.strings[i].maxWidth);
-					} else {
-						this.ctx.font = (load.strings[i].sizeInit) + load.strings[i].font;
-						this.ctx.fillText(load.strings[i].parameter, (load.strings[i].xPos + (17 * this.ratioX)) * this.ratioX, (load.strings[i].yPos + load.strings[i].height) * this.ratioY);
-					}*/
 				}
 				this.ctx.scale(1 / this.ratioX, 1 / this.ratioY);
 			}
@@ -171,11 +158,13 @@
 		clickable : [],
 		droppable : [],
 		strings : [],
+		problem : [],
 		clear : function() {
 			load.entities = [];
 			load.clickable = [];
 			load.droppable = [];
 			load.strings = [];
+			load.problem = [];
 		},
 		menuScreen : function() {
 			load.clear();
@@ -469,6 +458,7 @@
 					gameArea.entities = [];
 					gameArea.state = 0;
 					gameArea.refTime = 0;
+					gameArea.score = 0;
 					gameArea.entities = load.menuScreen();
 				}
 			}
@@ -499,7 +489,8 @@
 				yMax : 529,
 				caseOp : 1,
 				isDraggable : true,
-				isClicked : false
+				isClicked : false,
+				parameter : " + "
 			}
 
 			var plusOp2 = new Image();
@@ -542,7 +533,8 @@
 				yMax : 529,
 				caseOp : 1,
 				isDraggable : true,
-				isClicked : false
+				isClicked : false,
+				parameter : "-"
 			}
 
 			var minusOp2 = new Image();
@@ -585,7 +577,8 @@
 				yMax : 529,
 				caseOp : 1,
 				isDraggable : true,
-				isClicked : false
+				isClicked : false,
+				parameter : "*"
 			}
 
 			var multiOp2 = new Image();
@@ -628,7 +621,8 @@
 				yMax : 529,
 				caseOp : 1,
 				isDraggable : true,
-				isClicked : false
+				isClicked : false,
+				parameter : "/"
 			}
 
 			var divOp2 = new Image();
@@ -660,7 +654,8 @@
 				yMin : 278,
 				xMax : 280,
 				yMax : 358,
-				isFilled : false
+				isFilled : false,
+				parameter : ""
 			}
 
 			var secondDrop = {
@@ -668,7 +663,8 @@
 				yMin : 278,
 				xMax : 520,
 				yMax : 358,
-				isFilled : false
+				isFilled : false,
+				parameter : ""
 			}
 
 			var thirdDrop = {
@@ -676,7 +672,8 @@
 				yMin : 278,
 				xMax : 760,
 				yMax : 358,
-				isFilled : false
+				isFilled : false,
+				parameter : ""
 			}
 
 			var timerString = {
@@ -911,12 +908,93 @@
 			load.clear();
 
 			return load.entities;
+		},
+		scoreScreen : function() {
+			load.clear();
+
+			var background = new Image();
+			background = {
+				src : "./assets/scoreAssets/timeAttackScore.png",
+				width : 960,
+				height : 540,
+				xPos : 0,
+				yPos : 0,
+				index: 0
+			}
+
+			var replayImage = new Image();
+			replayImage = {
+				src : "./assets/scoreAssets/replay.png",
+				width : 220,
+				height : 208,
+				xPos : 740,
+				yPos : 0,
+				index: 0
+			}
+
+			var submitImage = new Image();
+			submitImage = {
+				src : "./assets/scoreAssets/submit.png",
+				width : 300,
+				height : 67,
+				xPos : 330,
+				yPos : 413,
+				index: 0
+			}
+
+			var quitImage = new Image();
+			quitImage = {
+				src : "./assets/gameAssets/quitImage.png",
+				width : 220,
+				height : 208,
+				xPos : 0,
+				yPos : 0,
+				index: 0
+
+			}
+
+			var quitBox = {
+				xMin : 20,
+				yMin : 20,
+				xMax : 220,
+				yMax : 110,
+				clicked : function() {
+					gameArea.entities = [];
+					gameArea.state = 0;
+					gameArea.refTime = 0;
+					gameArea.score = 0;
+					gameArea.entities = load.menuScreen();
+				}
+			}
+			
+			var card4 = {
+				font : "em Calibri",
+				sizeInit : 16,
+				xPos : 770,
+				yPos : 394,
+				parameter : 0,
+				maxWidth : 141
+			}
+
+			var card4 = {
+				font : "em Calibri",
+				sizeInit : 16,
+				xPos : 770,
+				yPos : 394,
+				parameter : 0,
+				maxWidth : 141
+			}
+
+			load.entities.push(background, replayImage, submitImage, quitImage);
+			load.clickable.push(quitBox);
+			load.strings.push();
+
+			return load.entities;
 		}
 	}
 
 	function update(dt) {
 		gameArea.gameTime += dt;
-		//console.log(gameArea.refTime);
 
 		switch(gameArea.state) {
 			case 1: //time attack logic
@@ -929,10 +1007,71 @@
 					gameArea.entities = [];
 					gameArea.refTime = 0;
 					gameArea.entities = load.gameScreen();
+					load.problem = getProblem(timeAttackDifficulty(gameArea.score + 1, gameArea.difficulty), gameArea.difficulty);
+					for (var i = 0; i < load.problem.length; i++) {
+						load.strings[i + 1].parameter = load.problem[i];
+					}
 				} else if (load.strings.length > 0) {//loaded game logic
 					load.strings[0].parameter = ((Math.floor(gameArea.refTime * 10) / 10));
-					if (load.droppable[0].isFilled && load.droppable[1].isFilled && load.droppable[2].isFilled){
+					if (load.droppable[0].isFilled && load.droppable[1].isFilled && load.droppable[2].isFilled) {
 
+						if (validate(load.strings[1].parameter, load.strings[2].parameter, load.strings[3].parameter, load.strings[4].parameter, load.droppable[0].parameter, load.droppable[1].parameter, load.droppable[2].parameter)) {
+
+							if (gameArea.score + 1 == 10) {
+								gameArea.entities = [];
+								gameArea.entities = load.scoreScreen();
+							} else {
+								gameArea.score += 1;
+								load.problem = [];
+								load.problem = getProblem(timeAttackDifficulty(gameArea.score + 1, gameArea.difficulty), gameArea.difficulty);
+								for (var i = 0; i < load.problem.length; i++) {
+									load.strings[i + 1].parameter = load.problem[i];
+								}
+								for (var i = 0; i < load.droppable.length; i++) {
+									load.droppable[i].parameter = "";
+									load.droppable[i].isFilled = false;
+								}
+
+								gameArea.entities[6].caseOp = 1;
+								gameArea.entities[7].xPos = -100;
+								gameArea.entities[8].xPos = -100;
+								gameArea.entities[9].xPos = -100;
+								gameArea.entities[10].caseOp = 1;
+								gameArea.entities[11].xPos = -100;
+								gameArea.entities[12].xPos = -100;
+								gameArea.entities[13].xPos = -100;
+								gameArea.entities[14].caseOp = 1;
+								gameArea.entities[15].xPos = -100;
+								gameArea.entities[16].xPos = -100;
+								gameArea.entities[17].xPos = -100;
+								gameArea.entities[18].caseOp = 1;
+								gameArea.entities[19].xPos = -100;
+								gameArea.entities[20].xPos = -100;
+								gameArea.entities[21].xPos = -100;
+							}
+						} else {
+							for (var i = 0; i < load.droppable.length; i++) {
+								load.droppable[i].parameter = "";
+								load.droppable[i].isFilled = false;
+							}
+
+							gameArea.entities[6].caseOp = 1;
+							gameArea.entities[7].xPos = -100;
+							gameArea.entities[8].xPos = -100;
+							gameArea.entities[9].xPos = -100;
+							gameArea.entities[10].caseOp = 1;
+							gameArea.entities[11].xPos = -100;
+							gameArea.entities[12].xPos = -100;
+							gameArea.entities[13].xPos = -100;
+							gameArea.entities[14].caseOp = 1;
+							gameArea.entities[15].xPos = -100;
+							gameArea.entities[16].xPos = -100;
+							gameArea.entities[17].xPos = -100;
+							gameArea.entities[18].caseOp = 1;
+							gameArea.entities[19].xPos = -100;
+							gameArea.entities[20].xPos = -100;
+							gameArea.entities[21].xPos = -100;
+						}
 					}
 				}
 				break;
@@ -980,6 +1119,60 @@
 		}
 	}
 
+	function getProblem(difficulty, hard) {
+        var card1 = null;
+        var card2 = null;
+        var card3 = null;
+        var card4 = null;
+        var hue;
+        $.ajax({
+            async: false,
+            type: "GET",
+            url: "getProblem.php",
+            dataType: "json",
+            data: {difficulty: difficulty, hard: hard},
+            success: function(data) {
+                card1 = data.card1;
+                card2 = data.card2;
+                card3 = data.card3;
+                card4 = data.card4;
+            }
+        });
+        return [card1, card2, card3, card4];
+    }
+
+    function validate(c1, c2, c3, c4, op1, op2, op3) {
+	    var string = c1 + op1 + c2 + op2 + c3 + op3 + c4;
+	    if (eval(string) == 24) {
+	        return true;
+	    }
+	    return false;
+	}
+
+	function timeAttackDifficulty(problemNum, hard) {
+	    var difficulty = 1;
+	    var twoPoint = 2;
+	    var threePoint = 5;
+	    var fourPoint = 8;
+	    var fivePoint = 10;
+	    if (hard) {
+	        twoPoint = 1;
+	        threePoint = 3;
+	        fourPoint = 5;
+	        fivePoint = 8;
+	    }
+	    if (problemNum >= fivePoint) {
+	        difficulty = 5;
+	    } else if (problemNum >= fourPoint) {
+	        difficulty = 4;
+	    } else if (problemNum >= threePoint) {
+	        difficulty = 3;
+	    } else if (problemNum >= twoPoint) {
+	        difficulty = 2;
+	    }
+	    return difficulty;
+	}
+
 	function dropCollision() {
 		for (var i = 0; i < gameArea.entities.length; i++) {
 			if (gameArea.entities[i].isClicked) {
@@ -1010,6 +1203,7 @@
 						gameArea.entities[i].yPos = gameArea.entities[i].yInit;
 						gameArea.entities[i].isClicked = false;
 						load.droppable[d].isFilled = true;
+						load.droppable[d].parameter = gameArea.entities[i].parameter;
 					}
 				}
 				if (gameArea.entities[i].isClicked) {
