@@ -2,6 +2,7 @@
 <html lang = "en">
 <head>
 	<meta charset = "utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"/>
 	<title>Operator!</title>
 	<style>
 	body, html {
@@ -33,6 +34,22 @@
 			};
 	})();
 
+	function detectmob() { 
+		if( navigator.userAgent.match(/Android/i)
+		|| navigator.userAgent.match(/webOS/i)
+		|| navigator.userAgent.match(/iPhone/i)
+		|| navigator.userAgent.match(/iPad/i)
+		|| navigator.userAgent.match(/iPod/i)
+		|| navigator.userAgent.match(/BlackBerry/i)
+		|| navigator.userAgent.match(/Windows Phone/i)
+		){
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+
 	var gameArea = {
 		canvas : document.getElementById("canvas"),
 		ctx : canvas.getContext("2d"),
@@ -57,11 +74,18 @@
 			this.ratioY = this.canvas.height / gameArea.HEIGHT;
 
 			window.addEventListener("resize", gameArea.resize);
-			gameArea.canvas.addEventListener("click", clickCollision);
-			gameArea.canvas.addEventListener("mousedown", dragCollision);
-			gameArea.canvas.addEventListener("mousemove", getCoords);
-			gameArea.canvas.addEventListener("mouseup", dropCollision);
 
+			if (detectmob()) {
+				gameArea.canvas.addEventListener("touchstart", touchCollision);
+				gameArea.canvas.addEventListener("touchmove", getCoords);
+				gameArea.canvas.addEventListener("touchend", dropCollision);
+			} else {
+				gameArea.canvas.addEventListener("click", clickCollision);
+				gameArea.canvas.addEventListener("mousedown", dragCollision);
+				gameArea.canvas.addEventListener("mousemove", getCoords);
+				gameArea.canvas.addEventListener("mouseup", dropCollision);
+			}
+			
 			gameArea.entities = load.menuScreen();
 
 			this.lastTime = Date.now();
@@ -101,8 +125,13 @@
 	}
 
 	function getCoords(event) {
-		gameArea.xMouse = event.clientX;
-		gameArea.yMouse = event.clientY;
+		if (detectmob()) {
+			gameArea.xMouse = parseInt(event.changedTouches[0].clientX);
+			gameArea.yMouse = parseInt(event.changedTouches[0].clientY);
+		} else {
+			gameArea.xMouse = event.clientX;
+			gameArea.yMouse = event.clientY;
+		}
 	}
 
 	function main() {
@@ -954,10 +983,10 @@
 			var replayImage = new Image();
 			replayImage = {
 				src : "./assets/scoreAssets/replay.png",
-				width : 220,
-				height : 208,
+				width : 200,
+				height : 90,
 				xPos : 740,
-				yPos : 0,
+				yPos : 20,
 				index: 0
 			}
 
@@ -1141,6 +1170,26 @@
 		var xCoord = gameArea.xMouse;
 		var yCoord = gameArea.yMouse;
 
+		for (var i = 0; i < gameArea.entities.length; i++) {
+			if (gameArea.entities[i].xMin * gameArea.ratioX <= xCoord && gameArea.entities[i].xMax * gameArea.ratioX >= xCoord && gameArea.entities[i].yMin * gameArea.ratioY <= yCoord && gameArea.entities[i].yMax * gameArea.ratioY >= yCoord && gameArea.entities[i].isDraggable) {
+				gameArea.entities[i].isClicked = true;
+			}
+		}
+	}
+
+	function touchCollision(event) {
+		getCoords(event);
+		var xCoord = gameArea.xMouse;
+		var yCoord = gameArea.yMouse;
+
+		if (load.clickable.length > 0) {
+			for (var i = 0; i < load.clickable.length; i++) {
+				if (load.clickable[i].xMin * gameArea.ratioX <= xCoord && load.clickable[i].xMax * gameArea.ratioX >= xCoord && load.clickable[i].yMin * gameArea.ratioY <= yCoord && load.clickable[i].yMax * gameArea.ratioY >= yCoord) {
+					load.clickable[i].clicked();
+				}
+			}
+		}
+		
 		for (var i = 0; i < gameArea.entities.length; i++) {
 			if (gameArea.entities[i].xMin * gameArea.ratioX <= xCoord && gameArea.entities[i].xMax * gameArea.ratioX >= xCoord && gameArea.entities[i].yMin * gameArea.ratioY <= yCoord && gameArea.entities[i].yMax * gameArea.ratioY >= yCoord && gameArea.entities[i].isDraggable) {
 				gameArea.entities[i].isClicked = true;
