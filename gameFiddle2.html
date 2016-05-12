@@ -83,9 +83,14 @@
 			}
 			if (load.strings.length > 0) {
 				for (var i = 0; i < load.strings.length; i++) {
-					load.strings[i].maxWidth = load.strings[i].maxWidthInit * gameArea.ratioX;
-					this.ctx.font = (load.strings[i].sizeInit * gameArea.ratioY) + load.strings[i].font;
-					this.ctx.fillText(load.strings[i].parameter, load.strings[i].xPos * gameArea.ratioX, load.strings[i].yPos * gameArea.ratioY, load.strings[i].maxWidth);
+					if (this.ratioX < 1 && this.ratioX < this.ratioY) {
+						this.ctx.font = (load.strings[i].sizeInit * this.ratioX) + load.strings[i].font;
+					} else if (this.ratioY < 1 && this.ratioY < this.ratioX) {
+						this.ctx.font = (load.strings[i].sizeInit * this.ratioY) + load.strings[i].font;
+					} else {
+						this.ctx.font = (load.strings[i].sizeInit) + load.strings[i].font;
+					}
+						this.ctx.fillText(load.strings[i].parameter, load.strings[i].xPos * this.ratioX, load.strings[i].yPos * this.ratioY);
 				}
 			}
 		}
@@ -196,7 +201,8 @@
 				yMax : 390,
 				clicked : function() {
 					gameArea.entities = [];
-					gameArea.entities = load.gameScreen();
+					gameArea.entities = load.preGameScreen();
+					gameArea.state = 1;
 				}
 			}
 			
@@ -219,7 +225,6 @@
 					gameArea.entities = [];
 					gameArea.entities = load.preGameScreen();
 					gameArea.state = 2;
-					gameArea.refTime = gameArea.gameTime;
 				}
 			}
 			
@@ -361,7 +366,7 @@
 
 			var background = new Image();
 			background = {
-				src : "./assets/gameAssets/background.png",
+				src : "./assets/preGameAssets/pregame.png",
 				width : 960,
 				height : 540,
 				xPos : 0,
@@ -371,13 +376,13 @@
 
 			var countSprite = new Image();
 			countSprite = {
-				src : "./assets/gameAssets/gamestart.png",
-				width : 200,
-				height : 200,
-				xPos : 380,
-				yPos : 170,
+				src : "./assets/preGameAssets/countdown.png",
+				width : 170,
+				height : 231,
+				xPos : 395,
+				yPos : 210,
 				index : 0,
-				frames : 5
+				frames : 3
 			}
 
 			load.entities.push(background, countSprite);
@@ -664,14 +669,49 @@
 				xPos : 328,
 				yPos : 145,
 				parameter : gameArea.refTime,
-				maxWidth : 304,
-				maxWidthInit : 304
+				maxWidth : 304
+			}
+
+			var card1 = {
+				font : "em Calibri",
+				sizeInit : 16,
+				xPos : 49,
+				yPos : 392,
+				parameter : 0,
+				maxWidth : 141
+			}
+
+			var card2 = {
+				font : "em Calibri",
+				sizeInit : 16,
+				xPos : 289,
+				yPos : 392,
+				parameter : 0,
+				maxWidth : 141
+			}
+
+			var card3 = {
+				font : "em Calibri",
+				sizeInit : 16,
+				xPos : 530,
+				yPos : 392,
+				parameter : 0,
+				maxWidth : 141
+			}
+
+			var card4 = {
+				font : "em Calibri",
+				sizeInit : 16,
+				xPos : 770,
+				yPos : 392,
+				parameter : 0,
+				maxWidth : 141
 			}
 
 			load.entities.push(background, gameBorderImage, scoreImage, cardsImage, quitImage, skipImage, plusOperator, plusOp2, plusOp3, plusOp4, minusOperator, minusOp2, minusOp3, minusOp4, multiOperator, multiOp2, multiOp3, multiOp4, divOperator, divOp2, divOp3, divOp4);
 			load.clickable.push(quitBox);
 			load.droppable.push(firstDrop, secondDrop, thirdDrop);
-			load.strings.push(timerString);
+			load.strings.push(timerString, card1, card2, card3, card4);
 
 			return load.entities;
 
@@ -865,30 +905,7 @@
 		switch(gameArea.state) {
 			case 1: //time attack logic
 				gameArea.refTime += dt;
-				/*if (gameArea.gameTime - gameArea.refTime > 1 && gameArea.entities[1].index == gameArea.entities[1].frames) {
-					gameArea.entities = [];
-					gameArea.refTime = 0;
-					gameArea.entities = load.gameScreen();
-				} else if (gameArea.refTime > 1 && gameArea.entities[1].index < gameArea.entities[1].frames - 1) {
-					gameArea.refTime -= 1;
-					gameArea.entities[1].index += 1;
-				} else {//post-loading game logic
 
-				}*/
-				break;
-			case 2: //endless logic
-				gameArea.refTime += dt;
-
-				/*if (gameArea.refTime > 1 && gameArea.entities[1].index == gameArea.entities[1].frames) {
-					gameArea.entities = [];
-					gameArea.refTime = 0;
-					gameArea.entities = load.gameScreen();
-				} else if (gameArea.refTime > 1 && gameArea.entities[1].index < gameArea.entities[1].frames - 1) {
-					gameArea.refTime -= 1;
-					gameArea.entities[1].index += 1;
-				} else {//post-loading game logic
-
-				}*/
 				if (gameArea.refTime > 1 && gameArea.entities.length == 2 && gameArea.entities[1].index < gameArea.entities[1].frames - 1) {
 					gameArea.refTime -= 1;
 					gameArea.entities[1].index += 1;
@@ -896,7 +913,25 @@
 					gameArea.entities = [];
 					gameArea.refTime = 0;
 					gameArea.entities = load.gameScreen();
-				} else if (load.strings.length > 0) {
+				} else if (load.strings.length > 0) {//loaded game logic
+					load.strings[0].parameter = ((Math.floor(gameArea.refTime * 100) / 100));
+					if (load.droppable[0].isFilled && load.droppable[1].isFilled && load.droppable[2].isFilled){
+
+					}
+				}
+				break;
+			case 2: //endless logic
+				gameArea.refTime += dt;
+
+				
+				if (gameArea.refTime > 1 && gameArea.entities.length == 2 && gameArea.entities[1].index < gameArea.entities[1].frames - 1) {
+					gameArea.refTime -= 1;
+					gameArea.entities[1].index += 1;
+				} else if (gameArea.refTime > 1 && gameArea.entities.length == 2 && gameArea.entities[1].index == gameArea.entities[1].frames - 1) {
+					gameArea.entities = [];
+					gameArea.refTime = 0;
+					gameArea.entities = load.gameScreen();
+				} else if (load.strings.length > 0) {//loaded game logic
 					load.strings[0].parameter = ((Math.floor(gameArea.refTime * 100) / 100));
 				}
 				break;
@@ -905,7 +940,6 @@
 		}
 
 		handleInput(dt);
-		//updateEntities(dt);
 	}
 
 	function clickCollision() {
