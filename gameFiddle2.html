@@ -425,16 +425,6 @@
 				index: 0
 			}
 
-			var scoreImage = new Image();
-			scoreImage = {
-				src : "./assets/gameAssets/scoreImage.png",
-				width : 520,
-				height : 208,
-				xPos : 220,
-				yPos : 0,
-				index: 0
-			}
-
 			var cardsImage = new Image();
 			cardsImage = {
 				src : "./assets/gameAssets/cardsImage.png",
@@ -746,6 +736,17 @@
 						frames: 11
 					}
 
+					var scoreImage = new Image();
+					scoreImage = {
+						src : "./assets/gameAssets/scoreboard.png",
+						width : 439,
+						height : 178,
+						xPos : 260,
+						yPos : 20,
+						index: 0
+					}
+
+					load.entities[2] = scoreImage;
 					load.entities.push(score);
 					break;
 				default:
@@ -826,7 +827,13 @@
 				height : 68,
 				xPos : 130,
 				yPos : 325,
-				index: 0,
+				index: (function() {
+					if (gameArea.difficulty == 1) {
+						return 1
+					} else {
+						return 0;
+					}
+				})(),
 				frames: 2
 			}
 
@@ -835,12 +842,9 @@
 				yMin : 326,
 				xMax : 246,
 				yMax : 390,
-				isClicked : true,
 				clicked : function() {
-					if (load.clickable[2].isClicked) {
+					if (gameArea.difficulty == 1) {
 						gameArea.entities[5].index -= 1;
-						load.clickable[2].isClicked = false;
-						load.clickable[1].isClicked = true;
 						gameArea.difficulty = 0;
 					}
 				}
@@ -851,13 +855,10 @@
 				yMin : 326,
 				xMax : 410,
 				yMax : 390,
-				isClicked : false,
 				clicked : function() {
-					if (load.clickable[1].isClicked) {
+					if (gameArea.difficulty == 0) {
 						gameArea.entities[5].index +=1;
-						load.clickable[1].isClicked = false;
-						load.clickable[2].isClicked = true;
-						gameArea.difficult = 1;
+						gameArea.difficulty = 1;
 					}
 				}
 			}
