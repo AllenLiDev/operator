@@ -48,7 +48,8 @@
 		xMouse : null,
 		yMouse : null,
 		difficulty : 0,
-		score : 9,
+		score : 0,
+		sound : true,
 		init : function() {
 			this.canvas.width = window.innerWidth;
 			this.canvas.height = window.innerHeight;
@@ -240,7 +241,13 @@
 				height : 126,
 				xPos : 834,
 				yPos : 0,
-				index: 0,
+				index: (function() {
+					if (gameArea.sound) {
+						return 0;
+					} else {
+						return 1;
+					}
+				})(),
 				frames: 2
 			}
 
@@ -250,11 +257,12 @@
 				xMax : 926,
 				yMax : 105,
 				clicked : function() {
-					if (gameArea.entities[4].index < gameArea.entities[4].frames - 1) {
-						gameArea.entities[4].index += 1;
-						//code needs to be here one day
+					if (gameArea.sound) {
+						gameArea.entities[4].index = 1;
+						gameArea.sound = false;
 					} else {
 						gameArea.entities[4].index = 0;
+						gameArea.sound = true;
 					}
 				}
 			}
@@ -446,7 +454,6 @@
 				xPos : 0,
 				yPos : 0,
 				index: 0
-
 			}
 
 			var quitBox = {
@@ -726,6 +733,24 @@
 			load.droppable.push(firstDrop, secondDrop, thirdDrop);
 			load.strings.push(timerString, card1, card2, card3, card4);
 
+			switch (gameArea.state) {
+				case 1:
+					var score = new Image();
+					score = {
+						src : "./assets/gameAssets/progress.png",
+						width : 198,
+						height : 32,
+						xPos : 491,
+						yPos : 30,
+						index: 0,
+						frames: 11
+					}
+
+					load.entities.push(score);
+					break;
+				default:
+			}
+
 			return load.entities;
 
 		},
@@ -816,7 +841,7 @@
 						gameArea.entities[5].index -= 1;
 						load.clickable[2].isClicked = false;
 						load.clickable[1].isClicked = true;
-						//code needs to be here one day
+						gameArea.difficulty = 0;
 					}
 				}
 			}
@@ -832,7 +857,7 @@
 						gameArea.entities[5].index +=1;
 						load.clickable[1].isClicked = false;
 						load.clickable[2].isClicked = true;
-						//code needs to be here one day
+						gameArea.difficult = 1;
 					}
 				}
 			}
@@ -855,7 +880,13 @@
 				height : 68,
 				xPos : 563,
 				yPos : 325,
-				index: 0,
+				index: (function() {
+					if (gameArea.sound) {
+						return 0;
+					} else {
+						return 1;
+					}
+				})(),
 				frames: 2
 			}
 
@@ -866,10 +897,9 @@
 				yMax : 390,
 				isClicked : true,
 				clicked : function() {
-					if (load.clickable[4].isClicked) {
-						gameArea.entities[7].index -= 1;
-						load.clickable[4].isClicked = false;
-						load.clickable[3].isClicked = true;
+					if (!gameArea.sound) {
+						gameArea.sound = true;
+						gameArea.entities[7].index = 0;
 						//code needs to be here one day
 					}
 				}
@@ -882,11 +912,9 @@
 				yMax : 390,
 				isClicked : false,
 				clicked : function() {
-					if (load.clickable[3].isClicked) {
-						gameArea.entities[7].index += 1;
-						load.clickable[3].isClicked = false;
-						load.clickable[4].isClicked = true;
-						//code needs to be here one day
+					if (gameArea.sound) {
+						gameArea.sound = false;
+						gameArea.entities[7].index = 1;
 					}
 				}
 			}
@@ -950,7 +978,6 @@
 				xPos : 0,
 				yPos : 0,
 				index: 0
-
 			}
 
 			var quitBox = {
@@ -966,28 +993,28 @@
 					gameArea.entities = load.menuScreen();
 				}
 			}
-			
-			var card4 = {
+
+			var finalTime = {
 				font : "em Calibri",
 				sizeInit : 16,
-				xPos : 770,
-				yPos : 394,
-				parameter : 0,
+				xPos : 527,
+				yPos : 169,
+				parameter : "",
 				maxWidth : 141
 			}
 
-			var card4 = {
+			var completed = {
 				font : "em Calibri",
 				sizeInit : 16,
-				xPos : 770,
-				yPos : 394,
-				parameter : 0,
+				xPos : 527,
+				yPos : 227,
+				parameter : "",
 				maxWidth : 141
 			}
 
 			load.entities.push(background, replayImage, submitImage, quitImage);
 			load.clickable.push(quitBox);
-			load.strings.push();
+			//load.strings.push(finalTime, completed);
 
 			return load.entities;
 		}
@@ -1022,6 +1049,7 @@
 								gameArea.entities = load.scoreScreen();
 							} else {
 								gameArea.score += 1;
+								gameArea.entities[22].index = gameArea.score;
 								load.problem = [];
 								load.problem = getProblem(timeAttackDifficulty(gameArea.score + 1, gameArea.difficulty), gameArea.difficulty);
 								for (var i = 0; i < load.problem.length; i++) {
