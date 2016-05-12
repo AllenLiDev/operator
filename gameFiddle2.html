@@ -175,6 +175,7 @@
 		} else if (button == 2) {
 			if (step1 && step2 && step3) {
 				window.alert("Now you know BEDMAS!");
+				loadComic();
 			}
 			else{				
 				step1 = false;
@@ -183,6 +184,30 @@
 			}
 		}
 	}
+
+	function loadComic(){
+		//loads rng from 1 to 5
+		var rng = (Math.random() * 5) + 1;
+		//switch 1 - 5, right now hard coded to 1
+		switch(1) {
+			case 1:
+				gameArea.entities[8].xPos = 160;
+				gameArea.entities[8].yPos = 120;
+				break;
+			case 2:
+				//code
+				break;
+			case 3:
+				//code
+				break;
+			case 4:
+				//code
+				break;
+			case 5:
+				//code
+				break;
+		}
+	}	
 
 	var load = {
 		entities : [],
@@ -398,11 +423,23 @@
 					easterEgg(4);
 				}
 			}
-			//end of easter egg elements
+			//end of easter egg access elements
+			//start of easter egg images
 
-			load.entities.push(background, staticImage, timeAtkImage, endlessImage, audioImage, leaderImage, guideImage, settingImage);
+			var easter1 = new Image();
+			easter1 = {
+				src : "./assets/menuAssets/easter1.gif",
+				width : 640,
+				height : 159,
+				index: 0,
+				clicked : function(){
+					//on click remove from load.entities.push()
+				}
+			}
 
-			load.clickable.push(timeAtkBox, endlessBox, audioBox, leaderBox, guideBox, settingBox, symbolAdd, symbolMinus, symbolMulti, symbolDivide);
+			load.entities.push(background, staticImage, timeAtkImage, endlessImage, audioImage, leaderImage, guideImage, settingImage, easter1);
+
+			load.clickable.push(timeAtkBox, endlessBox, audioBox, leaderBox, guideBox, settingBox, symbolAdd, symbolMinus, symbolMulti, symbolDivide, easter1);
 
 			return load.entities;
 		},
