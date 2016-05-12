@@ -11,6 +11,10 @@
 	canvas {
 		background-color: #F68C02;
 	}
+	@font-face {
+		font-family: "Digital7";
+		src: url("./assets/digital-7.ttf");
+	}
 	</style>
 </head>
 
@@ -82,16 +86,28 @@
 				alert("Programmer error. Empty entities list.");
 			}
 			if (load.strings.length > 0) {
+				this.ctx.scale(this.ratioX, this.ratioY);
 				for (var i = 0; i < load.strings.length; i++) {
-					if (this.ratioX < 1 && this.ratioX < this.ratioY) {
+					this.ctx.font = load.strings[i].sizeInit + load.strings[i].font;
+					this.ctx.fillText(load.strings[i].parameter, load.strings[i].xPos, load.strings[i].yPos, load.strings[i].maxWidth);
+					/*if ((this.ratioX < 1) && (this.ratioY < 1) && (this.ratioX <= this.ratioY)) {
 						this.ctx.font = (load.strings[i].sizeInit * this.ratioX) + load.strings[i].font;
-					} else if (this.ratioY < 1 && this.ratioY < this.ratioX) {
+						this.ctx.fillText(load.strings[i].parameter, load.strings[i].xPos * this.ratioX, load.strings[i].yPos * this.ratioY, load.strings[i].maxWidth);
+					} else if ((this.ratioX < 1) && (this.ratioY < 1) && (this.ratioX >= this.ratioY)) {
 						this.ctx.font = (load.strings[i].sizeInit * this.ratioY) + load.strings[i].font;
+						this.ctx.fillText(load.strings[i].parameter, load.strings[i].xPos * this.ratioX, load.strings[i].yPos * this.ratioY, load.strings[i].maxWidth);
+					} else if (this.ratioX < 1) {
+						this.ctx.font = (load.strings[i].sizeInit * this.ratioX) + load.strings[i].font;
+						this.ctx.fillText(load.strings[i].parameter, load.strings[i].xPos * this.ratioX, ((load.strings[i].yPos + load.strings[i].height) * this.ratioY), load.strings[i].maxWidth);
+					} else if (this.ratioY < 1) {
+						this.ctx.font = (load.strings[i].sizeInit * this.ratioY) + load.strings[i].font;
+						this.ctx.fillText(load.strings[i].parameter, (load.strings[i].xPos * this.ratioY * (this.ratioX / this.ratioY)), ((load.strings[i].yPos + load.strings[i].height) * this.ratioY) + (17 * this.ratioY), load.strings[i].maxWidth);
 					} else {
 						this.ctx.font = (load.strings[i].sizeInit) + load.strings[i].font;
-					}
-						this.ctx.fillText(load.strings[i].parameter, load.strings[i].xPos * this.ratioX, load.strings[i].yPos * this.ratioY);
+						this.ctx.fillText(load.strings[i].parameter, (load.strings[i].xPos + (17 * this.ratioX)) * this.ratioX, (load.strings[i].yPos + load.strings[i].height) * this.ratioY);
+					}*/
 				}
+				this.ctx.scale(1 / this.ratioX, 1 / this.ratioY);
 			}
 		}
 	}
@@ -426,7 +442,7 @@
 			cardsImage = {
 				src : "./assets/gameAssets/cardsImage.png",
 				width : 960,
-				height : 220,
+				height : 219,
 				xPos : 0,
 				yPos : 208,
 				index: 0,
@@ -664,10 +680,10 @@
 			}
 
 			var timerString = {
-				font : "px Calibri",
-				sizeInit : 80,
-				xPos : 328,
-				yPos : 145,
+				font : "em Digital7",
+				sizeInit : 8,
+				xPos : 368,
+				yPos : 175,
 				parameter : gameArea.refTime,
 				maxWidth : 304
 			}
@@ -676,7 +692,7 @@
 				font : "em Calibri",
 				sizeInit : 16,
 				xPos : 49,
-				yPos : 392,
+				yPos : 394,
 				parameter : 0,
 				maxWidth : 141
 			}
@@ -685,7 +701,7 @@
 				font : "em Calibri",
 				sizeInit : 16,
 				xPos : 289,
-				yPos : 392,
+				yPos : 394,
 				parameter : 0,
 				maxWidth : 141
 			}
@@ -694,7 +710,7 @@
 				font : "em Calibri",
 				sizeInit : 16,
 				xPos : 530,
-				yPos : 392,
+				yPos : 394,
 				parameter : 0,
 				maxWidth : 141
 			}
@@ -703,7 +719,7 @@
 				font : "em Calibri",
 				sizeInit : 16,
 				xPos : 770,
-				yPos : 392,
+				yPos : 394,
 				parameter : 0,
 				maxWidth : 141
 			}
@@ -914,7 +930,7 @@
 					gameArea.refTime = 0;
 					gameArea.entities = load.gameScreen();
 				} else if (load.strings.length > 0) {//loaded game logic
-					load.strings[0].parameter = ((Math.floor(gameArea.refTime * 100) / 100));
+					load.strings[0].parameter = ((Math.floor(gameArea.refTime * 10) / 10));
 					if (load.droppable[0].isFilled && load.droppable[1].isFilled && load.droppable[2].isFilled){
 
 					}
@@ -932,7 +948,7 @@
 					gameArea.refTime = 0;
 					gameArea.entities = load.gameScreen();
 				} else if (load.strings.length > 0) {//loaded game logic
-					load.strings[0].parameter = ((Math.floor(gameArea.refTime * 100) / 100));
+					load.strings[0].parameter = ((Math.floor(gameArea.refTime * 10) / 10));
 				}
 				break;
 			default: //main screen null logic
