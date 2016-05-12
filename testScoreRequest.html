@@ -12,23 +12,23 @@
                 dataType: "json",
                 data: { hard: hard},
                 success: function(data) {
-                    scoreInfo[0] = data.name1 + " " + data.score1;
-                    scoreInfo[1] = data.name2 + " " + data.score2;
-                    scoreInfo[2] = data.name3 + " " + data.score3;
-                    scoreInfo[3] = data.name4 + " " + data.score4;
-                    scoreInfo[4] = data.name5 + " " + data.score5;
+                    scoreInfo[0] = data.name1;
+                    scoreInfo[1] = data.name2;
+                    scoreInfo[2] = data.name3;
+                    scoreInfo[3] = data.name4;
+                    scoreInfo[4] = data.name5;
                 }
             });
         return scoreInfo;
     }
-    function displayScoreInfo(hard) {
-        var scoreInfo = scoreRequest(hard);
+    function displayScoreInfo() {
+        var scoreInfo = scoreRequest(false);
         alert(scoreInfo[0]);
     }
     </script>
 </head>
 <body>
-    <div id="hue" onclick='displayScoreInfo(0)'>
+    <div id="hue" onclick='displayScoreInfo()'>
         <p>Click Me</p>
     </div>
 </body>
