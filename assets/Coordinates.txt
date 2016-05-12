@@ -39,6 +39,7 @@ Game Screen
 
 Exit:: x-20 y-20 h-90 w-200
 ScoreBoard::x-260 y-20 h-178 w-439
+Progress:: x-491 y-30 h-32 w-198
 Skip:: x-740 y-20 h-90 w-200
 Cards:: x-20 y-208 h-220 w-920
 1stSlot:: x-200 y-283 h-70 w-80
