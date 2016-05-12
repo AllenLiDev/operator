@@ -28,6 +28,22 @@ On:: x-576 y-326 h-64 w-100
 On:: x-713 y-326 h-64 w-100
 
 -----------
+Leaderboard text
+-----------
+
+ALL HEIGHTS ARE 22
+
+TimeAtt-Easy:: x-105
+TimeAtt-Hard:: x-285
+Marathon-Easy:: x-555
+Marathon-Hard:: x-735
+1:: y-241
+2:: y-292
+3:: y-344
+4:: y-396
+5:: y-448
+
+-----------
 Pre-Game
 -----------
 
