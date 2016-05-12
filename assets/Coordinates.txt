@@ -58,6 +58,11 @@ Submit:: x-330 y-413 w-300 h-67 xMax-630 yMax-480
 Name Input Area:: x-395 y-331 w-170 h-67 xMax-565 yMax-398
 replay:: same as skip
 
+TEXT
+your time:: x-527 y-169 h-34
+completed:: x-527 y-227 h-34
+Enter your name:: x-407 y-343 h-44
+
 -----------
 Font/Text
 -----------
