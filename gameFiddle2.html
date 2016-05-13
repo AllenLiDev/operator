@@ -177,7 +177,7 @@
 			}
 		} else if (button == 2) {
 			if (step1 && step2 && step3) {
-				window.alert("Now you know BEDMAS!");
+				//window.alert("Now you know BEDMAS!");
 				loadComic();
 			}
 			else{				
@@ -187,30 +187,81 @@
 			}
 		}
 	}
-
+  
 	function loadComic(){
 		//loads rng from 1 to 5
-		var rng = (Math.random() * 5) + 1;
-		//switch 1 - 5, right now hard coded to 1
-		switch(1) {
+		var rng = Math.floor((Math.random() * 5) + 1);
+		switch(rng) {
 			case 1:
 				gameArea.entities[8].xPos = 160;
 				gameArea.entities[8].yPos = 120;
+                gameArea.entities[8].width = 640;
+                gameArea.entities[8].height = 159;
+                
+                gameArea.entities[8].xMin = 160;
+                gameArea.entities[8].yMin = 120;
+                gameArea.entities[8].xMax = 160 + 640;
+                gameArea.entities[8].yMax = 120 + 159;
+                gameArea.entities[8].src = "./assets/menuAssets/easter1.gif";
 				break;
 			case 2:
 				//code
+                gameArea.entities[8].xPos = 180;
+                gameArea.entities[8].yPos = 120;
+                
+                gameArea.entities[8].width = 600;
+                gameArea.entities[8].height = 191;
+                gameArea.entities[8].src = "./assets/menuAssets/easter2.gif";
+                
+                gameArea.entities[8].xMin = 180;
+                gameArea.entities[8].yMin = 120;
+                gameArea.entities[8].xMax = 180 + 600;
+                gameArea.entities[8].yMax = 120 + 191;
 				break;
 			case 3:
-				//code
+                gameArea.entities[8].xPos = 180;
+                gameArea.entities[8].yPos = 8;
+                
+                gameArea.entities[8].width = 600;
+                gameArea.entities[8].height = 524;
+				gameArea.entities[8].src = "./assets/menuAssets/easter3.png";
+                
+                gameArea.entities[8].xMin = 180;
+                gameArea.entities[8].yMin = 8;
+                gameArea.entities[8].xMax = 180 + 600;
+                gameArea.entities[8].yMax = 8 + 524;
 				break;
 			case 4:
 				//code
+                gameArea.entities[8].xPos = 180;
+                gameArea.entities[8].yPos = 120;
+                
+                gameArea.entities[8].width = 600;
+                gameArea.entities[8].height = 190;
+                gameArea.entities[8].src = "./assets/menuAssets/easter4.gif";
+                
+                gameArea.entities[8].xMin = 180;
+                gameArea.entities[8].yMin = 120;
+                gameArea.entities[8].xMax = 180 + 600;
+                gameArea.entities[8].yMax = 120 + 190;
 				break;
 			case 5:
 				//code
+                gameArea.entities[8].xPos = 180;
+                gameArea.entities[8].yPos = 120;
+                
+                gameArea.entities[8].width = 600;
+                gameArea.entities[8].height = 192;
+                gameArea.entities[8].src = "./assets/menuAssets/easter5.jpg";
+                
+                gameArea.entities[8].xMin = 180;
+                gameArea.entities[8].yMin = 120;
+                gameArea.entities[8].xMax = 180 + 600;
+                gameArea.entities[8].yMax = 120 + 192;
 				break;
 		}
-	}	
+	}
+
 
 	var load = {
 		entities : [],
@@ -430,15 +481,24 @@
 			}
 			//end of easter egg access elements
 			//start of easter egg images
-
+            
 			var easter1 = new Image();
+            var myInterval = null;
 			easter1 = {
 				src : "./assets/menuAssets/easter1.gif",
 				width : 640,
 				height : 159,
 				index: 0,
 				clicked : function(){
-					//on click remove from load.entities.push()
+					if (myInterval === null) {
+                        myInterval = setInterval(function() {
+                            gameArea.entities[8].width = 0;
+                            gameArea.entities[8].height = 0;
+                            clearInterval(myInterval);
+                            myInterval = null;
+                        }, 5000);
+                    
+                    }//on click remove from load.entities.push()
 				}
 			}
 
