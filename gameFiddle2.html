@@ -195,8 +195,8 @@
 		}
 	}
   
+  	/*loads a random comic from 1 to 5 and shows it to the user for 10 seconds*/
 	function loadComic(){
-		//loads rng from 1 to 5
 		var rng = Math.floor((Math.random() * 5) + 1);
 		switch(rng) {
 			case 1:
@@ -457,7 +457,7 @@
 				}
 			}
 
-			//easter egg elements
+			/*clickable operator addition*/
 			var symbolAdd = {
 				xMin : 348,
 				yMin : 174,
@@ -468,6 +468,7 @@
 				}
 			}
 
+			/*clickable operator subtraction*/
 			var symbolMinus = {
 				xMin : 414,
 				yMin : 174,
@@ -478,6 +479,7 @@
 				}
 			}
 
+			/*clickable operator multiplication*/
 			var symbolMulti = {
 				xMin : 480,
 				yMin : 174,
@@ -488,6 +490,7 @@
 				}
 			}
 
+			/*clickable operator division*/
 			var symbolDivide = {
 				xMin : 546,
 				yMin : 174,
@@ -498,9 +501,9 @@
 				}
 			}
 			//end of easter egg access elements
-			//start of easter egg images
-            
-			var easter1 = new Image();
+
+			//start of easter egg images element
+            var easter1 = new Image();
             var myInterval = null;
 			easter1 = {
 				src : "./assets/menuAssets/easter1.gif",
