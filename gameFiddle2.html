@@ -23,6 +23,7 @@
 <body>
 	<canvas id="canvas"></canvas>
 	<script>
+	/*Request animation frame shim for support*/
 	window.requestAnimFrame = (function() {
 	return  window.requestAnimationFrame       || 
 			window.webkitRequestAnimationFrame || 
@@ -34,6 +35,7 @@
 			};
 	})();
 
+	/*Returns boolean based on if mobile device*/
 	function detectmob() { 
 		if( navigator.userAgent.match(/Android/i)
 		|| navigator.userAgent.match(/webOS/i)
@@ -50,6 +52,7 @@
 		}
 	}
 
+	/*Canvas namespace and general data*/
 	var gameArea = {
 		canvas : document.getElementById("canvas"),
 		ctx : canvas.getContext("2d"),
@@ -127,6 +130,7 @@
 		}
 	}
 
+	/*Returns x and y coordinates of mouse or touch events*/
 	function getCoords(event) {
 		if (detectmob()) {
 			gameArea.xMouse = parseInt(event.changedTouches[0].clientX);
@@ -137,6 +141,7 @@
 		}
 	}
 
+	/*Main loop that gets repeated per frame*/
 	function main() {
 		var now = Date.now();
 		var dt = (now - gameArea.lastTime) / 1000.0;
@@ -262,7 +267,10 @@
 		}
 	}
 
-
+	/*Load sets the stage for the scene and stores
+	the scene data for:
+	creates images, hit boxes, draggable items,
+	drop zones, and strings*/
 	var load = {
 		entities : [],
 		clickable : [],
@@ -1281,6 +1289,7 @@
 		}
 	}
 
+	/*Handles game logic, if any*/
 	function update(dt) {
 		gameArea.gameTime += dt;
 
@@ -1427,6 +1436,8 @@
 		}
 	}
 
+	/*Compacts drag collision and click collision
+	for touch events*/
 	function touchCollision(event) {
 		getCoords(event);
 		var xCoord = gameArea.xMouse;
@@ -1447,6 +1458,7 @@
 		}
 	}
 
+	/*Server script for pulling problems sets*/
 	function getProblem(difficulty, hard) {
         var card1 = null;
         var card2 = null;
@@ -1469,6 +1481,7 @@
         return [card1, card2, card3, card4];
     }
 
+    /*Validates the problem set and operators in BEDMAS order*/
     function validate(c1, c2, c3, c4, op1, op2, op3) {
 	    var string = c1 + op1 + c2 + op2 + c3 + op3 + c4;
 	    if (eval(string) == 24) {
