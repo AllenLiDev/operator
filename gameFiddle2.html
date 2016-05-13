@@ -183,7 +183,10 @@
 		} else if (button == 2) {
 			if (step1 && step2 && step3) {
 				//window.alert("Now you know BEDMAS!");
-				loadComic();
+				loadComic();				
+				step1 = false;
+				step2 = false;
+				step3 = false;
 			}
 			else{				
 				step1 = false;
@@ -504,7 +507,7 @@
                             gameArea.entities[8].height = 0;
                             clearInterval(myInterval);
                             myInterval = null;
-                        }, 5000);
+                        }, 10000);
                     
                     }//on click remove from load.entities.push()
 				}
