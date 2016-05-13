@@ -279,6 +279,7 @@
 		droppable : [],
 		strings : [],
 		problem : [],
+		//Clears current game data.
 		clear : function() {
 			load.entities = [];
 			load.clickable = [];
@@ -286,6 +287,7 @@
 			load.strings = [];
 			load.problem = [];
 		},
+		//Creates and loads menu screen.
 		menuScreen : function() {
 			load.clear();
 
@@ -324,6 +326,7 @@
 				yMin : 270,
 				xMax : 475,
 				yMax : 390,
+				//Clickable function that loads pregamescreen, then the time attack screen.
 				clicked : function() {
 					gameArea.entities = [];
 					gameArea.entities = load.preGameScreen();
@@ -346,6 +349,7 @@
 				yMin : 270,
 				xMax : 940,
 				yMax : 390,
+				//Clickable function that loads pregamescreen, then the marathon screen.
 				clicked : function() {
 					gameArea.entities = [];
 					gameArea.entities = load.preGameScreen();
@@ -375,6 +379,7 @@
 				yMin : 25,
 				xMax : 926,
 				yMax : 105,
+				//Clickable function that toggles audio along with its logo sprite.
 				clicked : function() {
 					if (gameArea.sound) {
 						gameArea.entities[4].index = 1;
@@ -401,6 +406,7 @@
 				yMin : 400,
 				xMax : 940,
 				yMax : 520,
+				//Clickable function that loads the leaderboard screen.
 				clicked : function() {
 					gameArea.entities = [];
 					gameArea.entities = load.leaderScreen();
@@ -422,6 +428,7 @@
 				yMin : 400,
 				xMax : 631,
 				yMax : 520,
+				//Clickale function that loads the guide screen.
 				clicked : function() {
 					gameArea.entities = [];
 					gameArea.entities = load.guideScreen();
@@ -443,6 +450,7 @@
 				yMin : 400,
 				xMax : 320,
 				yMax : 520,
+				//Clickable function that loads the settings screen.
 				clicked : function() {
 					gameArea.entities = [];
 					gameArea.entities = load.settingScreen();
@@ -518,6 +526,7 @@
 
 			return load.entities;
 		},
+		//Creates and loads the Pre-Game screen.
 		preGameScreen : function() {
 			load.clear();
 
@@ -546,6 +555,7 @@
 
 			return load.entities;
 		},
+		//Creates and laods the game screen.
 		gameScreen : function() {
 			load.clear();
 
@@ -597,6 +607,7 @@
 				yMin : 20,
 				xMax : 220,
 				yMax : 110,
+				//Exits and laods menu screen.
 				clicked : function() {
 					gameArea.entities = [];
 					gameArea.state = 0;
@@ -902,6 +913,7 @@
 						yMin : 20,
 						xMax : 940,
 						yMax : 110,
+						//Clickable function that moves the user past the current puzzle displayed.
 						clicked : function() {
 							load.problem = [];
 							load.problem = getProblem(timeAttackDifficulty(gameArea.score + 1, gameArea.difficulty), gameArea.difficulty);
@@ -942,6 +954,7 @@
 			return load.entities;
 
 		},
+		//Creates and lads the settings screen.
 		settingScreen : function() {
 			load.clear();
 
@@ -981,6 +994,7 @@
 				yMin : 20,
 				xMax : 220,
 				yMax : 110,
+				//Exits and loads the menu screen.
 				clicked : function() {
 					gameArea.entities = [];
 					gameArea.entities = load.menuScreen();
@@ -1029,6 +1043,7 @@
 				yMin : 326,
 				xMax : 246,
 				yMax : 390,
+				//Clickable function that enables easy mode.
 				clicked : function() {
 					if (gameArea.difficulty == 1) {
 						gameArea.entities[5].index -= 1;
@@ -1042,6 +1057,7 @@
 				yMin : 326,
 				xMax : 410,
 				yMax : 390,
+				//Clickable function that enables hard mode.
 				clicked : function() {
 					if (gameArea.difficulty == 0) {
 						gameArea.entities[5].index +=1;
@@ -1084,6 +1100,7 @@
 				xMax : 676,
 				yMax : 390,
 				isClicked : true,
+				//Clickable function that enables audio.
 				clicked : function() {
 					if (!gameArea.sound) {
 						gameArea.sound = true;
@@ -1099,6 +1116,7 @@
 				xMax : 813,
 				yMax : 390,
 				isClicked : false,
+				//Clickable function that disables audio.
 				clicked : function() {
 					if (gameArea.sound) {
 						gameArea.sound = false;
@@ -1114,6 +1132,7 @@
 			return load.entities;
 
 		},
+		//Creates and loads leaderboard screen.
 		leaderScreen : function() {
 			load.clear();
 
@@ -1142,6 +1161,7 @@
 				yMin : 20,
 				xMax : 220,
 				yMax : 110,
+				//Exits and laods menu screen.
 				clicked : function() {
 					gameArea.entities = [];
 					gameArea.entities = load.menuScreen();
@@ -1154,6 +1174,7 @@
 			return load.entities;
 
 		},
+		//Creates and loads gide screen.
 		guideScreen : function() {
 			load.clear();
 
@@ -1182,6 +1203,7 @@
 				yMin : 20,
 				xMax : 220,
 				yMax : 110,
+				//Exits and loads menu screen.
 				clicked : function() {
 					gameArea.entities = [];
 					gameArea.entities = load.menuScreen();
@@ -1193,6 +1215,7 @@
 
 			return load.entities;
 		},
+		//Creates and loads final score screen.
 		scoreScreen : function() {
 			load.clear();
 
@@ -1221,6 +1244,7 @@
 				yMin : 20,
 				xMax : 940,
 				yMax : 110,
+				//Clickable function that starts the current game mode over from the beginning.
 				clicked : function() {
 					gameArea.entities = [];
 					gameArea.refTime = 0;
@@ -1255,6 +1279,7 @@
 				yMin : 20,
 				xMax : 220,
 				yMax : 110,
+				//Exits and loads menu screen.
 				clicked : function() {
 					gameArea.entities = [];
 					gameArea.refTime = 0;
