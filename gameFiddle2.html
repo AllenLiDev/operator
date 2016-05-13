@@ -70,7 +70,7 @@
 		difficulty : 0,
 		score : 0,
 		sound : true,
-		init : function() {
+		init : function() {//Sets the initial gameArea and starts the game loop
 			this.canvas.width = window.innerWidth;
 			this.canvas.height = window.innerHeight;
 			this.ratioX = this.canvas.width / gameArea.WIDTH;
@@ -96,15 +96,15 @@
 			this.lastTime = Date.now();
 			main();
 		},
-		resize : function() {
+		resize : function() {//Resize the canvas to window and sets new aspect ratio
 			this.canvas.width = window.innerWidth;
 			this.canvas.height = window.innerHeight;
 			gameArea.ratioX = this.canvas.width / gameArea.WIDTH;
 			gameArea.ratioY = this.canvas.height / gameArea.HEIGHT;
 		},
-		render : function() {
+		render : function() {//Canvas render cycle
 			this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-			if (this.entities.length > 0) {
+			if (this.entities.length > 0) {//Draws images
 				for (var i = 0; i < this.entities.length; i++) {
 					var img = new Image();
 					img.src = this.entities[i].src;
@@ -118,7 +118,7 @@
 			} else {
 				alert("Programmer error. Empty entities list.");
 			}
-			if (load.strings.length > 0) {
+			if (load.strings.length > 0) {//Draws text
 				this.ctx.scale(this.ratioX, this.ratioY);
 				for (var i = 0; i < load.strings.length; i++) {
 					this.ctx.fillStyle = load.strings[i].colour;
@@ -153,7 +153,7 @@
 		window.requestAnimFrame(main);
 	}
 
-	//easter egg tree
+	/*Easter egg logic tree (to be moved into a state)*/
 	var step1 = false;
 	var step2 = false;
 	var step3 = false;
@@ -182,7 +182,6 @@
 			}
 		} else if (button == 2) {
 			if (step1 && step2 && step3) {
-				//window.alert("Now you know BEDMAS!");
 				loadComic();				
 				step1 = false;
 				step2 = false;
