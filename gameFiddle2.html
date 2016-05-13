@@ -65,7 +65,7 @@
 		xMouse : null,
 		yMouse : null,
 		difficulty : 0,
-		score : 9,
+		score : 0,
 		sound : true,
 		init : function() {
 			this.canvas.width = window.innerWidth;
@@ -73,17 +73,19 @@
 			this.ratioX = this.canvas.width / gameArea.WIDTH;
 			this.ratioY = this.canvas.height / gameArea.HEIGHT;
 
-			window.addEventListener("resize", gameArea.resize);
+			gameArea.resize();
 
 			if (detectmob()) {
 				gameArea.canvas.addEventListener("touchstart", touchCollision);
 				gameArea.canvas.addEventListener("touchmove", getCoords);
 				gameArea.canvas.addEventListener("touchend", dropCollision);
+				window.addEventListener("deviceorientation", gameArea.resize)
 			} else {
 				gameArea.canvas.addEventListener("click", clickCollision);
 				gameArea.canvas.addEventListener("mousedown", dragCollision);
 				gameArea.canvas.addEventListener("mousemove", getCoords);
 				gameArea.canvas.addEventListener("mouseup", dropCollision);
+				window.addEventListener("resize", gameArea.resize);
 			}
 			
 			gameArea.entities = load.menuScreen();
@@ -116,6 +118,7 @@
 			if (load.strings.length > 0) {
 				this.ctx.scale(this.ratioX, this.ratioY);
 				for (var i = 0; i < load.strings.length; i++) {
+					this.ctx.fillStyle = load.strings[i].colour;
 					this.ctx.font = load.strings[i].sizeInit + load.strings[i].font;
 					this.ctx.fillText(load.strings[i].parameter, load.strings[i].xPos, load.strings[i].yPos, load.strings[i].maxWidth);
 				}
@@ -312,7 +315,8 @@
 				xMax : 940,
 				yMax : 520,
 				clicked : function() {
-					load.leaderScreen();
+					gameArea.entities = [];
+					gameArea.entities = load.leaderScreen();
 				}
 			}
 
@@ -458,11 +462,13 @@
 			cardsImage = {
 				src : "./assets/gameAssets/cardsImage.png",
 				width : 960,
-				height : 219,
+				height : 220,
 				xPos : 0,
 				yPos : 208,
 				index: 0,
-				frames : 3
+				frames : 3,
+				ticks : 0,
+				ticksPer : 130
 			}
 
 			var quitImage = new Image();
@@ -703,48 +709,53 @@
 			}
 
 			var timerString = {
-				font : "em Digital7",
-				sizeInit : 8,
+				font : "px Digital7",
+				sizeInit : 140,
 				xPos : 368,
 				yPos : 175,
 				parameter : gameArea.refTime,
-				maxWidth : 304
+				maxWidth : 304,
+				colour : "#5C5C5C"
 			}
 
 			var card1 = {
-				font : "em Calibri",
-				sizeInit : 16,
-				xPos : 49,
-				yPos : 394,
+				font : "px Calibri",
+				sizeInit : 200,
+				xPos : 70,
+				yPos : 372,
 				parameter : 0,
-				maxWidth : 141
+				maxWidth : 141,
+				colour : "#FFFFFF"
 			}
 
 			var card2 = {
-				font : "em Calibri",
-				sizeInit : 16,
-				xPos : 289,
-				yPos : 394,
+				font : "px Calibri",
+				sizeInit : 200,
+				xPos : 310,
+				yPos : 372,
 				parameter : 0,
-				maxWidth : 141
+				maxWidth : 141,
+				colour : "#FFFFFF"
 			}
 
 			var card3 = {
-				font : "em Calibri",
-				sizeInit : 16,
-				xPos : 530,
-				yPos : 394,
+				font : "px Calibri",
+				sizeInit : 200,
+				xPos : 551,
+				yPos : 372,
 				parameter : 0,
-				maxWidth : 141
+				maxWidth : 141,
+				colour : "#FFFFFF"
 			}
 
 			var card4 = {
-				font : "em Calibri",
-				sizeInit : 16,
-				xPos : 770,
-				yPos : 394,
+				font : "px Calibri",
+				sizeInit : 200,
+				xPos : 791,
+				yPos : 372,
 				parameter : 0,
-				maxWidth : 141
+				maxWidth : 141,
+				colour : "#FFFFFF"
 			}
 
 			load.entities.push(background, gameBorderImage, scoreImage, cardsImage, quitImage, skipImage, plusOperator, plusOp2, plusOp3, plusOp4, minusOperator, minusOp2, minusOp3, minusOp4, multiOperator, multiOp2, multiOp3, multiOp4, divOperator, divOp2, divOp3, divOp4);
@@ -995,6 +1006,40 @@
 		leaderScreen : function() {
 			load.clear();
 
+			var background = new Image();
+			background = {
+				src : "./assets/leaderboardAssets/leaderboard.png",
+				width : 960,
+				height : 540,
+				xPos : 0,
+				yPos : 0,
+				index: 0
+			}
+
+			var quitImage = new Image();
+			quitImage = {
+				src : "./assets/gameAssets/quitImage.png",
+				width : 220,
+				height : 208,
+				xPos : 0,
+				yPos : 0,
+				index: 0
+			}
+
+			var quitBox = {
+				xMin : 20,
+				yMin : 20,
+				xMax : 220,
+				yMax : 110,
+				clicked : function() {
+					gameArea.entities = [];
+					gameArea.entities = load.menuScreen();
+				}
+			}
+
+			load.entities.push(background, quitImage);
+			load.clickable.push(quitBox);
+
 			return load.entities;
 
 		},
@@ -1079,7 +1124,8 @@
 				xPos : 527,
 				yPos : 203,
 				parameter : "",
-				maxWidth : 141
+				maxWidth : 141,
+				colour : "#5C5C5C"
 			}
 
 			var completed = {
@@ -1088,7 +1134,8 @@
 				xPos : 527,
 				yPos : 261,
 				parameter : "",
-				maxWidth : 141
+				maxWidth : 141,
+				colour : "#5C5C5C"
 			}
 
 			load.entities.push(background, replayImage, submitImage, quitImage);
@@ -1118,11 +1165,21 @@
 						load.strings[i + 1].parameter = load.problem[i];
 					}
 				} else if (load.strings.length > 0) {//loaded game logic
+					if (gameArea.entities[3].ticks != 0) {
+						gameArea.entities[3].ticks += 1;
+					}
+					if (gameArea.entities[3].ticks > gameArea.entities[3].ticksPer) {
+						gameArea.entities[3].index = 0;
+						gameArea.entities[3].ticks = 0;
+					}
+
 					load.strings[0].parameter = ((Math.floor(gameArea.refTime * 10) / 10));
 					if (load.droppable[0].isFilled && load.droppable[1].isFilled && load.droppable[2].isFilled) {
 
 						if (validate(load.strings[1].parameter, load.strings[2].parameter, load.strings[3].parameter, load.strings[4].parameter, load.droppable[0].parameter, load.droppable[1].parameter, load.droppable[2].parameter)) {
 
+							gameArea.entities[3].index = 1;
+							gameArea.entities[3].ticks = 1;
 							gameArea.score += 1;
 
 							if (gameArea.score == 10) {
@@ -1131,6 +1188,7 @@
 								gameArea.entities = load.scoreScreen();
 								load.strings[0].parameter = ((Math.floor(gameArea.refTime * 10) / 10));
 								load.strings[1].parameter = gameArea.score;
+								gameArea.canvas.focus();
 							} else {
 								gameArea.entities[22].index = gameArea.score;
 								load.problem = [];
@@ -1161,6 +1219,10 @@
 								gameArea.entities[21].xPos = -100;
 							}
 						} else {
+
+							gameArea.entities[3].index = 2;
+							gameArea.entities[3].ticks = 1;
+
 							for (var i = 0; i < load.droppable.length; i++) {
 								load.droppable[i].parameter = "";
 								load.droppable[i].isFilled = false;
