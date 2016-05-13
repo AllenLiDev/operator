@@ -79,7 +79,7 @@
 				gameArea.canvas.addEventListener("touchstart", touchCollision);
 				gameArea.canvas.addEventListener("touchmove", getCoords);
 				gameArea.canvas.addEventListener("touchend", dropCollision);
-				window.addEventListener("deviceorientation", gameArea.resize)
+				window.addEventListener("deviceorientation", gameArea.resize);
 			} else {
 				gameArea.canvas.addEventListener("click", clickCollision);
 				gameArea.canvas.addEventListener("mousedown", dragCollision);
@@ -88,7 +88,7 @@
 				window.addEventListener("resize", gameArea.resize);
 			}
 			
-			gameArea.entities = load.scoreScreen();
+			gameArea.entities = load.menuScreen();
 
 			this.lastTime = Date.now();
 			main();
