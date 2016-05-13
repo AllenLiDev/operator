@@ -23,7 +23,7 @@
 <body>
 	<canvas id="canvas"></canvas>
 	<script>
-	/*Request animation frame shim for support*/
+	/*Request animation frame shim for accessibility*/
 	window.requestAnimFrame = (function() {
 	return  window.requestAnimationFrame       || 
 			window.webkitRequestAnimationFrame || 
@@ -195,7 +195,7 @@
 		}
 	}
   
-  	/*loads a random comic from 1 to 5 and shows it to the user for 10 seconds*/
+  	/*Loads a random comic from 1 to 5*/
 	function loadComic(){
 		var rng = Math.floor((Math.random() * 5) + 1);
 		switch(rng) {
@@ -212,7 +212,6 @@
                 gameArea.entities[8].src = "./assets/menuAssets/easter1.gif";
 				break;
 			case 2:
-				//code
                 gameArea.entities[8].xPos = 180;
                 gameArea.entities[8].yPos = 120;
                 
@@ -239,7 +238,6 @@
                 gameArea.entities[8].yMax = 8 + 524;
 				break;
 			case 4:
-				//code
                 gameArea.entities[8].xPos = 180;
                 gameArea.entities[8].yPos = 120;
                 
@@ -253,7 +251,6 @@
                 gameArea.entities[8].yMax = 120 + 190;
 				break;
 			case 5:
-				//code
                 gameArea.entities[8].xPos = 180;
                 gameArea.entities[8].yPos = 120;
                 
@@ -269,9 +266,9 @@
 		}
 	}
 
-	/*Load sets the stage for the scene and stores
+	/*"Load" sets the stage for the scene and stores
 	the scene data for:
-	creates images, hit boxes, draggable items,
+	images, hit boxes, draggable items,
 	drop zones, and strings*/
 	var load = {
 		entities : [],
@@ -279,16 +276,14 @@
 		droppable : [],
 		strings : [],
 		problem : [],
-		//Clears current game data.
-		clear : function() {
+		clear : function() {//Clears current game data.
 			load.entities = [];
 			load.clickable = [];
 			load.droppable = [];
 			load.strings = [];
 			load.problem = [];
 		},
-		//Creates and loads menu screen.
-		menuScreen : function() {
+		menuScreen : function() {//Loads menu screen objects
 			load.clear();
 
 			var background = new Image();
@@ -326,7 +321,7 @@
 				yMin : 270,
 				xMax : 475,
 				yMax : 390,
-				//Clickable function that loads pregamescreen, then the time attack screen.
+				/*Loads pre-game screen and starts time attack*/
 				clicked : function() {
 					gameArea.entities = [];
 					gameArea.entities = load.preGameScreen();
@@ -349,7 +344,7 @@
 				yMin : 270,
 				xMax : 940,
 				yMax : 390,
-				//Clickable function that loads pregamescreen, then the marathon screen.
+				/*Loads pre-game screen and starts endless mode*/
 				clicked : function() {
 					gameArea.entities = [];
 					gameArea.entities = load.preGameScreen();
@@ -379,7 +374,7 @@
 				yMin : 25,
 				xMax : 926,
 				yMax : 105,
-				//Clickable function that toggles audio along with its logo sprite.
+				/*Sets the audio state to on or off*/
 				clicked : function() {
 					if (gameArea.sound) {
 						gameArea.entities[4].index = 1;
@@ -406,7 +401,7 @@
 				yMin : 400,
 				xMax : 940,
 				yMax : 520,
-				//Clickable function that loads the leaderboard screen.
+				/*Loads leader screen*/
 				clicked : function() {
 					gameArea.entities = [];
 					gameArea.entities = load.leaderScreen();
@@ -428,7 +423,7 @@
 				yMin : 400,
 				xMax : 631,
 				yMax : 520,
-				//Clickale function that loads the guide screen.
+				/*Load guide screen*/
 				clicked : function() {
 					gameArea.entities = [];
 					gameArea.entities = load.guideScreen();
@@ -450,52 +445,52 @@
 				yMin : 400,
 				xMax : 320,
 				yMax : 520,
-				//Clickable function that loads the settings screen.
+				/*Loads settings screen*/
 				clicked : function() {
 					gameArea.entities = [];
 					gameArea.entities = load.settingScreen();
 				}
 			}
 
-			/*clickable operator addition*/
 			var symbolAdd = {
 				xMin : 348,
 				yMin : 174,
 				xMax : 413,
 				yMax : 243,
+				/*Clickable operator addition*/
 				clicked : function(){
 					easterEgg(1);
 				}
 			}
 
-			/*clickable operator subtraction*/
 			var symbolMinus = {
 				xMin : 414,
 				yMin : 174,
 				xMax : 479,
 				yMax : 243,
+				/*Clickable operator subtraction*/
 				clicked : function(){
 					easterEgg(2);
 				}
 			}
 
-			/*clickable operator multiplication*/
 			var symbolMulti = {
 				xMin : 480,
 				yMin : 174,
 				xMax : 545,
 				yMax : 243,
+				/*Clickable operator multiplication*/
 				clicked : function(){
 					easterEgg(3);
 				}
 			}
 
-			/*clickable operator division*/
 			var symbolDivide = {
 				xMin : 546,
 				yMin : 174,
 				xMax : 611,
 				yMax : 243,
+				/*Clickable operator division*/
 				clicked : function(){
 					easterEgg(4);
 				}
@@ -518,7 +513,6 @@
                             clearInterval(myInterval);
                             myInterval = null;
                         }, 10000);
-                    
                     }//on click remove from load.entities.push()
 				}
 			}
@@ -529,8 +523,7 @@
 
 			return load.entities;
 		},
-		//Creates and loads the Pre-Game screen.
-		preGameScreen : function() {
+		preGameScreen : function() {//Loads pre-game screen objects
 			load.clear();
 
 			var background = new Image();
@@ -558,8 +551,7 @@
 
 			return load.entities;
 		},
-		//Creates and laods the game screen.
-		gameScreen : function() {
+		gameScreen : function() {//Load game screen objects
 			load.clear();
 
 			var background = new Image();
@@ -610,7 +602,7 @@
 				yMin : 20,
 				xMax : 220,
 				yMax : 110,
-				//Exits and laods menu screen.
+				/*Loads menu screen*/
 				clicked : function() {
 					gameArea.entities = [];
 					gameArea.state = 0;
@@ -916,7 +908,7 @@
 						yMin : 20,
 						xMax : 940,
 						yMax : 110,
-						//Clickable function that moves the user past the current puzzle displayed.
+						/*Loads new problem and resets operators*/
 						clicked : function() {
 							load.problem = [];
 							load.problem = getProblem(timeAttackDifficulty(gameArea.score + 1, gameArea.difficulty), gameArea.difficulty);
@@ -957,8 +949,7 @@
 			return load.entities;
 
 		},
-		//Creates and lads the settings screen.
-		settingScreen : function() {
+		settingScreen : function() {//Load settings screen objects
 			load.clear();
 
 			var background = new Image();
@@ -997,7 +988,7 @@
 				yMin : 20,
 				xMax : 220,
 				yMax : 110,
-				//Exits and loads the menu screen.
+				/*Loads menu screen*/
 				clicked : function() {
 					gameArea.entities = [];
 					gameArea.entities = load.menuScreen();
@@ -1046,7 +1037,7 @@
 				yMin : 326,
 				xMax : 246,
 				yMax : 390,
-				//Clickable function that enables easy mode.
+				/*Enables easy mode*/
 				clicked : function() {
 					if (gameArea.difficulty == 1) {
 						gameArea.entities[5].index -= 1;
@@ -1060,7 +1051,7 @@
 				yMin : 326,
 				xMax : 410,
 				yMax : 390,
-				//Clickable function that enables hard mode.
+				/*Enable hard mode*/
 				clicked : function() {
 					if (gameArea.difficulty == 0) {
 						gameArea.entities[5].index +=1;
@@ -1103,7 +1094,7 @@
 				xMax : 676,
 				yMax : 390,
 				isClicked : true,
-				//Clickable function that enables audio.
+				/*Enable sound*/
 				clicked : function() {
 					if (!gameArea.sound) {
 						gameArea.sound = true;
@@ -1119,7 +1110,7 @@
 				xMax : 813,
 				yMax : 390,
 				isClicked : false,
-				//Clickable function that disables audio.
+				/*Disable sound*/
 				clicked : function() {
 					if (gameArea.sound) {
 						gameArea.sound = false;
@@ -1135,8 +1126,7 @@
 			return load.entities;
 
 		},
-		//Creates and loads leaderboard screen.
-		leaderScreen : function() {
+		leaderScreen : function() {//Loads leader screen objects
 			load.clear();
 
 			var background = new Image();
@@ -1164,7 +1154,7 @@
 				yMin : 20,
 				xMax : 220,
 				yMax : 110,
-				//Exits and laods menu screen.
+				/*Loads menu screen*/
 				clicked : function() {
 					gameArea.entities = [];
 					gameArea.entities = load.menuScreen();
@@ -1177,8 +1167,7 @@
 			return load.entities;
 
 		},
-		//Creates and loads gide screen.
-		guideScreen : function() {
+		guideScreen : function() {//Loads guide screen objects
 			load.clear();
 
 			var background = new Image();
@@ -1206,7 +1195,7 @@
 				yMin : 20,
 				xMax : 220,
 				yMax : 110,
-				//Exits and loads menu screen.
+				/*Loads menu screen*/
 				clicked : function() {
 					gameArea.entities = [];
 					gameArea.entities = load.menuScreen();
@@ -1218,8 +1207,7 @@
 
 			return load.entities;
 		},
-		//Creates and loads final score screen.
-		scoreScreen : function() {
+		scoreScreen : function() {//Loads score screen objects
 			load.clear();
 
 			var background = new Image();
@@ -1247,7 +1235,7 @@
 				yMin : 20,
 				xMax : 940,
 				yMax : 110,
-				//Clickable function that starts the current game mode over from the beginning.
+				/*Reloads pre-game screen and game mode*/
 				clicked : function() {
 					gameArea.entities = [];
 					gameArea.refTime = 0;
@@ -1282,7 +1270,7 @@
 				yMin : 20,
 				xMax : 220,
 				yMax : 110,
-				//Exits and loads menu screen.
+				/*Loads menu screen*/
 				clicked : function() {
 					gameArea.entities = [];
 					gameArea.refTime = 0;
@@ -1319,7 +1307,7 @@
 		}
 	}
 
-	/*Handles game logic, if any*/
+	/*Handles state logic*/
 	function update(dt) {
 		gameArea.gameTime += dt;
 
@@ -1437,13 +1425,14 @@
 					load.strings[0].parameter = ((Math.floor(gameArea.refTime * 10) / 10));
 				}
 				break;
-			default: //main screen null logic
+			default: //null logic
 
 		}
 
 		handleInput(dt);
 	}
 
+	/*Checks if mouse coordinates are within a hit box range*/
 	function clickCollision() {
 		var xCoord = gameArea.xMouse;
 		var yCoord = gameArea.yMouse;
@@ -1455,6 +1444,7 @@
 		}
 	}
 
+	/*Checks if mouse coordinates are within draggable objects range*/
 	function dragCollision() {
 		var xCoord = gameArea.xMouse;
 		var yCoord = gameArea.yMouse;
@@ -1556,6 +1546,8 @@
 	    return difficulty;
 	}
 
+	/*Detects drop collision with drag object by breaking the object into
+	quads. This does not account for larger drag objects than hit boxes.*/
 	function dropCollision() {
 		for (var i = 0; i < gameArea.entities.length; i++) {
 			if (gameArea.entities[i].isClicked) {
@@ -1598,6 +1590,7 @@
 		}
 	}
 
+	/*Handles draggable location on click*/
 	function handleInput(dt) {
 		for (var i = 0; i < gameArea.entities.length; i++) {
 			if (gameArea.entities[i].isClicked) {
