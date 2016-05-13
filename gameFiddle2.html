@@ -88,7 +88,7 @@
 				window.addEventListener("resize", gameArea.resize);
 			}
 			
-			gameArea.entities = load.menuScreen();
+			gameArea.entities = load.scoreScreen();
 
 			this.lastTime = Date.now();
 			main();
@@ -362,7 +362,8 @@
 				xMax : 631,
 				yMax : 520,
 				clicked : function() {
-					load.guideScreen();
+					gameArea.entities = [];
+					gameArea.entities = load.guideScreen();
 				}
 			}
 
@@ -1085,6 +1086,40 @@
 		},
 		guideScreen : function() {
 			load.clear();
+
+			var background = new Image();
+			background = {
+				src : "./assets/guideAssets/guide.png",
+				width : 960,
+				height : 540,
+				xPos : 0,
+				yPos : 0,
+				index: 0
+			}
+
+			var quitImage = new Image();
+			quitImage = {
+				src : "./assets/gameAssets/quitImage.png",
+				width : 220,
+				height : 208,
+				xPos : 0,
+				yPos : 0,
+				index: 0
+			}
+
+			var quitBox = {
+				xMin : 20,
+				yMin : 20,
+				xMax : 220,
+				yMax : 110,
+				clicked : function() {
+					gameArea.entities = [];
+					gameArea.entities = load.menuScreen();
+				}
+			}
+
+			load.entities.push(background, quitImage);
+			load.clickable.push(quitBox);
 
 			return load.entities;
 		},
