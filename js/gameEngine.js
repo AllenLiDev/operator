@@ -133,16 +133,16 @@ function update(dt) {
 				gameArea.entities = [];
 				gameArea.refTime = 0;
 				gameArea.entities = load.gameScreen();
-				load.problem = getProblem(2, 0);//timeAttackDifficulty(gameArea.score + 1, gameArea.difficulty), gameArea.difficulty);
-				for (var i = 0; i < load.problem.length; i++) {
-					load.strings[i + 1].parameter = load.problem[i];
-					if (load.problem[i] > 9) {
-						load.strings[i + 1].xPos = load.strings[i + 1].xInit - (load.strings[i + 1].maxWidth / 6);
-					} else {
-						load.strings[i + 1].xPos = load.strings[i + 1].xInit;
-					}
-				}//End of preload
+				getProblem(timeAttackDifficulty(gameArea.score + 1, gameArea.difficulty), gameArea.difficulty);
 			} else if (load.strings.length > 0) {//loaded game logic
+				for (var i = 1; i < load.strings.length; i++) {
+					if (load.strings[i].parameter > 9) {
+						load.strings[i].xPos = load.strings[i].xInit - (load.strings[i].maxWidth / 6);
+					} else {
+						load.strings[i].xPos = load.strings[i].xInit;
+					}
+				}
+
 				if (gameArea.entities[3].ticks != 0) {
 					gameArea.entities[3].ticks += 1;
 				}
@@ -169,16 +169,7 @@ function update(dt) {
 							gameArea.canvas.focus();
 						} else {
 							gameArea.entities[10].index = gameArea.score;
-							load.problem = [];
-							load.problem = getProblem(timeAttackDifficulty(gameArea.score + 1, gameArea.difficulty), gameArea.difficulty);
-							for (var i = 0; i < load.problem.length; i++) {
-								load.strings[i + 1].parameter = load.problem[i];
-								if (load.problem[i] > 9) {
-									load.strings[i + 1].xPos = load.strings[i + 1].xInit - (load.strings[i + 1].maxWidth / 6);
-								} else {
-									load.strings[i + 1].xPos = load.strings[i + 1].xInit;
-								}
-							}
+							getProblem(timeAttackDifficulty(gameArea.score + 1, gameArea.difficulty), gameArea.difficulty);
 							for (var i = 0; i < load.droppable.length; i++) {
 								load.droppable[i].parameter = "";
 								load.droppable[i].isFilled = false;
@@ -219,26 +210,6 @@ function update(dt) {
 
 			gameArea.refTime += dt;
 
-			/*Naive animation update for preloading screen*/
-			if (gameArea.refTime > 1 && gameArea.entities.length == 2 && gameArea.entities[1].index < gameArea.entities[1].frames - 1) {
-				gameArea.refTime -= 1;
-				gameArea.entities[1].index += 1;
-			} else if (gameArea.refTime > 1 && gameArea.entities.length == 2 && gameArea.entities[1].index == gameArea.entities[1].frames - 1) {
-				gameArea.entities = [];
-				gameArea.refTime = 0;
-				gameArea.entities = load.gameScreen();
-				load.problem = getProblem(timeAttackDifficulty(gameArea.score + 1, gameArea.difficulty), gameArea.difficulty);
-				for (var i = 0; i < load.problem.length; i++) {
-					load.strings[i + 1].parameter = load.problem[i];
-					if (load.problem[i] > 9) {
-						load.strings[i + 1].xPos = load.strings[i + 1].xInit - (load.strings[i + 1].maxWidth / 6);
-					} else {
-						load.strings[i + 1].xPos = load.strings[i + 1].xInit;
-					}
-				}//End of preload
-			} else if (load.strings.length > 0) {//loaded game logic
-				load.strings[0].parameter = ((Math.floor(gameArea.refTime * 10) / 10));
-			}
 			break;
 
 		case 3://Easter egg menu logic
@@ -276,7 +247,6 @@ var load = {
 		load.clickable = [];
 		load.droppable = [];
 		load.strings = [];
-		load.problem = [];
 	},
 	menuScreen : function() {//Loads menu screen objects
 		load.clear();
@@ -1038,16 +1008,7 @@ var load = {
 					yMax : 110,
 					/*Loads new problem and resets operators*/
 					clicked : function() {
-						load.problem = [];
-						load.problem = getProblem(timeAttackDifficulty(gameArea.score + 1, gameArea.difficulty), gameArea.difficulty);
-						for (var i = 0; i < load.problem.length; i++) {
-							load.strings[i + 1].parameter = load.problem[i];
-							if (load.problem[i] > 9) {
-								load.strings[i + 1].xPos = load.strings[i + 1].xInit - (load.strings[i + 1].maxWidth / 6);
-							} else {
-								load.strings[i + 1].xPos = load.strings[i + 1].xInit;
-							}
-						}
+						getProblem(timeAttackDifficulty(gameArea.score + 1, gameArea.difficulty), gameArea.difficulty);
 						for (var i = 0; i < load.droppable.length; i++) {
 							if (load.droppable[i].isFilled) {
 								gameArea.entities.pop();
@@ -1615,25 +1576,26 @@ Server script for pulling problems sets
 @return array containing the card numbers
 */
 function getProblem(difficulty, hard) {
-    var card1 = null;
-    var card2 = null;
-    var card3 = null;
-    var card4 = null;
-    var hue;
+    var cards = [];
     $.ajax({
-        async: false,
+        async: true,
         type: "GET",
         url: "getProblem.php",
         dataType: "json",
         data: {difficulty: difficulty, hard: hard},
         success: function(data) {
-            card1 = data.card1;
-            card2 = data.card2;
-            card3 = data.card3;
-            card4 = data.card4;
+        	callback(data);
         }
     });
-    return [card1, card2, card3, card4];
+}
+
+/*On AJAX success, calls this function
+to feed the data into the card data*/
+function callback(data) {
+	load.strings[1].parameter = data.card1;
+	load.strings[2].parameter = data.card2;
+	load.strings[3].parameter = data.card3;
+	load.strings[4].parameter = data.card4;
 }
 
 /*Validates the problem set and operators in BEDMAS order*/
