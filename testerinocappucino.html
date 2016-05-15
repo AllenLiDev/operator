@@ -4,8 +4,9 @@
     <script src="https://cdn.jsdelivr.net/jquery/3.0.0-beta1/jquery.min.js"></script>
     <script>
         /*
-        getScores().
-        retrieves top 5 scores for time attack
+        getScores(int limit).
+        retrieves top x scores for time attack
+        @limit the number of scores to retrieve
         @return array with names and scores.
         TIME ATTACK IS SORTED BY TIME IN ASCENDING ORDER
         MARATHON IS SORTED BY SCORE IN DESCENDING ORDER
@@ -19,7 +20,7 @@
         6: Marathon Hard Names
         7: Marathon Hard Scores
         */
-        function getScores() {
+        function getScores(limit) {
             var namesTimeEasy;
             var namesTimeHard;
             var scoresTimeEasy;
@@ -33,6 +34,7 @@
                 type: "GET",
                 url: "getScores.php",
                 dataType: "json",
+                data: {limit: limit},
                 success: function(data) {
                     namesTimeEasy = data.namesTimeEasy;
                     scoresTimeEasy = data.scoresTimeEasy;
@@ -49,7 +51,7 @@
         }
         
         function test() {
-            var test = getScores();
+            var test = getScores(10);
             alert(test[0] + "" + test[1] + "\n" + test[2] + "" + test[3] + "\n" +
                 test[4] + "" + test[5] + "\n" + test[6] + "" + test[7]);
         }

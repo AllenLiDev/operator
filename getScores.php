@@ -2,6 +2,7 @@
 session_start();
 
 // retrieve data from ajax request
+$limit = $_GET['limit'];
 
 $servername = "localhost";
 $username = "headhuntar";
@@ -15,10 +16,10 @@ if ($conn->connect_error) {
     die("connection failed: " . $conn->connect_error);
 }
 
-$time9sql = "SELECT * FROM `TimeAttackScores1-9` ORDER BY `score` ASC LIMIT 5";
-$time13sql = "SELECT * FROM `TimeAttackScores1-13` ORDER BY `score` ASC LIMIT 5";
-$marathon9sql = "SELECT * FROM `MarathonScores1-9` ORDER BY `score` DESC LIMIT 5";
-$marathon13sql = "SELECT * FROM `MarathonScores1-13` ORDER BY `score` DESC LIMIT 5";
+$time9sql = "SELECT * FROM `TimeAttackScores1-9` ORDER BY `score` ASC LIMIT " . $limit;
+$time13sql = "SELECT * FROM `TimeAttackScores1-13` ORDER BY `score` ASC LIMIT " . $limit;
+$marathon9sql = "SELECT * FROM `MarathonScores1-9` ORDER BY `score` DESC LIMIT " . $limit;
+$marathon13sql = "SELECT * FROM `MarathonScores1-13` ORDER BY `score` DESC LIMIT " . $limit;
 
 $namesTimeEasy = array();
 $scoresTimeEasy = array();
