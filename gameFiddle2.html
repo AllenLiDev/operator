@@ -63,7 +63,7 @@
 		entities : [],
 		lastTime : null,
 		gameTime : 0,
-		state : 0,
+		state : 3,
 		refTime : 0,
 		xMouse : null,
 		yMouse : null,
@@ -106,14 +106,16 @@
 			this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
 			if (this.entities.length > 0) {//Draws images
 				for (var i = 0; i < this.entities.length; i++) {
-					var img = new Image();
-					img.src = this.entities[i].src;
-					img.width = this.entities[i].width;
-					img.height = this.entities[i].height;
-					img.xPos = this.entities[i].xPos;
-					img.yPos = this.entities[i].yPos;
-					img.index = this.entities[i].index;
-					this.ctx.drawImage(img, 0, img.index * img.height, img.width, img.height, img.xPos * this.ratioX, img.yPos * this.ratioY, img.width * this.ratioX, img.height * this.ratioY);
+					if (this.entities[i].z != 1) {
+						var img = new Image();
+						img.src = this.entities[i].src;
+						img.width = this.entities[i].width;
+						img.height = this.entities[i].height;
+						img.xPos = this.entities[i].xPos;
+						img.yPos = this.entities[i].yPos;
+						img.index = this.entities[i].index;
+						this.ctx.drawImage(img, 0, img.index * img.height, img.width, img.height, img.xPos * this.ratioX, img.yPos * this.ratioY, img.width * this.ratioX, img.height * this.ratioY);
+					}
 				}
 			} else {
 				alert("Programmer error. Empty entities list.");
@@ -126,6 +128,18 @@
 					this.ctx.fillText(load.strings[i].parameter, load.strings[i].xPos, load.strings[i].yPos, load.strings[i].maxWidth);
 				}
 				this.ctx.scale(1 / this.ratioX, 1 / this.ratioY);
+			}
+			for (var i = 0; i < this.entities.length; i++) {
+				if (this.entities[i].z == 1) {
+					var img = new Image();
+					img.src = this.entities[i].src;
+					img.width = this.entities[i].width;
+					img.height = this.entities[i].height;
+					img.xPos = this.entities[i].xPos;
+					img.yPos = this.entities[i].yPos;
+					img.index = this.entities[i].index;
+					this.ctx.drawImage(img, 0, img.index * img.height, img.width, img.height, img.xPos * this.ratioX, img.yPos * this.ratioY, img.width * this.ratioX, img.height * this.ratioY);
+				}
 			}
 		}
 	}
@@ -151,119 +165,6 @@
 
 		gameArea.lastTime = now;
 		window.requestAnimFrame(main);
-	}
-
-	/*Easter egg logic tree (to be moved into a state)*/
-	var step1 = false;
-	var step2 = false;
-	var step3 = false;
-	function easterEgg(button){
-		if (button == 4) {
-			step3 = false;
-			step2 = false;
-			step1 = true;
-		} else if (button == 3) {
-			if(step1 && !step2){
-				step2 = true;
-			}
-			else{
-				step1 = false;
-				step2 = false;
-				step3 = false;
-			}
-		} else if (button == 1) {
-			if(step1 && step2 && !step3){
-				step3 = true;
-			}
-			else{
-				step1 = false;
-				step2 = false;
-				step3 = false;
-			}
-		} else if (button == 2) {
-			if (step1 && step2 && step3) {
-				loadComic();				
-				step1 = false;
-				step2 = false;
-				step3 = false;
-			}
-			else{				
-				step1 = false;
-				step2 = false;
-				step3 = false;
-			}
-		}
-	}
-  
-  	/*Loads a random comic from 1 to 5*/
-	function loadComic(){
-		var rng = Math.floor((Math.random() * 5) + 1);
-		switch(rng) {
-			case 1:
-				gameArea.entities[8].xPos = 160;
-				gameArea.entities[8].yPos = 120;
-                gameArea.entities[8].width = 640;
-                gameArea.entities[8].height = 159;
-                
-                gameArea.entities[8].xMin = 160;
-                gameArea.entities[8].yMin = 120;
-                gameArea.entities[8].xMax = 160 + 640;
-                gameArea.entities[8].yMax = 120 + 159;
-                gameArea.entities[8].src = "./assets/menuAssets/easter1.gif";
-				break;
-			case 2:
-                gameArea.entities[8].xPos = 180;
-                gameArea.entities[8].yPos = 120;
-                
-                gameArea.entities[8].width = 600;
-                gameArea.entities[8].height = 191;
-                gameArea.entities[8].src = "./assets/menuAssets/easter2.gif";
-                
-                gameArea.entities[8].xMin = 180;
-                gameArea.entities[8].yMin = 120;
-                gameArea.entities[8].xMax = 180 + 600;
-                gameArea.entities[8].yMax = 120 + 191;
-				break;
-			case 3:
-                gameArea.entities[8].xPos = 180;
-                gameArea.entities[8].yPos = 8;
-                
-                gameArea.entities[8].width = 600;
-                gameArea.entities[8].height = 524;
-				gameArea.entities[8].src = "./assets/menuAssets/easter3.png";
-                
-                gameArea.entities[8].xMin = 180;
-                gameArea.entities[8].yMin = 8;
-                gameArea.entities[8].xMax = 180 + 600;
-                gameArea.entities[8].yMax = 8 + 524;
-				break;
-			case 4:
-                gameArea.entities[8].xPos = 180;
-                gameArea.entities[8].yPos = 120;
-                
-                gameArea.entities[8].width = 600;
-                gameArea.entities[8].height = 190;
-                gameArea.entities[8].src = "./assets/menuAssets/easter4.gif";
-                
-                gameArea.entities[8].xMin = 180;
-                gameArea.entities[8].yMin = 120;
-                gameArea.entities[8].xMax = 180 + 600;
-                gameArea.entities[8].yMax = 120 + 190;
-				break;
-			case 5:
-                gameArea.entities[8].xPos = 180;
-                gameArea.entities[8].yPos = 120;
-                
-                gameArea.entities[8].width = 600;
-                gameArea.entities[8].height = 192;
-                gameArea.entities[8].src = "./assets/menuAssets/easter5.jpg";
-                
-                gameArea.entities[8].xMin = 180;
-                gameArea.entities[8].yMin = 120;
-                gameArea.entities[8].xMax = 180 + 600;
-                gameArea.entities[8].yMax = 120 + 192;
-				break;
-		}
 	}
 
 	/*"Load" sets the stage for the scene and stores
@@ -404,6 +305,7 @@
 				/*Loads leader screen*/
 				clicked : function() {
 					gameArea.entities = [];
+					gameArea.state = 0;
 					gameArea.entities = load.leaderScreen();
 				}
 			}
@@ -426,6 +328,7 @@
 				/*Load guide screen*/
 				clicked : function() {
 					gameArea.entities = [];
+					gameArea.state = 0;
 					gameArea.entities = load.guideScreen();
 				}
 			}
@@ -448,6 +351,7 @@
 				/*Loads settings screen*/
 				clicked : function() {
 					gameArea.entities = [];
+					gameArea.state = 0;
 					gameArea.entities = load.settingScreen();
 				}
 			}
@@ -457,9 +361,17 @@
 				yMin : 174,
 				xMax : 413,
 				yMax : 243,
+				state : false,
 				/*Clickable operator addition*/
 				clicked : function(){
-					easterEgg(1);
+					if (load.clickable[8].state) {
+						load.clickable[6].state = true;
+					} else {
+						load.clickable[9].state = false;
+						load.clickable[8].state = false;
+						load.clickable[7].state = false;
+						load.clickable[6].state = false;
+					}
 				}
 			}
 
@@ -468,9 +380,12 @@
 				yMin : 174,
 				xMax : 479,
 				yMax : 243,
+				state : false,
 				/*Clickable operator subtraction*/
 				clicked : function(){
-					easterEgg(2);
+					if (load.clickable[6].state) {
+						load.clickable[7].state = true;
+					}
 				}
 			}
 
@@ -479,9 +394,17 @@
 				yMin : 174,
 				xMax : 545,
 				yMax : 243,
+				state : false,
 				/*Clickable operator multiplication*/
 				clicked : function(){
-					easterEgg(3);
+					if (load.clickable[9].state) {
+						load.clickable[8].state = true;
+					} else {
+						load.clickable[9].state = false;
+						load.clickable[8].state = false;
+						load.clickable[7].state = false;
+						load.clickable[6].state = false;
+					}
 				}
 			}
 
@@ -490,36 +413,188 @@
 				yMin : 174,
 				xMax : 611,
 				yMax : 243,
+				state : false,
 				/*Clickable operator division*/
 				clicked : function(){
-					easterEgg(4);
-				}
-			}
-			//end of easter egg access elements
-
-			//start of easter egg images element
-            var easter1 = new Image();
-            var myInterval = null;
-			easter1 = {
-				src : "./assets/menuAssets/easter1.gif",
-				width : 640,
-				height : 159,
-				index: 0,
-				clicked : function(){
-					if (myInterval === null) {
-                        myInterval = setInterval(function() {
-                            gameArea.entities[8].width = 0;
-                            gameArea.entities[8].height = 0;
-                            clearInterval(myInterval);
-                            myInterval = null;
-                        }, 10000);
-                    }//on click remove from load.entities.push()
+					load.clickable[9].state = true;
+					load.clickable[8].state = false;
+					load.clickable[7].state = false;
+					load.clickable[6].state = false;
 				}
 			}
 
-			load.entities.push(background, staticImage, timeAtkImage, endlessImage, audioImage, leaderImage, guideImage, settingImage, easter1);
+			load.entities.push(background, staticImage, timeAtkImage, endlessImage, audioImage, leaderImage, guideImage, settingImage);
 
-			load.clickable.push(timeAtkBox, endlessBox, audioBox, leaderBox, guideBox, settingBox, symbolAdd, symbolMinus, symbolMulti, symbolDivide, easter1);
+			load.clickable.push(timeAtkBox, endlessBox, audioBox, leaderBox, guideBox, settingBox, symbolAdd, symbolMinus, symbolMulti, symbolDivide);
+
+			return load.entities;
+		},
+		easterScreen : function(comicNum) {//Loads menu screen objects
+			load.clear();
+
+			var background = new Image();
+			background = {
+				src : "./assets/menuAssets/background.png",
+				width : 960,
+				height : 540,
+				xPos : 0,
+				yPos : 0,
+				index: 0
+			}
+
+			var staticImage = new Image();
+			staticImage = {
+				src : "./assets/menuAssets/staticBackground.png",
+				width : 960,
+				height : 540,
+				xPos : 0,
+				yPos : 0,
+				index: 0
+			}
+
+			var timeAtkImage = new Image();
+			timeAtkImage = {
+				src : "./assets/menuAssets/timeAttackButton.png",
+				width : 480,
+				height : 130,
+				xPos : 0,
+				yPos : 270,
+				index: 0
+			}
+			
+			var endlessImage = new Image();
+			endlessImage = {
+				src : "./assets/menuAssets/endlessButton.png",
+				width : 480,
+				height : 130,
+				xPos : 480,
+				yPos : 270,
+				index: 0
+			}
+			
+			var audioImage = new Image();
+			audioImage = {
+				src : "./assets/menuAssets/audioButton.png",
+				width : 126,
+				height : 126,
+				xPos : 834,
+				yPos : 0,
+				index: (function() {
+					if (gameArea.sound) {
+						return 0;
+					} else {
+						return 1;
+					}
+				})(),
+				frames: 2
+			}
+
+			var leaderImage = new Image();
+			leaderImage = {
+				src : "./assets/menuAssets/leaderButton.png",
+				width : 329,
+				height : 140,
+				xPos : 631,
+				yPos : 400,
+				index: 0
+			}
+
+			var guideImage = new Image();
+			guideImage = {
+				src : "./assets/menuAssets/guideButton.png",
+				width : 300,
+				height : 140,
+				xPos : 331,
+				yPos : 400,
+				index: 0
+			}
+
+			var settingImage = new Image();
+			settingImage = {
+				src : "./assets/menuAssets/settingButton.png",
+				width : 331,
+				height : 140,
+				xPos : 0,
+				yPos : 400,
+				index: 0
+			}
+
+			var exitEaster = {
+				xMin : 0,
+				yMin : 0,
+				xMax : 960,
+				yMax : 540,
+				/*Exit easter egg*/
+				clicked : function() {
+					gameArea.entities = [];
+					gameArea.state = 3;
+					gameArea.entities = load.menuScreen();
+				}
+			}
+
+			var rng = comicNum;
+
+			switch (rng) {
+				case 1:
+					var easterImage = new Image();
+					easterImage = {
+						src : "./assets/menuAssets/easter1.gif",
+						width : 640,
+						height : 159,
+						xPos : 160,
+						yPos : 120,
+						index: 0
+					}
+					break;
+				case 2:
+					var easterImage = new Image();
+					easterImage = {
+						src : "./assets/menuAssets/easter2.gif",
+						width : 600,
+						height : 191,
+						xPos : 180,
+						yPos : 120,
+						index: 0
+					}
+					break;
+				case 3:
+					var easterImage = new Image();
+					easterImage = {
+						src : "./assets/menuAssets/easter3.png",
+						width : 600,
+						height : 524,
+						xPos : 180,
+						yPos : 8,
+						index: 0
+					}
+					break;
+				case 4:
+					var easterImage = new Image();
+					easterImage = {
+						src : "./assets/menuAssets/easter4.gif",
+						width : 600,
+						height : 190,
+						xPos : 180,
+						yPos : 120,
+						index: 0
+					}
+					break;
+				case 5:
+					var easterImage = new Image();
+					easterImage = {
+						src : "./assets/menuAssets/easter5.jpg",
+						width : 600,
+						height : 192,
+						xPos : 180,
+						yPos : 120,
+						index: 0
+					}
+					break;
+			}
+
+			load.entities.push(background, staticImage, timeAtkImage, endlessImage, audioImage, leaderImage, guideImage, settingImage, easterImage);
+
+			load.clickable.push(exitEaster);
 
 			return load.entities;
 		},
@@ -605,7 +680,7 @@
 				/*Loads menu screen*/
 				clicked : function() {
 					gameArea.entities = [];
-					gameArea.state = 0;
+					gameArea.state = 3;
 					gameArea.refTime = 0;
 					gameArea.score = 0;
 					gameArea.entities = load.menuScreen();
@@ -639,31 +714,19 @@
 				caseOp : 1,
 				isDraggable : true,
 				isClicked : false,
-				parameter : " + "
-			}
-
-			var plusOp2 = new Image();
-			plusOp2 = {
-				src : "./assets/gameAssets/plusOperator.png",
-				width : 80,
-				height : 80,
-				index : 0
-			}
-
-			var plusOp3 = new Image();
-			plusOp3 = {
-				src : "./assets/gameAssets/plusOperator.png",
-				width : 80,
-				height : 80,
-				index : 0
-			}
-
-			var plusOp4 = new Image();
-			plusOp4 = {
-				src : "./assets/gameAssets/plusOperator.png",
-				width : 80,
-				height : 80,
-				index : 0
+				parameter : " + ",
+				z : 1,
+				drop : function() {
+					window["plusOp" + this.caseOp] = {
+						src : "./assets/gameAssets/plusOperator.png",
+						width : 80,
+						height : 80,
+						index : 0,
+						position : 0
+					}
+					gameArea.entities.push(window["plusOp" + this.caseOp]);
+					this.caseOp += 1;
+				}
 			}
 			
 			var minusOperator = new Image();
@@ -683,31 +746,19 @@
 				caseOp : 1,
 				isDraggable : true,
 				isClicked : false,
-				parameter : "-"
-			}
-
-			var minusOp2 = new Image();
-			minusOp2 = {
-				src : "./assets/gameAssets/minusOperator.png",
-				width : 80,
-				height : 80,
-				index : 0
-			}
-
-			var minusOp3 = new Image();
-			minusOp3 = {
-				src : "./assets/gameAssets/minusOperator.png",
-				width : 80,
-				height : 80,
-				index : 0
-			}
-
-			var minusOp4 = new Image();
-			minusOp4 = {
-				src : "./assets/gameAssets/minusOperator.png",
-				width : 80,
-				height : 80,
-				index : 0
+				parameter : "-",
+				z : 1,
+				drop : function() {
+					window["minusOp" + this.caseOp] = {
+						src : "./assets/gameAssets/minusOperator.png",
+						width : 80,
+						height : 80,
+						index : 0,
+						position : 0
+					}
+					gameArea.entities.push(window["minusOp" + this.caseOp]);
+					this.caseOp += 1;
+				}
 			}
 
 			var multiOperator = new Image();
@@ -727,31 +778,19 @@
 				caseOp : 1,
 				isDraggable : true,
 				isClicked : false,
-				parameter : "*"
-			}
-
-			var multiOp2 = new Image();
-			multiOp2 = {
-				src : "./assets/gameAssets/multiOperator.png",
-				width : 80,
-				height : 80,
-				index : 0
-			}
-
-			var multiOp3 = new Image();
-			multiOp3 = {
-				src : "./assets/gameAssets/multiOperator.png",
-				width : 80,
-				height : 80,
-				index : 0
-			}
-
-			var multiOp4 = new Image();
-			multiOp4 = {
-				src : "./assets/gameAssets/multiOperator.png",
-				width : 80,
-				height : 80,
-				index : 0
+				parameter : "*",
+				z : 1,
+				drop : function() {
+					window["multiOp" + this.caseOp] = {
+						src : "./assets/gameAssets/multiOperator.png",
+						width : 80,
+						height : 80,
+						index : 0,
+						position : 0
+					}
+					gameArea.entities.push(window["multiOp" + this.caseOp]);
+					this.caseOp += 1;
+				}
 			}
 
 			var divOperator = new Image();
@@ -771,31 +810,19 @@
 				caseOp : 1,
 				isDraggable : true,
 				isClicked : false,
-				parameter : "/"
-			}
-
-			var divOp2 = new Image();
-			divOp2 = {
-				src : "./assets/gameAssets/divOperator.png",
-				width : 80,
-				height : 80,
-				index : 0
-			}
-
-			var divOp3 = new Image();
-			divOp3 = {
-				src : "./assets/gameAssets/divOperator.png",
-				width : 80,
-				height : 80,
-				index : 0
-			}
-
-			var divOp4 = new Image();
-			divOp4 = {
-				src : "./assets/gameAssets/divOperator.png",
-				width : 80,
-				height : 80,
-				index : 0
+				parameter : "/",
+				z : 1,
+				drop : function() {
+					window["divOp" + this.caseOp] = {
+						src : "./assets/gameAssets/divOperator.png",
+						width : 80,
+						height : 80,
+						index : 0,
+						position : 0
+					}
+					gameArea.entities.push(window["divOp" + this.caseOp]);
+					this.caseOp += 1;
+				}
 			}
 
 			var firstDrop = {
@@ -804,7 +831,8 @@
 				xMax : 280,
 				yMax : 358,
 				isFilled : false,
-				parameter : ""
+				parameter : "",
+				position : 1
 			}
 
 			var secondDrop = {
@@ -813,7 +841,8 @@
 				xMax : 520,
 				yMax : 358,
 				isFilled : false,
-				parameter : ""
+				parameter : "",
+				position : 2
 			}
 
 			var thirdDrop = {
@@ -822,7 +851,8 @@
 				xMax : 760,
 				yMax : 358,
 				isFilled : false,
-				parameter : ""
+				parameter : "",
+				position : 3
 			}
 
 			var timerString = {
@@ -838,8 +868,9 @@
 			var card1 = {
 				font : "px Calibri",
 				sizeInit : 200,
-				xPos : 70,
-				yPos : 372,
+				xPos : 67,
+				xInit : 67,
+				yPos : 378,
 				parameter : 0,
 				maxWidth : 141,
 				colour : "#FFFFFF"
@@ -848,8 +879,9 @@
 			var card2 = {
 				font : "px Calibri",
 				sizeInit : 200,
-				xPos : 310,
-				yPos : 372,
+				xPos : 307,
+				xInit : 307,
+				yPos : 378,
 				parameter : 0,
 				maxWidth : 141,
 				colour : "#FFFFFF"
@@ -858,8 +890,9 @@
 			var card3 = {
 				font : "px Calibri",
 				sizeInit : 200,
-				xPos : 551,
-				yPos : 372,
+				xPos : 548,
+				xInit : 548,
+				yPos : 378,
 				parameter : 0,
 				maxWidth : 141,
 				colour : "#FFFFFF"
@@ -868,14 +901,15 @@
 			var card4 = {
 				font : "px Calibri",
 				sizeInit : 200,
-				xPos : 791,
-				yPos : 372,
+				xPos : 788,
+				xInit : 788,
+				yPos : 378,
 				parameter : 0,
 				maxWidth : 141,
 				colour : "#FFFFFF"
 			}
 
-			load.entities.push(background, gameBorderImage, scoreImage, cardsImage, quitImage, skipImage, plusOperator, plusOp2, plusOp3, plusOp4, minusOperator, minusOp2, minusOp3, minusOp4, multiOperator, multiOp2, multiOp3, multiOp4, divOperator, divOp2, divOp3, divOp4);
+			load.entities.push(background, gameBorderImage, scoreImage, cardsImage, quitImage, skipImage, plusOperator, minusOperator, multiOperator, divOperator);
 			load.clickable.push(quitBox);
 			load.droppable.push(firstDrop, secondDrop, thirdDrop);
 			load.strings.push(timerString, card1, card2, card3, card4);
@@ -914,28 +948,24 @@
 							load.problem = getProblem(timeAttackDifficulty(gameArea.score + 1, gameArea.difficulty), gameArea.difficulty);
 							for (var i = 0; i < load.problem.length; i++) {
 								load.strings[i + 1].parameter = load.problem[i];
+								if (load.problem[i] > 9) {
+									load.strings[i + 1].xPos = load.strings[i + 1].xInit - (load.strings[i + 1].maxWidth / 6);
+								} else {
+									load.strings[i + 1].xPos = load.strings[i + 1].xInit;
+								}
 							}
 							for (var i = 0; i < load.droppable.length; i++) {
+								if (load.droppable[i].isFilled) {
+									gameArea.entities.pop();
+								}
 								load.droppable[i].parameter = "";
 								load.droppable[i].isFilled = false;
 							}
 
 							gameArea.entities[6].caseOp = 1;
-							gameArea.entities[7].xPos = -100;
-							gameArea.entities[8].xPos = -100;
-							gameArea.entities[9].xPos = -100;
-							gameArea.entities[10].caseOp = 1;
-							gameArea.entities[11].xPos = -100;
-							gameArea.entities[12].xPos = -100;
-							gameArea.entities[13].xPos = -100;
-							gameArea.entities[14].caseOp = 1;
-							gameArea.entities[15].xPos = -100;
-							gameArea.entities[16].xPos = -100;
-							gameArea.entities[17].xPos = -100;
-							gameArea.entities[18].caseOp = 1;
-							gameArea.entities[19].xPos = -100;
-							gameArea.entities[20].xPos = -100;
-							gameArea.entities[21].xPos = -100;
+							gameArea.entities[7].caseOp = 1;
+							gameArea.entities[8].caseOp = 1;
+							gameArea.entities[9].caseOp = 1;
 						}
 					}
 
@@ -991,6 +1021,7 @@
 				/*Loads menu screen*/
 				clicked : function() {
 					gameArea.entities = [];
+					gameArea.state = 3;
 					gameArea.entities = load.menuScreen();
 				}
 			}
@@ -1121,6 +1152,7 @@
 
 
 			load.entities.push(background, border, quitImage, settingsTitle, difficultyWindow, difficultyOptions, audioWindow, audioOptions);
+
 			load.clickable.push(quitBox, easyBox, hardBox, onBox, offBox);
 
 			return load.entities;
@@ -1157,6 +1189,7 @@
 				/*Loads menu screen*/
 				clicked : function() {
 					gameArea.entities = [];
+					gameArea.state = 3;
 					gameArea.entities = load.menuScreen();
 				}
 			}
@@ -1198,6 +1231,7 @@
 				/*Loads menu screen*/
 				clicked : function() {
 					gameArea.entities = [];
+					gameArea.state = 3;
 					gameArea.entities = load.menuScreen();
 				}
 			}
@@ -1275,6 +1309,7 @@
 					gameArea.entities = [];
 					gameArea.refTime = 0;
 					gameArea.score = 0;
+					gameArea.state = 3;
 					gameArea.entities = load.menuScreen();
 				}
 			}
@@ -1313,120 +1348,131 @@
 
 		switch(gameArea.state) {
 			case 1: //time attack logic
-				gameArea.refTime += dt;
 
-				if (gameArea.refTime > 1 && gameArea.entities.length == 2 && gameArea.entities[1].index < gameArea.entities[1].frames - 1) {
-					gameArea.refTime -= 1;
-					gameArea.entities[1].index += 1;
-				} else if (gameArea.refTime > 1 && gameArea.entities.length == 2 && gameArea.entities[1].index == gameArea.entities[1].frames - 1) {
-					gameArea.entities = [];
-					gameArea.refTime = 0;
-					gameArea.entities = load.gameScreen();
-					load.problem = getProblem(timeAttackDifficulty(gameArea.score + 1, gameArea.difficulty), gameArea.difficulty);
-					for (var i = 0; i < load.problem.length; i++) {
-						load.strings[i + 1].parameter = load.problem[i];
+
+			gameArea.refTime += dt;
+
+			if (gameArea.refTime > 1 && gameArea.entities.length == 2 && gameArea.entities[1].index < gameArea.entities[1].frames - 1) {
+				gameArea.refTime -= 1;
+				gameArea.entities[1].index += 1;
+			} else if (gameArea.refTime > 1 && gameArea.entities.length == 2 && gameArea.entities[1].index == gameArea.entities[1].frames - 1) {
+				gameArea.entities = [];
+				gameArea.refTime = 0;
+				gameArea.entities = load.gameScreen();
+				load.problem = getProblem(timeAttackDifficulty(gameArea.score + 1, gameArea.difficulty), gameArea.difficulty);
+				for (var i = 0; i < load.problem.length; i++) {
+					load.strings[i + 1].parameter = load.problem[i];
+					if (load.problem[i] > 9) {
+						load.strings[i + 1].xPos = load.strings[i + 1].xInit - (load.strings[i + 1].maxWidth / 6);
+					} else {
+						load.strings[i + 1].xPos = load.strings[i + 1].xInit;
 					}
-				} else if (load.strings.length > 0) {//loaded game logic
-					if (gameArea.entities[3].ticks != 0) {
-						gameArea.entities[3].ticks += 1;
-					}
-					if (gameArea.entities[3].ticks > gameArea.entities[3].ticksPer) {
-						gameArea.entities[3].index = 0;
-						gameArea.entities[3].ticks = 0;
-					}
+				}
+			} else if (load.strings.length > 0) {//loaded game logic
+				if (gameArea.entities[3].ticks != 0) {
+					gameArea.entities[3].ticks += 1;
+				}
+				if (gameArea.entities[3].ticks > gameArea.entities[3].ticksPer) {
+					gameArea.entities[3].index = 0;
+					gameArea.entities[3].ticks = 0;
+				}
 
-					load.strings[0].parameter = ((Math.floor(gameArea.refTime * 10) / 10));
-					if (load.droppable[0].isFilled && load.droppable[1].isFilled && load.droppable[2].isFilled) {
+				load.strings[0].parameter = ((Math.floor(gameArea.refTime * 10) / 10));
+				if (load.droppable[0].isFilled && load.droppable[1].isFilled && load.droppable[2].isFilled) {
 
-						if (validate(load.strings[1].parameter, load.strings[2].parameter, load.strings[3].parameter, load.strings[4].parameter, load.droppable[0].parameter, load.droppable[1].parameter, load.droppable[2].parameter)) {
+					if (validate(load.strings[1].parameter, load.strings[2].parameter, load.strings[3].parameter, load.strings[4].parameter, load.droppable[0].parameter, load.droppable[1].parameter, load.droppable[2].parameter)) {
 
-							gameArea.entities[3].index = 1;
-							gameArea.entities[3].ticks = 1;
-							gameArea.score += 1;
+						gameArea.entities[3].index = 1;
+						gameArea.entities[3].ticks = 1;
+						gameArea.score += 1;
 
-							if (gameArea.score == 10) {
-								gameArea.entities = [];
-								gameArea.state = 0;
-								gameArea.entities = load.scoreScreen();
-								load.strings[0].parameter = ((Math.floor(gameArea.refTime * 10) / 10));
-								load.strings[1].parameter = gameArea.score;
-								gameArea.canvas.focus();
-							} else {
-								gameArea.entities[22].index = gameArea.score;
-								load.problem = [];
-								load.problem = getProblem(timeAttackDifficulty(gameArea.score + 1, gameArea.difficulty), gameArea.difficulty);
-								for (var i = 0; i < load.problem.length; i++) {
-									load.strings[i + 1].parameter = load.problem[i];
-								}
-								for (var i = 0; i < load.droppable.length; i++) {
-									load.droppable[i].parameter = "";
-									load.droppable[i].isFilled = false;
-								}
-
-								gameArea.entities[6].caseOp = 1;
-								gameArea.entities[7].xPos = -100;
-								gameArea.entities[8].xPos = -100;
-								gameArea.entities[9].xPos = -100;
-								gameArea.entities[10].caseOp = 1;
-								gameArea.entities[11].xPos = -100;
-								gameArea.entities[12].xPos = -100;
-								gameArea.entities[13].xPos = -100;
-								gameArea.entities[14].caseOp = 1;
-								gameArea.entities[15].xPos = -100;
-								gameArea.entities[16].xPos = -100;
-								gameArea.entities[17].xPos = -100;
-								gameArea.entities[18].caseOp = 1;
-								gameArea.entities[19].xPos = -100;
-								gameArea.entities[20].xPos = -100;
-								gameArea.entities[21].xPos = -100;
-							}
+						if (gameArea.score == 10) {
+							gameArea.entities = [];
+							gameArea.state = 0;
+							gameArea.entities = load.scoreScreen();
+							load.strings[0].parameter = ((Math.floor(gameArea.refTime * 10) / 10));
+							load.strings[1].parameter = gameArea.score;
+							gameArea.canvas.focus();
 						} else {
-
-							gameArea.entities[3].index = 2;
-							gameArea.entities[3].ticks = 1;
-
+							gameArea.entities[10].index = gameArea.score;
+							load.problem = [];
+							load.problem = getProblem(timeAttackDifficulty(gameArea.score + 1, gameArea.difficulty), gameArea.difficulty);
+							for (var i = 0; i < load.problem.length; i++) {
+								load.strings[i + 1].parameter = load.problem[i];
+								if (load.problem[i] > 9) {
+									load.strings[i + 1].xPos = load.strings[i + 1].xInit - (load.strings[i + 1].maxWidth / 6);
+								} else {
+									load.strings[i + 1].xPos = load.strings[i + 1].xInit;
+								}
+							}
 							for (var i = 0; i < load.droppable.length; i++) {
 								load.droppable[i].parameter = "";
 								load.droppable[i].isFilled = false;
 							}
 
 							gameArea.entities[6].caseOp = 1;
-							gameArea.entities[7].xPos = -100;
-							gameArea.entities[8].xPos = -100;
-							gameArea.entities[9].xPos = -100;
-							gameArea.entities[10].caseOp = 1;
-							gameArea.entities[11].xPos = -100;
-							gameArea.entities[12].xPos = -100;
-							gameArea.entities[13].xPos = -100;
-							gameArea.entities[14].caseOp = 1;
-							gameArea.entities[15].xPos = -100;
-							gameArea.entities[16].xPos = -100;
-							gameArea.entities[17].xPos = -100;
-							gameArea.entities[18].caseOp = 1;
-							gameArea.entities[19].xPos = -100;
-							gameArea.entities[20].xPos = -100;
-							gameArea.entities[21].xPos = -100;
+							gameArea.entities[7].caseOp = 1;
+							gameArea.entities[8].caseOp = 1;
+							gameArea.entities[9].caseOp = 1;
+							gameArea.entities.pop();
+							gameArea.entities.pop();
+							gameArea.entities.pop();
 						}
+					} else {
+
+						gameArea.entities[3].index = 2;
+						gameArea.entities[3].ticks = 1;
+
+						for (var i = 0; i < load.droppable.length; i++) {
+							load.droppable[i].parameter = "";
+							load.droppable[i].isFilled = false;
+						}
+
+						gameArea.entities[6].caseOp = 1;
+						gameArea.entities[7].caseOp = 1;
+						gameArea.entities[8].caseOp = 1;
+						gameArea.entities[9].caseOp = 1;
+						gameArea.entities.pop();
+						gameArea.entities.pop();
+						gameArea.entities.pop();
+						
 					}
 				}
-				break;
+			}
+			break;
+
+
 			case 2: //endless logic
-				gameArea.refTime += dt;
 
-				
-				if (gameArea.refTime > 1 && gameArea.entities.length == 2 && gameArea.entities[1].index < gameArea.entities[1].frames - 1) {
-					gameArea.refTime -= 1;
-					gameArea.entities[1].index += 1;
-				} else if (gameArea.refTime > 1 && gameArea.entities.length == 2 && gameArea.entities[1].index == gameArea.entities[1].frames - 1) {
-					gameArea.entities = [];
-					gameArea.refTime = 0;
-					gameArea.entities = load.gameScreen();
-				} else if (load.strings.length > 0) {//loaded game logic
-					load.strings[0].parameter = ((Math.floor(gameArea.refTime * 10) / 10));
-				}
-				break;
+
+			gameArea.refTime += dt;
+
+			
+			if (gameArea.refTime > 1 && gameArea.entities.length == 2 && gameArea.entities[1].index < gameArea.entities[1].frames - 1) {
+				gameArea.refTime -= 1;
+				gameArea.entities[1].index += 1;
+			} else if (gameArea.refTime > 1 && gameArea.entities.length == 2 && gameArea.entities[1].index == gameArea.entities[1].frames - 1) {
+				gameArea.entities = [];
+				gameArea.refTime = 0;
+				gameArea.entities = load.gameScreen();
+			} else if (load.strings.length > 0) {//loaded game logic
+				load.strings[0].parameter = ((Math.floor(gameArea.refTime * 10) / 10));
+			}
+			break;
+
+
+			case 3://easter egg menu logic
+
+
+			if (load.clickable[6].state && load.clickable[7].state && load.clickable[8].state && load.clickable[9].state) {
+				gameArea.state = 0;
+				var rng = Math.floor((Math.random() * 5) + 1);
+				gameArea.entities = [];
+				gameArea.entities = load.easterScreen(rng);
+			}
+			break;
+
 			default: //null logic
-
 		}
 
 		handleInput(dt);
@@ -1568,17 +1614,36 @@
 						&& (gameArea.entities[i].xPos * gameArea.ratioX) <= (load.droppable[d].xMax * gameArea.ratioX)
 						&& (gameArea.entities[i].yPos * gameArea.ratioY) >= (load.droppable[d].yMin * gameArea.ratioY)
 						&& (gameArea.entities[i].yPos * gameArea.ratioY) <= (load.droppable[d].yMax * gameArea.ratioY)))
-						&& gameArea.entities[i].isClicked
-						&& load.droppable[d].isFilled == false) {
+						&& gameArea.entities[i].isClicked) {
 
-						gameArea.entities[i + gameArea.entities[i].caseOp].xPos = load.droppable[d].xMin;
-						gameArea.entities[i + gameArea.entities[i].caseOp].yPos = load.droppable[d].yMin;
-						gameArea.entities[i].caseOp += 1;
-						gameArea.entities[i].xPos = gameArea.entities[i].xInit;
-						gameArea.entities[i].yPos = gameArea.entities[i].yInit;
-						gameArea.entities[i].isClicked = false;
-						load.droppable[d].isFilled = true;
-						load.droppable[d].parameter = gameArea.entities[i].parameter;
+						
+
+						if (load.droppable[d].isFilled) {
+							for (var pos = 0; pos < gameArea.entities.length; pos++) {
+								if (load.droppable[d].position == gameArea.entities[pos].position) {
+									gameArea.entities.splice(pos, 1);
+									gameArea.entities[i].drop();
+									gameArea.entities[gameArea.entities.length - 1].xPos = load.droppable[d].xMin;
+									gameArea.entities[gameArea.entities.length - 1].yPos = load.droppable[d].yMin;
+									gameArea.entities[gameArea.entities.length - 1].position = load.droppable[d].position;
+									gameArea.entities[i].xPos = gameArea.entities[i].xInit;
+									gameArea.entities[i].yPos = gameArea.entities[i].yInit;
+									gameArea.entities[i].isClicked = false;
+									load.droppable[d].parameter = gameArea.entities[i].parameter;
+									load.droppable[d].isFilled = true;
+								}
+							}
+						} else {
+							gameArea.entities[i].drop();
+							gameArea.entities[gameArea.entities.length - 1].xPos = load.droppable[d].xMin;
+							gameArea.entities[gameArea.entities.length - 1].yPos = load.droppable[d].yMin;
+							gameArea.entities[gameArea.entities.length - 1].position = load.droppable[d].position;
+							gameArea.entities[i].xPos = gameArea.entities[i].xInit;
+							gameArea.entities[i].yPos = gameArea.entities[i].yInit;
+							gameArea.entities[i].isClicked = false;
+							load.droppable[d].parameter = gameArea.entities[i].parameter;
+							load.droppable[d].isFilled = true;
+						}
 					}
 				}
 				if (gameArea.entities[i].isClicked) {
