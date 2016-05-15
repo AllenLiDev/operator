@@ -5,31 +5,41 @@
     <script>
         /*
         getScores().
-        retrieves top 5 scores
+        retrieves top 5 scores for time attack
         */
         function getScores() {
-            var namesEasy;
-            var namesHard;
-            var scoresEasy;
-            var scoresHard;
+            var namesTimeEasy;
+            var namesTimeHard;
+            var scoresTimeEasy;
+            var scoresTimeHard;
+            var namesMarathonEasy;
+            var namesMarathonHard;
+            var scoresMarathonEasy;
+            var scoresMarathonHard;
             $.ajax({
                 async: false,
                 type: "GET",
                 url: "getScores.php",
                 dataType: "json",
                 success: function(data) {
-                    namesEasy = data.namesEasy;
-                    scoresEasy = data.scoresEasy;
-                    namesHard = data.namesHard;
-                    scoresHard = data.scoresHard;
+                    namesTimeEasy = data.namesTimeEasy;
+                    scoresTimeEasy = data.scoresTimeEasy;
+                    namesTimeHard = data.namesTimeHard;
+                    scoresTimeHard = data.scoresTimeHard;
+                    namesMarathonEasy = data.namesMarathonEasy;
+                    scoresMarathonEasy = data.scoresMarathonEasy;
+                    namesMarathonHard = data.namesMarathonHard;
+                    scoresMarathonHard = data.scoresMarathonHard;
                 }
             });
-            return [namesEasy, scoresEasy, namesHard, scoresHard];
+            return [namesTimeEasy, scoresTimeEasy, namesTimeHard, scoresTimeHard,
+                namesMarathonEasy, scoresMarathonEasy, namesMarathonHard, scoresMarathonHard];
         }
         
         function test() {
             var test = getScores();
-            alert(test[0] + "" + test[1] + "\n" + test[2] + "" + test[3]);
+            alert(test[0] + "" + test[1] + "\n" + test[2] + "" + test[3] + "\n" +
+                test[4] + "" + test[5] + "\n" + test[6] + "" + test[7]);
         }
     </script>
 </head>

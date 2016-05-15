@@ -17,31 +17,58 @@ if ($conn->connect_error) {
 
 $time9sql = "SELECT * FROM `TimeAttackScores1-9` ORDER BY `score` ASC LIMIT 5";
 $time13sql = "SELECT * FROM `TimeAttackScores1-13` ORDER BY `score` ASC LIMIT 5";
+$marathon9sql = "SELECT * FROM `MarathonScores1-9` ORDER BY `score` DESC LIMIT 5";
+$marathon13sql = "SELECT * FROM `MarathonScores1-13` ORDER BY `score` DESC LIMIT 5";
 
-$namesEasy = array();
-$scoresEasy = array();
-$namesHard = array();
-$scoresHard = array();
+$namesTimeEasy = array();
+$scoresTimeEasy = array();
+$namesTimeHard = array();
+$scoresTimeHard = array();
+
+$namesMarathonEasy = array();
+$scoresMarathonEasy = array();
+$namesMarathonHard = array();
+$scoresMarathonHard = array();
 
 $time9 = $conn->query($time9sql);
 $time13 = $conn->query($time13sql);
+$marathon9 = $conn->query($marathon9sql);
+$marathon13 = $conn->query($marathon13sql);
 
 while ($row = $time9->fetch_assoc()) {
-    global $namesEasy;
-    global $scoresEasy;
-    array_push($namesEasy, $row["name"]);
-    array_push($scoresEasy, $row["score"]);
+    global $namesTimeEasy;
+    global $scoresTimeEasy;
+    array_push($namesTimeEasy, $row["name"]);
+    array_push($scoresTimeEasy, $row["score"]);
 }
 
 while ($row13 = $time13->fetch_assoc()) {
-    global $namesHard;
-    global $scoresHard;
-    array_push($namesHard, $row13["name"]);
-    array_push($scoresHard, $row13["score"]);
+    global $namesTimeHard;
+    global $scoresTimeHard;
+    array_push($namesTimeHard, $row13["name"]);
+    array_push($scoresTimeHard, $row13["score"]);
 }
 
-echo json_encode(array("namesEasy"=>$namesEasy,
-                        "scoresEasy"=>$scoresEasy,
-                        "namesHard"=>$namesHard,
-                        "scoresHard"=>$scoresHard));
+while ($row = $marathon9->fetch_assoc()) {
+    global $namesMarathonEasy;
+    global $scoresMarathonEasy;
+    array_push($namesMarathonEasy, $row["name"]);
+    array_push($scoresMarathonEasy, $row["score"]);
+}
+
+while ($row13 = $marathon13->fetch_assoc()) {
+    global $namesMarathonHard;
+    global $scoresMarathonHard;
+    array_push($namesMarathonHard, $row13["name"]);
+    array_push($scoresMarathonHard, $row13["score"]);
+}
+
+echo json_encode(array("namesTimeEasy"=>$namesTimeEasy,
+                        "scoresTimeEasy"=>$scoresTimeEasy,
+                        "namesTimeHard"=>$namesTimeHard,
+                        "scoresTimeHard"=>$scoresTimeHard,
+                        "namesMarathonEasy"=>$namesMarathonEasy,
+                        "scoresMarathonEasy"=>$scoresMarathonEasy,
+                        "namesMarathonHard"=>$namesMarathonHard,
+                        "scoresMarathonHard"=>$scoresMarathonHard));
 ?>
