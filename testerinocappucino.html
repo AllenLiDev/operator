@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="https://cdn.jsdelivr.net/jquery/3.0.0-beta1/jquery.min.js"></script>
+    <script>
+        /*
+        getScores().
+        retrieves top 5 scores
+        */
+        function getScores() {
+            var namesEasy;
+            var namesHard;
+            var scoresEasy;
+            var scoresHard;
+            $.ajax({
+                async: false,
+                type: "GET",
+                url: "getScores.php",
+                dataType: "json",
+                success: function(data) {
+                    namesEasy = data.namesEasy;
+                    scoresEasy = data.scoresEasy;
+                    namesHard = data.namesHard;
+                    scoresHard = data.scoresHard;
+                }
+            });
+            return [namesEasy, scoresEasy, namesHard, scoresHard];
+        }
+        
+        function test() {
+            var test = getScores();
+            alert(test[0] + "" + test[1] + "\n" + test[2] + "" + test[3]);
+        }
+    </script>
+</head>
+<body>
+    <div onclick="test()">
+        click me
+    </div>
+</body>
+</html>
