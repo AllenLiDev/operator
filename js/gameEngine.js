@@ -20,7 +20,7 @@ var gameArea = {
 	difficulty : 0,
 	score : 0,
 	sound : true,
-	init : function() {//Sets the initial gameArea and starts the game loop
+	init : function() {//Sets the initial gameArea, starts the game loop
 		this.canvas.width = window.innerWidth;
 		this.canvas.height = window.innerHeight;
 		this.ratioX = this.canvas.width / gameArea.WIDTH;
@@ -46,7 +46,7 @@ var gameArea = {
 		this.lastTime = Date.now();
 		main();
 	},
-	resize : function() {//Resize the canvas to window and sets new aspect ratio
+	resize : function() {//Resize the canvas to window, sets new aspect ratio
 		this.canvas.width = window.innerWidth;
 		this.canvas.height = window.innerHeight;
 		gameArea.ratioX = this.canvas.width / gameArea.WIDTH;
@@ -79,7 +79,7 @@ var gameArea = {
 			}
 			this.ctx.scale(1 / this.ratioX, 1 / this.ratioY);
 		}
-		for (var i = 0; i < this.entities.length; i++) {
+		for (var i = 0; i < this.entities.length; i++) {//Z-index correction loop
 			if (this.entities[i].z == 1) {
 				var img = new Image();
 				img.src = this.entities[i].src;
@@ -95,11 +95,11 @@ var gameArea = {
 }
 
 /*Update cycle - frame and data manager:
-Determines length of time in last cycle,
-Updates data,
-Render images to 2D Canvas context,
-Sets new time,
-Restarts Loop*/
+- Calculate DT since last cycle
+- Updates entity data
+- Render images to 2D Canvas context
+- Sets new refernce frame
+- Restarts loop*/
 function main() {
 	var now = Date.now();
 	var dt = (now - gameArea.lastTime) / 1000.0;
@@ -116,7 +116,9 @@ function main() {
 //****************************************************************//
 
 /*Handles state logic for:
-Time Attack, Endless Mode, and the Easter Egg*/
+- Time Attack
+- Endless Mode
+- Easter Egg*/
 function update(dt) {
 	gameArea.gameTime += dt;
 
@@ -151,7 +153,12 @@ function update(dt) {
 					gameArea.entities[3].ticks = 0;
 				}
 
-				load.strings[0].parameter = ((Math.floor(gameArea.refTime * 10) / 10));
+				if (isNaN((Math.floor(gameArea.refTime * 10) % (Math.floor(gameArea.refTime) * 10)))) {
+					load.strings[0].parameter = Math.floor(gameArea.refTime) + "." + Math.floor(gameArea.refTime * 10);
+				} else {
+					load.strings[0].parameter = Math.floor(gameArea.refTime) + "." + (Math.floor(gameArea.refTime * 10) % (Math.floor(gameArea.refTime) * 10));
+				}
+				
 				if (load.droppable[0].isFilled && load.droppable[1].isFilled && load.droppable[2].isFilled) {
 
 					if (validate(load.strings[1].parameter, load.strings[2].parameter, load.strings[3].parameter, load.strings[4].parameter, load.droppable[0].parameter, load.droppable[1].parameter, load.droppable[2].parameter)) {
@@ -164,7 +171,7 @@ function update(dt) {
 							gameArea.entities = [];
 							gameArea.state = 0;
 							gameArea.entities = load.scoreScreen();
-							load.strings[0].parameter = ((Math.floor(gameArea.refTime * 10) / 10));
+							load.strings[0].parameter = Math.floor(gameArea.refTime) + "." + (Math.floor(gameArea.refTime * 10) % (Math.floor(gameArea.refTime) * 10));
 							load.strings[1].parameter = gameArea.score;
 							gameArea.canvas.focus();
 						} else {
@@ -206,10 +213,89 @@ function update(dt) {
 			}
 			break;
 
-		case 2: //Endless logic
+		case 2: //Endless logic ONLY DIFFERENCE SO FAR IS DIFFICULTY CURVE
 
 			gameArea.refTime += dt;
 
+			/*Naive animation update for preloading screen*/
+			if (gameArea.refTime > 1 && gameArea.entities.length == 2 && gameArea.entities[1].index < gameArea.entities[1].frames - 1) {
+				gameArea.refTime -= 1;
+				gameArea.entities[1].index += 1;
+			} else if (gameArea.refTime > 1 && gameArea.entities.length == 2 && gameArea.entities[1].index == gameArea.entities[1].frames - 1) {
+				gameArea.entities = [];
+				gameArea.refTime = 0;
+				gameArea.entities = load.gameScreen();
+				getProblem(difficultyCurve(gameArea.score + 1, gameArea.difficulty), gameArea.difficulty);
+			} else if (load.strings.length > 0) {//loaded game logic
+				for (var i = 1; i < load.strings.length; i++) {
+					if (load.strings[i].parameter > 9) {
+						load.strings[i].xPos = load.strings[i].xInit - (load.strings[i].maxWidth / 6);
+					} else {
+						load.strings[i].xPos = load.strings[i].xInit;
+					}
+				}
+
+				if (gameArea.entities[3].ticks != 0) {
+					gameArea.entities[3].ticks += 1;
+				}
+				if (gameArea.entities[3].ticks > gameArea.entities[3].ticksPer) {
+					gameArea.entities[3].index = 0;
+					gameArea.entities[3].ticks = 0;
+				}
+
+				load.strings[0].parameter = (Math.floor(gameArea.refTime * 10) / 10);
+				if (load.droppable[0].isFilled && load.droppable[1].isFilled && load.droppable[2].isFilled) {
+
+					if (validate(load.strings[1].parameter, load.strings[2].parameter, load.strings[3].parameter, load.strings[4].parameter, load.droppable[0].parameter, load.droppable[1].parameter, load.droppable[2].parameter)) {
+
+						gameArea.entities[3].index = 1;
+						gameArea.entities[3].ticks = 1;
+						gameArea.score += 1;
+
+						if (gameArea.score == 10) {
+							gameArea.entities = [];
+							gameArea.state = 0;
+							gameArea.entities = load.scoreScreen();
+							load.strings[0].parameter = ((Math.floor(gameArea.refTime * 10) / 10));
+							load.strings[1].parameter = gameArea.score;
+							gameArea.canvas.focus();
+						} else {
+							gameArea.entities[10].index = gameArea.score;
+							getProblem(difficultyCurve(gameArea.score + 1, gameArea.difficulty), gameArea.difficulty);
+							for (var i = 0; i < load.droppable.length; i++) {
+								load.droppable[i].parameter = "";
+								load.droppable[i].isFilled = false;
+							}
+
+							gameArea.entities[6].caseOp = 1;
+							gameArea.entities[7].caseOp = 1;
+							gameArea.entities[8].caseOp = 1;
+							gameArea.entities[9].caseOp = 1;
+							gameArea.entities.pop();
+							gameArea.entities.pop();
+							gameArea.entities.pop();
+						}
+					} else {
+
+						gameArea.entities[3].index = 2;
+						gameArea.entities[3].ticks = 1;
+
+						for (var i = 0; i < load.droppable.length; i++) {
+							load.droppable[i].parameter = "";
+							load.droppable[i].isFilled = false;
+						}
+
+						gameArea.entities[6].caseOp = 1;
+						gameArea.entities[7].caseOp = 1;
+						gameArea.entities[8].caseOp = 1;
+						gameArea.entities[9].caseOp = 1;
+						gameArea.entities.pop();
+						gameArea.entities.pop();
+						gameArea.entities.pop();
+						
+					}
+				}
+			}
 			break;
 
 		case 3://Easter egg menu logic
@@ -241,12 +327,13 @@ var load = {
 	clickable : [],
 	droppable : [],
 	strings : [],
-	problem : [],
+	score : [],
 	clear : function() {//Clears current game data.
 		load.entities = [];
 		load.clickable = [];
 		load.droppable = [];
 		load.strings = [];
+		load.score = [];
 	},
 	menuScreen : function() {//Loads menu screen objects
 		load.clear();
@@ -657,7 +744,6 @@ var load = {
 		}
 
 		load.entities.push(background, staticImage, timeAtkImage, endlessImage, audioImage, leaderImage, guideImage, settingImage, easterImage);
-
 		load.clickable.push(exitEaster);
 
 		return load.entities;
@@ -1028,6 +1114,46 @@ var load = {
 				load.entities.push(score);
 				load.clickable.push(skipBox);
 				break;
+
+			case 2:
+
+				var scoreImage = new Image();
+				scoreImage = {
+					src : "./assets/gameAssets/scoreImage.png",
+					width : 520,
+					height : 208,
+					xPos : 215,
+					yPos : 0,
+					index: 0
+				}
+
+				var skipBox = {
+					xMin : 740,
+					yMin : 20,
+					xMax : 940,
+					yMax : 110,
+					/*Loads new problem and resets operators*/
+					clicked : function() {
+						getProblem(timeAttackDifficulty(gameArea.score + 1, gameArea.difficulty), gameArea.difficulty);
+						for (var i = 0; i < load.droppable.length; i++) {
+							if (load.droppable[i].isFilled) {
+								gameArea.entities.pop();
+							}
+							load.droppable[i].parameter = "";
+							load.droppable[i].isFilled = false;
+						}
+
+						gameArea.entities[6].caseOp = 1;
+						gameArea.entities[7].caseOp = 1;
+						gameArea.entities[8].caseOp = 1;
+						gameArea.entities[9].caseOp = 1;
+					}
+				}
+
+				load.entities[2] = scoreImage;
+				load.clickable.push(skipBox);
+				break;
+
 			default:
 		}
 
@@ -1215,6 +1341,7 @@ var load = {
 	},
 	leaderScreen : function() {//Loads leader screen objects
 		load.clear();
+		load.score = getScores(5);
 
 		var background = new Image();
 		background = {
@@ -1249,8 +1376,209 @@ var load = {
 			}
 		}
 
+		var easyTime1 = {
+			font : "px Calibri",
+			sizeInit : 22,
+			xPos : 105,
+			yPos : 241,
+			parameter : load.score[0][0] + " " + load.score[1][0],
+			maxWidth : 304,
+			colour : "#5C5C5C"
+		}
+
+		var easyTime2 = {
+			font : "px Calibri",
+			sizeInit : 22,
+			xPos : 105,
+			yPos : 292,
+			parameter : load.score[0][1] + " " + load.score[1][1],
+			maxWidth : 304,
+			colour : "#5C5C5C"
+		}
+
+		var easyTime3 = {
+			font : "px Calibri",
+			sizeInit : 22,
+			xPos : 105,
+			yPos : 344,
+			parameter : load.score[0][2] + " " + load.score[1][2],
+			maxWidth : 304,
+			colour : "#5C5C5C"
+		}
+
+		var easyTime4 = {
+			font : "px Calibri",
+			sizeInit : 22,
+			xPos : 105,
+			yPos : 396,
+			parameter : load.score[0][3] + " " + load.score[1][3],
+			maxWidth : 304,
+			colour : "#5C5C5C"
+		}
+
+		var easyTime5 = {
+			font : "px Calibri",
+			sizeInit : 22,
+			xPos : 105,
+			yPos : 448,
+			parameter : load.score[0][4] + " " + load.score[1][4],
+			maxWidth : 304,
+			colour : "#5C5C5C"
+		}
+
+		var hardTime1 = {
+			font : "px Calibri",
+			sizeInit : 22,
+			xPos : 285,
+			yPos : 241,
+			parameter : load.score[2][0] + " " + load.score[3][0],
+			maxWidth : 304,
+			colour : "#5C5C5C"
+		}
+
+		var hardTime2 = {
+			font : "px Calibri",
+			sizeInit : 22,
+			xPos : 285,
+			yPos : 292,
+			parameter : load.score[2][1] + " " + load.score[3][1],
+			maxWidth : 304,
+			colour : "#5C5C5C"
+		}
+
+		var hardTime3 = {
+			font : "px Calibri",
+			sizeInit : 22,
+			xPos : 285,
+			yPos : 344,
+			parameter : load.score[2][2] + " " + load.score[3][2],
+			maxWidth : 304,
+			colour : "#5C5C5C"
+		}
+
+		var hardTime4 = {
+			font : "px Calibri",
+			sizeInit : 22,
+			xPos : 285,
+			yPos : 396,
+			parameter : load.score[2][3] + " " + load.score[3][3],
+			maxWidth : 304,
+			colour : "#5C5C5C"
+		}
+
+		var hardTime5 = {
+			font : "px Calibri",
+			sizeInit : 22,
+			xPos : 285,
+			yPos : 448,
+			parameter : load.score[2][4] + " " + load.score[3][4],
+			maxWidth : 304,
+			colour : "#5C5C5C"
+		}
+
+		var easyMara1 = {
+			font : "px Calibri",
+			sizeInit : 22,
+			xPos : 555,
+			yPos : 241,
+			parameter : load.score[4][0] + " " + load.score[5][0],
+			maxWidth : 304,
+			colour : "#5C5C5C"
+		}
+
+		var easyMara2 = {
+			font : "px Calibri",
+			sizeInit : 22,
+			xPos : 555,
+			yPos : 292,
+			parameter : load.score[4][1] + " " + load.score[5][1],
+			maxWidth : 304,
+			colour : "#5C5C5C"
+		}
+
+		var easyMara3 = {
+			font : "px Calibri",
+			sizeInit : 22,
+			xPos : 555,
+			yPos : 344,
+			parameter : load.score[4][2] + " " + load.score[5][2],
+			maxWidth : 304,
+			colour : "#5C5C5C"
+		}
+
+		var easyMara4 = {
+			font : "px Calibri",
+			sizeInit : 22,
+			xPos : 555,
+			yPos : 396,
+			parameter : load.score[4][3] + " " + load.score[5][3],
+			maxWidth : 304,
+			colour : "#5C5C5C"
+		}
+
+		var easyMara5 = {
+			font : "px Calibri",
+			sizeInit : 22,
+			xPos : 555,
+			yPos : 448,
+			parameter : load.score[4][4] + " " + load.score[5][4],
+			maxWidth : 304,
+			colour : "#5C5C5C"
+		}
+
+		var hardMara1 = {
+			font : "px Calibri",
+			sizeInit : 22,
+			xPos : 735,
+			yPos : 241,
+			parameter : load.score[6][0] + " " + load.score[7][0],
+			maxWidth : 304,
+			colour : "#5C5C5C"
+		}
+
+		var hardMara2 = {
+			font : "px Calibri",
+			sizeInit : 22,
+			xPos : 735,
+			yPos : 292,
+			parameter : load.score[6][1] + " " + load.score[7][1],
+			maxWidth : 304,
+			colour : "#5C5C5C"
+		}
+
+		var hardMara3 = {
+			font : "px Calibri",
+			sizeInit : 22,
+			xPos : 735,
+			yPos : 344,
+			parameter : load.score[6][2] + " " + load.score[7][2],
+			maxWidth : 304,
+			colour : "#5C5C5C"
+		}
+
+		var hardMara4 = {
+			font : "px Calibri",
+			sizeInit : 22,
+			xPos : 735,
+			yPos : 396,
+			parameter : load.score[6][3] + " " + load.score[7][3],
+			maxWidth : 304,
+			colour : "#5C5C5C"
+		}
+
+		var hardMara5 = {
+			font : "px Calibri",
+			sizeInit : 22,
+			xPos : 735,
+			yPos : 448,
+			parameter : load.score[6][4] + " " + load.score[7][4],
+			maxWidth : 304,
+			colour : "#5C5C5C"
+		}
+
 		load.entities.push(background, quitImage);
 		load.clickable.push(quitBox);
+		load.strings.push(easyTime1, easyTime2, easyTime3, easyTime4, easyTime5, hardTime1, hardTime2, hardTime3, hardTime4, hardTime5, easyMara1, easyMara2, easyMara3, easyMara4, easyMara5, hardMara1, hardMara2, hardMara3, hardMara4, hardMara5);
 
 		return load.entities;
 
@@ -1635,4 +1963,89 @@ function timeAttackDifficulty(problemNum, hard) {
         difficulty = 2;
     }
     return difficulty;
+}
+
+/*
+genDifficulty(double average, double spread)
+helper function
+@param average average difficulty
+@param spread +- this amount
+@return random difficulty
+*/
+function genDifficulty(average, spread) {
+    var min = average - spread;
+    var max = average + spread;
+    var rng = Math.random();
+    var addThing = rng * spread;
+    var difficulty = min + addThing;
+    difficulty = Math.round(difficulty);
+    difficulty = Math.min(difficulty, 5);
+    difficulty = Math.max(difficulty, 1);
+    return difficulty;
+}
+
+/*
+difficultyCurve(int problemNum, boolean hard)
+@param problemNum problem number
+@param hard true is hard, false is easy
+@return random difficulty
+*/
+function difficultyCurve(problemNum, hard) {
+    var exponent = 0.45;
+    var upperBound = 4.5;
+    if (hard) {
+        exponent = 0.5;
+        upperBound = 4.75
+    }
+    var average = Math.pow(problemNum, exponent);
+    average = Math.min(average, upperBound);
+    var difficulty = genDifficulty(average, 0.5);
+    return difficulty;
+}
+
+/*
+getScores(int limit).
+retrieves top x scores for time attack
+@limit the number of scores to retrieve
+@return array with names and scores.
+TIME ATTACK IS SORTED BY TIME IN ASCENDING ORDER
+MARATHON IS SORTED BY SCORE IN DESCENDING ORDER
+INDEX NUMBER
+0: Time Attack Easy Names
+1: Time Attack Easy Scores
+2: Time Attack Hard Names
+3: Time Attack Hard Scores
+4: Marathon Easy Names
+5: Marathon Easy Scores
+6: Marathon Hard Names
+7: Marathon Hard Scores
+*/
+function getScores(limit) {
+    var namesTimeEasy;
+    var namesTimeHard;
+    var scoresTimeEasy;
+    var scoresTimeHard;
+    var namesMarathonEasy;
+    var namesMarathonHard;
+    var scoresMarathonEasy;
+    var scoresMarathonHard;
+    $.ajax({
+        async: false,
+        type: "GET",
+        url: "getScores.php",
+        dataType: "json",
+        data: {limit: limit},
+        success: function(data) {
+            namesTimeEasy = data.namesTimeEasy;
+            scoresTimeEasy = data.scoresTimeEasy;
+            namesTimeHard = data.namesTimeHard;
+            scoresTimeHard = data.scoresTimeHard;
+            namesMarathonEasy = data.namesMarathonEasy;
+            scoresMarathonEasy = data.scoresMarathonEasy;
+            namesMarathonHard = data.namesMarathonHard;
+            scoresMarathonHard = data.scoresMarathonHard;
+        }
+    });
+    return [namesTimeEasy, scoresTimeEasy, namesTimeHard, scoresTimeHard,
+        namesMarathonEasy, scoresMarathonEasy, namesMarathonHard, scoresMarathonHard];
 }
