@@ -6,8 +6,9 @@ calculates the amount of time to add to the timer in marathon mode
 */
 function calcTime(problemNumber) {
     var initialTime = 20;
+    var fallOffStart = 5;
     var minimumTime = 10;
-    var time = initialTime - (problemNumber - 1) / 2;
+    var time = initialTime - Math.max(problemNumber - fallOffStart, 0) / 2;
     time = Math.floor(time);
     time = Math.max(time, minimumTime);
     return time;
