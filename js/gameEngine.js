@@ -691,22 +691,22 @@ var load = {
 			case 1:
 				var easterImage = new Image();
 				easterImage = {
-					src : "./assets/menuAssets/easter1.gif",
-					width : 640,
-					height : 159,
-					xPos : 160,
-					yPos : 120,
+					src : "./assets/menuAssets/easter1.jpg",
+					width : 540,
+					height : 540,
+					xPos : 210,
+					yPos : 0,
 					index: 0
 				}
 				break;
 			case 2:
 				var easterImage = new Image();
 				easterImage = {
-					src : "./assets/menuAssets/easter2.gif",
-					width : 600,
-					height : 191,
-					xPos : 180,
-					yPos : 120,
+					src : "./assets/menuAssets/easter2.jpg",
+					width : 424,
+					height : 540,
+					xPos : 268,
+					yPos : 0,
 					index: 0
 				}
 				break;
@@ -724,11 +724,11 @@ var load = {
 			case 4:
 				var easterImage = new Image();
 				easterImage = {
-					src : "./assets/menuAssets/easter4.gif",
-					width : 600,
-					height : 190,
-					xPos : 180,
-					yPos : 120,
+					src : "./assets/menuAssets/easter4.jpg",
+					width : 428,
+					height : 540,
+					xPos : 267,
+					yPos : 0,
 					index: 0
 				}
 				break;
@@ -736,9 +736,9 @@ var load = {
 				var easterImage = new Image();
 				easterImage = {
 					src : "./assets/menuAssets/easter5.jpg",
-					width : 600,
-					height : 192,
-					xPos : 180,
+					width : 937,
+					height : 299,
+					xPos : 11.5,
 					yPos : 120,
 					index: 0
 				}
