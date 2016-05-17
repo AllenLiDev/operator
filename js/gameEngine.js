@@ -173,7 +173,6 @@ function update(dt) {
 							gameArea.entities = load.scoreScreen();
 							load.strings[0].parameter = Math.floor(gameArea.refTime) + "." + (Math.floor(gameArea.refTime * 10) % (Math.floor(gameArea.refTime) * 10));
 							load.strings[1].parameter = gameArea.score;
-							gameArea.canvas.focus();
 						} else {
 							gameArea.entities[10].index = gameArea.score;
 							getProblem(timeAttackDifficulty(gameArea.score + 1, gameArea.difficulty), gameArea.difficulty);
@@ -215,18 +214,10 @@ function update(dt) {
 
 		case 2: //Endless logic ONLY DIFFERENCE SO FAR IS DIFFICULTY CURVE
 
-			gameArea.refTime += dt;
+			gameArea.refTime -= dt;
 
 			/*Naive animation update for preloading screen*/
-			if (gameArea.refTime > 1 && gameArea.entities.length == 2 && gameArea.entities[1].index < gameArea.entities[1].frames - 1) {
-				gameArea.refTime -= 1;
-				gameArea.entities[1].index += 1;
-			} else if (gameArea.refTime > 1 && gameArea.entities.length == 2 && gameArea.entities[1].index == gameArea.entities[1].frames - 1) {
-				gameArea.entities = [];
-				gameArea.refTime = 0;
-				gameArea.entities = load.gameScreen();
-				getProblem(difficultyCurve(gameArea.score + 1, gameArea.difficulty), gameArea.difficulty);
-			} else if (load.strings.length > 0) {//loaded game logic
+			if (load.strings.length > 0) {
 				for (var i = 1; i < load.strings.length; i++) {
 					if (load.strings[i].parameter > 9) {
 						load.strings[i].xPos = load.strings[i].xInit - (load.strings[i].maxWidth / 6);
@@ -243,7 +234,9 @@ function update(dt) {
 					gameArea.entities[3].ticks = 0;
 				}
 
-				load.strings[0].parameter = (Math.floor(gameArea.refTime * 10) / 10);
+
+
+				load.strings[0].parameter = load.strings[0].parameter = Math.floor(gameArea.refTime) + "." + (Math.floor(gameArea.refTime * 10) % (Math.floor(gameArea.refTime) * 10));
 				if (load.droppable[0].isFilled && load.droppable[1].isFilled && load.droppable[2].isFilled) {
 
 					if (validate(load.strings[1].parameter, load.strings[2].parameter, load.strings[3].parameter, load.strings[4].parameter, load.droppable[0].parameter, load.droppable[1].parameter, load.droppable[2].parameter)) {
@@ -252,29 +245,20 @@ function update(dt) {
 						gameArea.entities[3].ticks = 1;
 						gameArea.score += 1;
 
-						if (gameArea.score == 10) {
-							gameArea.entities = [];
-							gameArea.state = 0;
-							gameArea.entities = load.scoreScreen();
-							load.strings[0].parameter = ((Math.floor(gameArea.refTime * 10) / 10));
-							load.strings[1].parameter = gameArea.score;
-							gameArea.canvas.focus();
-						} else {
-							gameArea.entities[10].index = gameArea.score;
-							getProblem(difficultyCurve(gameArea.score + 1, gameArea.difficulty), gameArea.difficulty);
-							for (var i = 0; i < load.droppable.length; i++) {
-								load.droppable[i].parameter = "";
-								load.droppable[i].isFilled = false;
-							}
-
-							gameArea.entities[6].caseOp = 1;
-							gameArea.entities[7].caseOp = 1;
-							gameArea.entities[8].caseOp = 1;
-							gameArea.entities[9].caseOp = 1;
-							gameArea.entities.pop();
-							gameArea.entities.pop();
-							gameArea.entities.pop();
+						gameArea.entities[10].index = gameArea.score;
+						getProblem(difficultyCurve(gameArea.score + 1, gameArea.difficulty), gameArea.difficulty);
+						for (var i = 0; i < load.droppable.length; i++) {
+							load.droppable[i].parameter = "";
+							load.droppable[i].isFilled = false;
 						}
+
+						gameArea.entities[6].caseOp = 1;
+						gameArea.entities[7].caseOp = 1;
+						gameArea.entities[8].caseOp = 1;
+						gameArea.entities[9].caseOp = 1;
+						gameArea.entities.pop();
+						gameArea.entities.pop();
+						gameArea.entities.pop();
 					} else {
 
 						gameArea.entities[3].index = 2;
@@ -295,7 +279,25 @@ function update(dt) {
 						
 					}
 				}
+
+				if (gameArea.refTime <= 0) {
+					gameArea.entities = [];
+					gameArea.state = 0;
+					gameArea.entities = load.scoreScreen();
+					load.strings[0].parameter = ((Math.floor(gameArea.refTime * 10) / 10));
+					load.strings[1].parameter = gameArea.score;
+				}
+			} else if (gameArea.refTime < 0 && gameArea.entities.length == 2 && gameArea.entities[1].index == 2) {//Pre-load screen
+				gameArea.entities = [];
+				gameArea.entities = load.gameScreen();
+				gameArea.refTime = 60;
+				getProblem(difficultyCurve(gameArea.score + 1, gameArea.difficulty), gameArea.difficulty);
+			} else if (gameArea.refTime < 1 && gameArea.entities.length == 2 && gameArea.entities[1].index == 1) {//Pre-load screen
+				gameArea.entities[1].index += 1;
+			} else if (gameArea.refTime < 2 && gameArea.entities.length == 2 && gameArea.entities[1].index == 0) {//Pre-load screen
+				gameArea.entities[1].index += 1;
 			}
+
 			break;
 
 		case 3://Easter egg menu logic
@@ -401,6 +403,7 @@ var load = {
 				gameArea.entities = [];
 				gameArea.entities = load.preGameScreen();
 				gameArea.state = 2;
+				gameArea.refTime = 3;
 			}
 		}
 		
@@ -575,7 +578,6 @@ var load = {
 		}
 
 		load.entities.push(background, staticImage, timeAtkImage, endlessImage, audioImage, leaderImage, guideImage, settingImage);
-
 		load.clickable.push(timeAtkBox, endlessBox, audioBox, leaderBox, guideBox, settingBox, symbolAdd, symbolMinus, symbolMulti, symbolDivide);
 
 		return load.entities;
@@ -803,7 +805,7 @@ var load = {
 		cardsImage = {
 			src : "./assets/gameAssets/cardsImage.png",
 			width : 960,
-			height : 220,
+			height : 224,
 			xPos : 0,
 			yPos : 208,
 			index: 0,
@@ -1333,7 +1335,6 @@ var load = {
 
 
 		load.entities.push(background, border, quitImage, settingsTitle, difficultyWindow, difficultyOptions, audioWindow, audioOptions);
-
 		load.clickable.push(quitBox, easyBox, hardBox, onBox, offBox);
 
 		return load.entities;
