@@ -42,23 +42,38 @@ function validate(c1, c2, c3, c4, op1, op2, op3) {
 }
 
 /*
-timeAttackDifficulty(int problemNum, boolean hard)
+timeAttackDifficulty(int problemNum, int level)
 @param problemNum problem number
-@param hard true is hard, false is easy
+@param level 1 = hard, 0 = easy, 2 = tutorial
 @return difficulty for problem number
 */
-function timeAttackDifficulty(problemNum, hard) {
+function timeAttackDifficulty(problemNum, level) {
     var difficulty = 1;
-    var twoPoint = 2;
-    var threePoint = 5;
-    var fourPoint = 9;
-    var fivePoint = 11;
-    if (hard) {
-        twoPoint = 1;
-        threePoint = 3;
-        fourPoint = 5;
-        fivePoint = 8;
+    var twoPoint;
+    var threePoint;
+    var fourPoint;
+    var fivePoint;
+    switch (level) {
+        case 0: 
+            twoPoint = 2;
+            threePoint = 5;
+            fourPoint = 9;
+            fivePoint = 11;
+            break;
+        case 1:
+            twoPoint = 1;
+            threePoint = 3;
+            fourPoint = 5;
+            fivePoint = 8;
+            break;
+        case 2:
+            twoPoint = 3;
+            threePoint = 5;
+            fourPoint = 11;
+            fivePoint = 12;
+            break;
     }
+    
     if (problemNum >= fivePoint) {
         difficulty = 5;
     } else if (problemNum >= fourPoint) {
