@@ -9,7 +9,10 @@ calculates the score for any given problem in marathon mode
 function calcScore(difficulty, timeTaken, comboMultiplier) {
     var score = 100;
     var estimatedTime = 15 * difficulty;
-    var timeScore = Math.max(estimatedTime - timeTaken, 0);
+    var minimumTime = 2.5 * (difficulty - 1) + 5;
+    var adjustedTime = Math.max(timeTaken, minimumTime);
+    adjustedTime = estimatedTime - adjustedTime;
+    timeScore = Math.max(adjustedTime, 0);
     var timeMultiplier = 5;
     timeScore *= timeMultiplier;
     score += timeScore;
