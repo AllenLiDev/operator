@@ -71,7 +71,7 @@ function timeAttackDifficulty(problemNum, level) {
             twoPoint = 2;
             threePoint = 5;
             fourPoint = 9;
-            fivePoint = 11;
+            fivePoint = 9999;
             break;
         case 1:
             twoPoint = 1;
@@ -82,11 +82,10 @@ function timeAttackDifficulty(problemNum, level) {
         case 2:
             twoPoint = 3;
             threePoint = 5;
-            fourPoint = 11;
-            fivePoint = 12;
+            fourPoint = 9999;
+            fivePoint = 9999;
             break;
     }
-    
     if (problemNum >= fivePoint) {
         difficulty = 5;
     } else if (problemNum >= fourPoint) {
