@@ -6,12 +6,29 @@
 the scene data for:
 images, hit boxes, draggable items,
 drop zones, and strings*/
-function Loader() {
+var audio {
 	this.entities = [];
 	this.clickable = [];
 	this.droppable = [];
 	this.strings = [];
 	this.loaded = [];
+	
+	this.audio = [];
+
+	var menuMusic;
+	var gameMusic;
+	menuMusic = new sound("./assets/audio/menuMusic.mp3");
+	gameMusic = new sound("./assets/audio/gameMusic.mp3");
+	/**
+	var menuMusic = new sound();
+	var menuMusic = new sound();
+	var menuMusic = new sound();
+	var menuMusic = new sound();
+	var menuMusic = new sound();
+	var menuMusic = new sound();
+	var menuMusic = new sound();
+	**/
+
 	this.clear = function() {
 		this.entities = [];
 		this.clickable = [];
@@ -24,6 +41,9 @@ function Loader() {
 	};
 	this.menuScreen = function() {
 		this.clear();
+		/**
+		menuMusic.play();
+		**/
 		var background = {
 			src : "./assets/menuAssets/background.png",
 			width : 960,

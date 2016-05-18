@@ -1,0 +1,45 @@
+[1mdiff --git a/assets/Coordinates.txt b/assets/Coordinates.txt[m
+[1mindex 19a72e2..3d0d00d 100644[m
+[1m--- a/assets/Coordinates.txt[m
+[1m+++ b/assets/Coordinates.txt[m
+[36m@@ -72,7 +72,6 @@[m [mMarathon[m
+ -----------[m
+ submit:: x-330 y-443 h-67 w-300 xMax-630 yMax-510[m
+ replay:: x-740 y-20 h-90 w-200 xMax-940 yMax-110[m
+[31m-scrollsprite :: w-57 h-57[m
+ [m
+ TEXT::[m
+ your score:: x-527 y-183 h-34[m
+[36m@@ -85,14 +84,16 @@[m [mTime Attack Score[m
+ [m
+ submit:: x-330 y-443 h-67 w-300 xMax-630 yMax-510[m
+ replay:: x-740 y-20 h-90 w-200 xMax-940 yMax-110[m
+[31m-scrollsprite :: w-57 h-57[m
+[32m+[m
+[32m+[m[32mscrollsprite :: w-57 h-2052 individual letters(w-57 h-57)[m
+ nameBox:: w-420 h-118 y-316 x-270[m
+ 1stLetterArea::w-140 h-118 y-316 x-270 yMax-434 xMax-410[m
+ 2ndLetterArea::w-140 h-118 y-316 x-410 yMax-434 xMax-550[m
+ 3rdLetterArea::w-140 h-118 y-316 x-550 yMax-434 xMax-690[m
+[31m-1stAlphabet::[m
+[31m-2ndAlphabet::[m
+[31m-3rdAlphabet::[m
+[32m+[m[32m1stAlphabet:: x-311 y-346[m
+[32m+[m[32m2ndAlphabet:: x-451 y-346[m
+[32m+[m[32m3rdAlphabet:: x-591 y-346[m
+[32m+[m
+ TEXT::[m
+ your score:: x-527 y-183 h-34[m
+ your time:: x-527 y-241 h-34[m
+[1mdiff --git a/js/screenLoader.js b/js/screenLoader.js[m
+[1mindex 98433c0..c7e92a9 100644[m
+[1m--- a/js/screenLoader.js[m
+[1m+++ b/js/screenLoader.js[m
+[36m@@ -24,7 +24,6 @@[m [mfunction Loader() {[m
+ 	};[m
+ 	this.menuScreen = function() {[m
+ 		this.clear();[m
+[31m-[m
+ 		var background = {[m
+ 			src : "./assets/menuAssets/background.png",[m
+ 			width : 960,[m
