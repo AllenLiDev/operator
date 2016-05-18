@@ -35,9 +35,27 @@ function update(dt) {
 				if (gameArea.entities[3].ticks != 0) {
 					gameArea.entities[3].ticks += 1;
 				}
+
+				if (gameArea.entities[10].ticks != 0) {
+					gameArea.entities[10].ticks += 1;
+				}
 				if (gameArea.entities[3].ticks > gameArea.entities[3].ticksPer) {
-					gameArea.entities[3].index = 0;
-					gameArea.entities[3].ticks = 0;
+					if (gameArea.entities[3].index == 1) {
+						gameArea.entities[3].index = 0;
+						gameArea.entities[3].ticks = 0;
+						gameArea.entities[10].index = 1;
+						gameArea.entities[10].ticks = 1;
+					} else if (gameArea.entities[3].index == 2) {
+						gameArea.entities[3].index = 0;
+						gameArea.entities[3].ticks = 0;	
+						gameArea.entities[10].index = 2;
+						gameArea.entities[10].ticks = 1;
+					}
+				}
+
+				if (gameArea.entities[10].ticks > gameArea.entities[10].ticksPer) {
+					gameArea.entities[10].index = 0;
+					gameArea.entities[10].ticks = 0;
 				}
 
 				if (gameArea.refTime < 0) {
@@ -52,6 +70,7 @@ function update(dt) {
 
 						gameArea.entities[3].index = 1;
 						gameArea.entities[3].ticks = 1;
+
 						gameArea.score += 1;
 
 						if (gameArea.score == 10) {
@@ -137,7 +156,6 @@ function update(dt) {
 						gameArea.score += 1;
 
 						gameArea.entities[10].index = gameArea.score;
-						getProblem(difficultyCurve(gameArea.score + 1, gameArea.difficulty), gameArea.difficulty);
 						for (var i = 0; i < load.droppable.length; i++) {
 							load.droppable[i].parameter = "";
 							load.droppable[i].isFilled = false;
