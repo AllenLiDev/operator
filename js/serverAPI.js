@@ -194,12 +194,32 @@ calculates the score for any given problem in marathon mode
 function calcScore(difficulty, timeTaken, comboMultiplier) {
     var score = 100;
     var estimatedTime = 15 * difficulty;
-    var timeScore = Math.max(estimatedTime - timeTaken, 0);
+    var minimumTime = 2.5 * (difficulty - 1) + 5;
+    var adjustedTime = Math.max(timeTaken, minimumTime);
+    adjustedTime = estimatedTime - adjustedTime;
+    timeScore = Math.max(adjustedTime, 0);
     var timeMultiplier = 5;
     timeScore *= timeMultiplier;
     score += timeScore;
     var difficultyMultiplier = 1 + (difficulty - 1) * 0.1;
     score *= difficultyMultiplier;
     score *= comboMultiplier;
+    score = Math.floor(score);
     return score;
+}
+
+/*
+calcTime(int problemNumber)
+calculates the amount of time to add to the timer in marathon mode
+@param problemNumber problem number
+@return time in seconds
+*/
+function calcTime(problemNumber) {
+    var initialTime = 20;
+    var fallOffStart = 5;
+    var minimumTime = 10;
+    var time = initialTime - Math.max(problemNumber - fallOffStart, 0) / 2;
+    time = Math.floor(time);
+    time = Math.max(time, minimumTime);
+    return time;
 }

@@ -110,7 +110,7 @@ function update(dt) {
 			if (gameArea.strings.length > 0) {
 				gameArea.problemTime += dt;
 				gameArea.totalTime += dt;
-				for (var i = 1; i < gameArea.strings.length; i++) {
+				for (var i = 1; i < gameArea.strings.length - 1; i++) {
 					if (gameArea.strings[i].parameter > 9) {
 						gameArea.strings[i].xPos = gameArea.strings[i].xInit - (gameArea.strings[i].maxWidth / 6);
 					} else {
@@ -141,6 +141,7 @@ function update(dt) {
 						gameArea.score += 1;
 						gameArea.scoreTotal += calcScore(difficultyCurve(gameArea.score + 1, gameArea.difficulty), gameArea.problemTime, gameArea.combo);
 						gameArea.problemTime = 0;
+						gameArea.refTime += calcTime(gameArea.score);
 						gameArea.strings[5].parameter = gameArea.scoreTotal;
 
 						gameArea.entities[10].index = gameArea.score;
@@ -188,7 +189,7 @@ function update(dt) {
 					gameArea.loaded = load.scoreScreen();
 					gameArea.parse();
 					gameArea.strings[0].parameter = gameArea.scoreTotal;
-					gameArea.strings[1].parameter = gameArea.totalTime;
+					gameArea.strings[1].parameter = Math.floor(gameArea.totalTime) + "." + (Math.floor(gameArea.totalTime * 10) % (Math.floor(gameArea.totalTime) * 10));
 					gameArea.strings[2].parameter = gameArea.score;
 				}
 
