@@ -3,14 +3,27 @@
 //****************************************************************/
 
 /*
-getProblem(int difficulty, int hard).
+getProblem(int difficulty, int level).
 Server script for pulling problems sets
 @param difficulty integer from 1 to 5.
-@param hard 1 for 1-13, 0 for 1-9
+@param level 1 = hard, 0 = easy, 2 = tutorial
+hard 1-13, easy/tutorial 1-9
 @return array containing the card numbers
 */
-function getProblem(difficulty, hard) {
+function getProblem(difficulty, level) {
     var cards = [];
+    var hard;
+    switch (level) {
+        case 0:
+            hard = 0;
+            break;
+        case 1:
+            hard = 1;
+            break;
+        case 2:
+            hard = 0;
+            break;
+    }
     $.ajax({
         async: true,
         type: "GET",
