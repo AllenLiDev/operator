@@ -1,3 +1,11 @@
+/*
+calcScore(int difficulty, double timeTaken, int comboMultiplier)
+calculates the score for any given problem in marathon mode
+@param difficulty difficulty of the problem from 1-5
+@param timeTaken time it takes to solve the problem in seconds
+@param comboMultiplier score multiplier
+@return score
+*/
 function calcScore(difficulty, timeTaken, comboMultiplier) {
     var score = 100;
     var estimatedTime = 15 * difficulty;
