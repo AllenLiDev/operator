@@ -25,7 +25,7 @@ if ($conn->connect_error) {
 }
 
 // selects table based on $upperCard
-$sql = "INSERT INTO `TimeAttackScores1-" . $upperCard . "` (`name`, `score`, `dateKey`) VALUES ('$name', $scores, $date)";
+$sql = "INSERT INTO `MarathonScores1-" . $upperCard . "` (`name`, `score`, `dateKey`) VALUES ('$name', $scores, $date)";
 // inserts score data into timeattackTable
 $conn->query($sql);
 $conn->close();
