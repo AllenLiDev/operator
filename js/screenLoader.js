@@ -473,6 +473,18 @@ function Loader() {
 			ticksPer : 130
 		}
 
+		var userFeedbackImage = {
+			src : "./assets/gameAssets/cardsImage1.png",
+			width : 920,
+			height : 224,
+			xPos : 20,
+			yPos : 208,
+			index: 0,
+			frames : 3,
+			ticks : 0,
+			ticksPer : 130
+		}
+
 		var quitImage = {
 			src : "./assets/gameAssets/quitImage.png",
 			width : 220,
@@ -714,7 +726,7 @@ function Loader() {
 			colour : "#FFFFFF"
 		}
 
-		this.entities.push(background, gameBorderImage, scoreImage, cardsImage, quitImage, skipImage, plusOperator, minusOperator, multiOperator, divOperator);
+		this.entities.push(background, gameBorderImage, scoreImage, cardsImage, quitImage, skipImage, plusOperator, minusOperator, multiOperator, divOperator, userFeedbackImage);
 		this.clickable.push(quitBox);
 		this.droppable.push(firstDrop, secondDrop, thirdDrop);
 		this.strings.push(timerString, card1, card2, card3, card4);
