@@ -6,12 +6,29 @@
 the scene data for:
 images, hit boxes, draggable items,
 drop zones, and strings*/
-function Loader() {
+var audio {
 	this.entities = [];
 	this.clickable = [];
 	this.droppable = [];
 	this.strings = [];
 	this.loaded = [];
+	
+	this.audio = [];
+
+	var menuMusic;
+	var gameMusic;
+	menuMusic = new sound("./assets/audio/menuMusic.mp3");
+	gameMusic = new sound("./assets/audio/gameMusic.mp3");
+	/**
+	var menuMusic = new sound();
+	var menuMusic = new sound();
+	var menuMusic = new sound();
+	var menuMusic = new sound();
+	var menuMusic = new sound();
+	var menuMusic = new sound();
+	var menuMusic = new sound();
+	**/
+
 	this.clear = function() {
 		this.entities = [];
 		this.clickable = [];
@@ -24,6 +41,9 @@ function Loader() {
 	};
 	this.menuScreen = function() {
 		this.clear();
+		/**
+		menuMusic.play();
+		**/
 		var background = {
 			src : "./assets/menuAssets/background.png",
 			width : 960,
@@ -473,18 +493,6 @@ function Loader() {
 			ticksPer : 130
 		}
 
-		var userFeedbackImage = {
-			src : "./assets/gameAssets/cardsImage1.png",
-			width : 920,
-			height : 224,
-			xPos : 20,
-			yPos : 208,
-			index: 0,
-			frames : 3,
-			ticks : 0,
-			ticksPer : 130
-		}
-
 		var quitImage = {
 			src : "./assets/gameAssets/quitImage.png",
 			width : 220,
@@ -726,7 +734,7 @@ function Loader() {
 			colour : "#FFFFFF"
 		}
 
-		this.entities.push(background, gameBorderImage, scoreImage, cardsImage, quitImage, skipImage, plusOperator, minusOperator, multiOperator, divOperator, userFeedbackImage);
+		this.entities.push(background, gameBorderImage, scoreImage, cardsImage, quitImage, skipImage, plusOperator, minusOperator, multiOperator, divOperator);
 		this.clickable.push(quitBox);
 		this.droppable.push(firstDrop, secondDrop, thirdDrop);
 		this.strings.push(timerString, card1, card2, card3, card4);

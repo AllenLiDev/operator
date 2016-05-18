@@ -72,7 +72,6 @@ Marathon
 -----------
 submit:: x-330 y-443 h-67 w-300 xMax-630 yMax-510
 replay:: x-740 y-20 h-90 w-200 xMax-940 yMax-110
-scrollsprite :: w-57 h-57
 
 TEXT::
 your score:: x-527 y-183 h-34
@@ -85,7 +84,15 @@ Time Attack Score
 
 submit:: x-330 y-443 h-67 w-300 xMax-630 yMax-510
 replay:: x-740 y-20 h-90 w-200 xMax-940 yMax-110
-scrollsprite :: w-57 h-57
+
+scrollsprite :: w-57 h-2052 individual letters(w-57 h-57)
+nameBox:: w-420 h-118 y-316 x-270
+1stLetterArea::w-140 h-118 y-316 x-270 yMax-434 xMax-410
+2ndLetterArea::w-140 h-118 y-316 x-410 yMax-434 xMax-550
+3rdLetterArea::w-140 h-118 y-316 x-550 yMax-434 xMax-690
+1stAlphabet:: x-311 y-346
+2ndAlphabet:: x-451 y-346
+3rdAlphabet:: x-591 y-346
 
 TEXT::
 your score:: x-527 y-183 h-34
