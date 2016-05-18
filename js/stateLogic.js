@@ -108,6 +108,8 @@ function update(dt) {
 
 			/*Naive animation update for preloading screen*/
 			if (gameArea.strings.length > 0) {
+				gameArea.problemTime += dt;
+				gameArea.totalTime += dt;
 				for (var i = 1; i < gameArea.strings.length; i++) {
 					if (gameArea.strings[i].parameter > 9) {
 						gameArea.strings[i].xPos = gameArea.strings[i].xInit - (gameArea.strings[i].maxWidth / 6);
@@ -137,13 +139,17 @@ function update(dt) {
 						gameArea.entities[3].index = 1;
 						gameArea.entities[3].ticks = 1;
 						gameArea.score += 1;
+						gameArea.scoreTotal += calcScore(difficultyCurve(gameArea.score + 1, gameArea.difficulty), gameArea.problemTime, gameArea.combo);
+						gameArea.problemTime = 0;
+						gameArea.strings[5].parameter = gameArea.scoreTotal;
 
 						gameArea.entities[10].index = gameArea.score;
 						getProblem(difficultyCurve(gameArea.score + 1, gameArea.difficulty), gameArea.difficulty);
-						for (var i = 0; i < load.droppable.length; i++) {
-							load.droppable[i].parameter = "";
-							load.droppable[i].isFilled = false;
+						for (var i = 0; i < gameArea.droppable.length; i++) {
+							gameArea.droppable[i].parameter = "";
+							gameArea.droppable[i].isFilled = false;
 						}
+						gameArea.combo += 1;
 
 						gameArea.entities[6].caseOp = 1;
 						gameArea.entities[7].caseOp = 1;
@@ -154,12 +160,14 @@ function update(dt) {
 						gameArea.entities.pop();
 					} else {
 
+						gameArea.combo = 1;
+
 						gameArea.entities[3].index = 2;
 						gameArea.entities[3].ticks = 1;
 
-						for (var i = 0; i < load.droppable.length; i++) {
-							load.droppable[i].parameter = "";
-							load.droppable[i].isFilled = false;
+						for (var i = 0; i < gameArea.droppable.length; i++) {
+							gameArea.droppable[i].parameter = "";
+							gameArea.droppable[i].isFilled = false;
 						}
 
 						gameArea.entities[6].caseOp = 1;
@@ -176,10 +184,12 @@ function update(dt) {
 				if (gameArea.refTime <= 0.0) {
 					gameArea.clear();
 					gameArea.state = 4;
+					gameArea.problemTime = 0;
 					gameArea.loaded = load.scoreScreen();
 					gameArea.parse();
-					gameArea.strings[0].parameter = ((Math.floor(gameArea.refTime * 10) / 10));
-					gameArea.strings[1].parameter = gameArea.score;
+					gameArea.strings[0].parameter = gameArea.scoreTotal;
+					gameArea.strings[1].parameter = gameArea.totalTime;
+					gameArea.strings[2].parameter = gameArea.score;
 				}
 
 			} else if (gameArea.refTime < 0 && gameArea.entities.length == 2 && gameArea.entities[1].index == 2) {//Pre-load screen

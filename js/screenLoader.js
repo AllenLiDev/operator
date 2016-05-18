@@ -805,8 +805,20 @@ function Loader() {
 					}
 				}
 
+				var scoreTrack = {
+					font : "px Calibri",
+					sizeInit : 26,
+					xPos : 440,
+					xInit : 440,
+					yPos : 55,
+					parameter : 0,
+					maxWidth : 91,
+					colour : "#5C5C5C"
+				}
+
 				this.entities[2] = scoreImage;
 				this.clickable.push(skipBox);
+				this.strings.push(scoreTrack);
 				break;
 
 			default:
@@ -1273,15 +1285,6 @@ function Loader() {
 	this.scoreScreen = function() {//Loads score screen objects
 		this.clear();
 
-		var background = {
-			src : "./assets/scoreAssets/timeAttackScore.png",
-			width : 960,
-			height : 540,
-			xPos : 0,
-			yPos : 0,
-			index: 0
-		}
-
 		var replayImage = {
 			src : "./assets/scoreAssets/replay.png",
 			width : 200,
@@ -1296,7 +1299,7 @@ function Loader() {
 			width : 300,
 			height : 67,
 			xPos : 330,
-			yPos : 413,
+			yPos : 443,
 			index: 0
 		}
 
@@ -1320,6 +1323,9 @@ function Loader() {
 				gameArea.refTime = 0;
 				gameArea.score = 0;
 				gameArea.state = 0;
+				gameArea.totalTime = 0;
+				gameArea.scoreTotal = 0;
+				gameArea.combo = 1;
 				return load.menuScreen();
 			}
 		}
@@ -1328,7 +1334,7 @@ function Loader() {
 			font : "px Calibri",
 			sizeInit : 50,
 			xPos : 527,
-			yPos : 203,
+			yPos : 183,
 			parameter : "",
 			maxWidth : 141,
 			colour : "#5C5C5C"
@@ -1338,7 +1344,7 @@ function Loader() {
 			font : "px Calibri",
 			sizeInit : 50,
 			xPos : 527,
-			yPos : 261,
+			yPos : 241,
 			parameter : "",
 			maxWidth : 141,
 			colour : "#5C5C5C"
@@ -1350,6 +1356,15 @@ function Loader() {
 
 		switch (gameArea.state) {
 			case 3:
+				var background = {
+					src : "./assets/scoreAssets/timeAttackScore.png",
+					width : 960,
+					height : 540,
+					xPos : 0,
+					yPos : 0,
+					index: 0
+				}
+
 				var replayBox = {
 					xMin : 740,
 					yMin : 20,
@@ -1365,10 +1380,20 @@ function Loader() {
 					}
 				}
 
+				this.entities[0] = background;
 				this.clickable.push(replayBox);
 				break;
 
 			case 4:
+				var background = {
+					src : "./assets/scoreAssets/marathonScore.png",
+					width : 960,
+					height : 540,
+					xPos : 0,
+					yPos : 0,
+					index: 0
+				}
+
 				var replayBox = {
 					xMin : 740,
 					yMin : 20,
@@ -1380,11 +1405,26 @@ function Loader() {
 						gameArea.refTime = 3;
 						gameArea.state = 2;
 						gameArea.score = 0;
+						gameArea.totalTime = 0;
+						gameArea.scoreTotal = 0;
+						gameArea.combo = 1;
 						return load.preGameScreen();
 					}
 				}
 
+				var totalNum = {
+					font : "px Calibri",
+					sizeInit : 50,
+					xPos : 527,
+					yPos : 298,
+					parameter : "",
+					maxWidth : 141,
+					colour : "#5C5C5C"
+				}
+
+				this.entities[0] = background;
 				this.clickable.push(replayBox);
+				this.strings.push(totalNum);
 				break;
 		}
 

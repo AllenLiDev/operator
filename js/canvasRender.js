@@ -18,10 +18,14 @@ var gameArea = {
 	droppable : [],
 	strings : [],
 	score : 0,
+	scoreTotal : 0,
 	sound : true,
 	difficulty : 0,
 	refTime : 0,
 	state : 0,
+	combo : 1,
+	totalTime : 0,
+	problemTime : 0,
 	clear : function() {
 		gameArea.loaded = [];
 		gameArea.entities = [];
