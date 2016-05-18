@@ -16,5 +16,6 @@ function calcScore(difficulty, timeTaken, comboMultiplier) {
     var difficultyMultiplier = 1 + (difficulty - 1) * 0.1;
     score *= difficultyMultiplier;
     score *= comboMultiplier;
+    score = Math.floor(score);
     return score;
 }
