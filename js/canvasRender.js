@@ -21,6 +21,7 @@ var gameArea = {
 	sound : true,
 	difficulty : 0,
 	refTime : 0,
+	state : 0,
 	clear : function() {
 		gameArea.loaded = [];
 		gameArea.entities = [];

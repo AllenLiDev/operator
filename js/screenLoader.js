@@ -208,11 +208,14 @@ function Loader() {
 			yMin : 174,
 			xMax : 479,
 			yMax : 243,
-			LOADER : true,
+			state : false,
 			/*Clickable operator subtraction*/
 			clicked : function(){
 				if (gameArea.clickable[6].state) {
-					return load.easterScreen(Math.floor((Math.random() * 5) + 1));
+					gameArea.state = 0;
+					gameArea.clear();
+					gameArea.loaded = load.easterScreen(Math.floor((Math.random() * 5) + 1));
+					gameArea.parse();
 				}
 			}
 		}
@@ -346,32 +349,31 @@ function Loader() {
 			yMax : 540,
 			/*Exit easter egg*/
 			clicked : function() {
-				gameArea.entities = [];
-				gameArea.state = 3;
-				gameArea.entities = this.menuScreen();
+				gameArea.clear();
+				gameArea.state = 0;
+				gameArea.loaded = load.menuScreen();
+				gameArea.parse();
 			}
 		}
 
-		var rng = comicNum;
-
-		switch (rng) {
+		switch (comicNum) {
 			case 1:
 				var easterImage = {
-					src : "./assets/menuAssets/easter1.gif",
-					width : 640,
-					height : 159,
-					xPos : 160,
-					yPos : 120,
+					src : "./assets/menuAssets/easter1.jpg",
+					width : 540,
+					height : 540,
+					xPos : 210,
+					yPos : 0,
 					index: 0
 				}
 				break;
 			case 2:
 				var easterImage = {
-					src : "./assets/menuAssets/easter2.gif",
-					width : 600,
-					height : 191,
-					xPos : 180,
-					yPos : 120,
+					src : "./assets/menuAssets/easter2.jpg",
+					width : 424,
+					height : 540,
+					xPos : 268,
+					yPos : 0,
 					index: 0
 				}
 				break;
@@ -387,20 +389,20 @@ function Loader() {
 				break;
 			case 4:
 				var easterImage = {
-					src : "./assets/menuAssets/easter4.gif",
-					width : 600,
-					height : 190,
-					xPos : 180,
-					yPos : 120,
+					src : "./assets/menuAssets/easter4.jpg",
+					width : 428,
+					height : 540,
+					xPos : 267,
+					yPos : 0,
 					index: 0
 				}
 				break;
 			case 5:
 				var easterImage = {
 					src : "./assets/menuAssets/easter5.jpg",
-					width : 600,
-					height : 192,
-					xPos : 180,
+					width : 937,
+					height : 299,
+					xPos : 11.5,
 					yPos : 120,
 					index: 0
 				}
@@ -853,6 +855,7 @@ function Loader() {
 			LOADER : true,
 			/*Loads menu screen*/
 			clicked : function() {
+				gameArea.state = 0;
 				return load.menuScreen();
 			}
 		}
@@ -1014,6 +1017,7 @@ function Loader() {
 			LOADER : true,
 			/*Loads menu screen*/
 			clicked : function() {
+				gameArea.state = 0;
 				return load.menuScreen();
 			}
 		}
@@ -1255,6 +1259,7 @@ function Loader() {
 			LOADER : true,
 			/*Loads menu screen*/
 			clicked : function() {
+				gameArea.state = 0;
 				return load.menuScreen();
 			}
 		}

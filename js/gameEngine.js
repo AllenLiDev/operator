@@ -683,10 +683,8 @@ var load = {
 				gameArea.entities = load.menuScreen();
 			}
 		}
-
-		var rng = comicNum;
-
-		switch (rng) {
+		
+		switch (comicNum) {
 			case 1:
 				var easterImage = new Image();
 				easterImage = {

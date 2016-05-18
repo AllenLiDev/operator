@@ -24,6 +24,12 @@ function update(dt) {
 				gameArea.parse();
 				getProblem(timeAttackDifficulty(gameArea.score + 1, gameArea.difficulty), gameArea.difficulty);
 			} else if (gameArea.strings.length > 0) {//loaded game logic
+				if (gameArea.refTime < 1) {
+					gameArea.strings[0].parameter = Math.floor(gameArea.refTime) + "." + Math.floor(gameArea.refTime * 10);
+				} else {
+					gameArea.strings[0].parameter = Math.floor(gameArea.refTime) + "." + (Math.floor(gameArea.refTime * 10) % (Math.floor(gameArea.refTime) * 10));
+				}
+
 				for (var i = 1; i < gameArea.strings.length; i++) {
 					if (gameArea.strings[i].parameter > 9) {
 						gameArea.strings[i].xPos = gameArea.strings[i].xInit - (gameArea.strings[i].maxWidth / 6);
@@ -40,11 +46,7 @@ function update(dt) {
 					gameArea.entities[3].ticks = 0;
 				}
 
-				if (gameArea.refTime < 0) {
-					gameArea.strings[0].parameter = Math.floor(gameArea.refTime) + "." + Math.floor(gameArea.refTime * 10);
-				} else {
-					gameArea.strings[0].parameter = Math.floor(gameArea.refTime) + "." + (Math.floor(gameArea.refTime * 10) % (Math.floor(gameArea.refTime) * 10));
-				}
+				
 				
 				if (gameArea.droppable[0].isFilled && gameArea.droppable[1].isFilled && gameArea.droppable[2].isFilled) {
 
@@ -122,8 +124,8 @@ function update(dt) {
 					gameArea.entities[3].ticks = 0;
 				}
 
-				if (isNaN((Math.floor(gameArea.refTime * 10) % (Math.floor(gameArea.refTime) * 10)))) {
-					gameArea.strings[0].parameter = "0.0";
+				if (gameArea.refTime < 1) {
+					gameArea.strings[0].parameter = Math.floor(gameArea.refTime) + "." + (Math.floor(gameArea.refTime * 10));
 				} else {
 					gameArea.strings[0].parameter = Math.floor(gameArea.refTime) + "." + (Math.floor(gameArea.refTime * 10) % (Math.floor(gameArea.refTime) * 10));
 				}
@@ -182,7 +184,7 @@ function update(dt) {
 
 			} else if (gameArea.refTime < 0 && gameArea.entities.length == 2 && gameArea.entities[1].index == 2) {//Pre-load screen
 				gameArea.clear();
-				gameArea.refTime = 60;
+				gameArea.refTime = 10;
 				gameArea.loaded = load.gameScreen();
 				gameArea.parse();
 				getProblem(difficultyCurve(gameArea.score + 1, gameArea.difficulty), gameArea.difficulty);
