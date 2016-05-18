@@ -46,8 +46,8 @@ function timeAttackDifficulty(problemNum, hard) {
     var difficulty = 1;
     var twoPoint = 2;
     var threePoint = 5;
-    var fourPoint = 8;
-    var fivePoint = 10;
+    var fourPoint = 9;
+    var fivePoint = 11;
     if (hard) {
         twoPoint = 1;
         threePoint = 3;
@@ -67,7 +67,9 @@ function timeAttackDifficulty(problemNum, hard) {
 }
 
 function displayDifficulty() {
-    var x = difficultyCurve(1, true);
-    var y = timeAttackDifficulty(1, false);
+    var x = "";
+    for (var i = 1; i < 11; i++) {
+        x += timeAttackDifficulty(i) + ", ";
+    }
     alert(x);
 }
