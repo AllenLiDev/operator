@@ -340,8 +340,7 @@ var load = {
 	menuScreen : function() {//Loads menu screen objects
 		load.clear();
 
-		var background = new Image();
-		background = {
+		var background = {
 			src : "./assets/menuAssets/background.png",
 			width : 960,
 			height : 540,
@@ -804,9 +803,9 @@ var load = {
 		var cardsImage = new Image();
 		cardsImage = {
 			src : "./assets/gameAssets/cardsImage.png",
-			width : 960,
+			width : 920,
 			height : 224,
-			xPos : 0,
+			xPos : 20,
 			yPos : 208,
 			index: 0,
 			frames : 3,
