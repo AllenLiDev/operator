@@ -39,18 +39,13 @@ function update(dt) {
 				if (gameArea.entities[10].ticks != 0) {
 					gameArea.entities[10].ticks += 1;
 				}
+
 				if (gameArea.entities[3].ticks > gameArea.entities[3].ticksPer) {
-					if (gameArea.entities[3].index == 1) {
-						gameArea.entities[3].index = 0;
-						gameArea.entities[3].ticks = 0;
-						gameArea.entities[10].index = 1;
-						gameArea.entities[10].ticks = 1;
-					} else if (gameArea.entities[3].index == 2) {
-						gameArea.entities[3].index = 0;
-						gameArea.entities[3].ticks = 0;	
-						gameArea.entities[10].index = 2;
-						gameArea.entities[10].ticks = 1;
+					if(gameArea.entities[3].index == 1){						
+						getProblem(timeAttackDifficulty(gameArea.score + 1, gameArea.difficulty), gameArea.difficulty);
 					}
+					gameArea.entities[3].index = 0;
+					gameArea.entities[3].ticks = 0;
 				}
 
 				if (gameArea.entities[10].ticks > gameArea.entities[10].ticksPer) {
@@ -69,7 +64,10 @@ function update(dt) {
 					if (validate(gameArea.strings[1].parameter, gameArea.strings[2].parameter, gameArea.strings[3].parameter, gameArea.strings[4].parameter, gameArea.droppable[0].parameter, gameArea.droppable[1].parameter, gameArea.droppable[2].parameter)) {
 
 						gameArea.entities[3].index = 1;
+						gameArea.entities[10].index = 1;
+
 						gameArea.entities[3].ticks = 1;
+						gameArea.entities[10].ticks = 1;
 
 						gameArea.score += 1;
 
@@ -81,8 +79,7 @@ function update(dt) {
 							gameArea.strings[0].parameter = Math.floor(gameArea.refTime) + "." + (Math.floor(gameArea.refTime * 10) % (Math.floor(gameArea.refTime) * 10));
 							gameArea.strings[1].parameter = gameArea.score;
 						} else {
-							gameArea.entities[10].index = gameArea.score;
-							getProblem(timeAttackDifficulty(gameArea.score + 1, gameArea.difficulty), gameArea.difficulty);
+							gameArea.entities[11].index = gameArea.score;
 							for (var i = 0; i < gameArea.droppable.length; i++) {
 								gameArea.droppable[i].parameter = "";
 								gameArea.droppable[i].isFilled = false;
@@ -98,8 +95,11 @@ function update(dt) {
 						}
 					} else {
 
-						gameArea.entities[3].index = 2;
+						gameArea.entities[3].index = 2;						
+						gameArea.entities[10].index = 2;
+
 						gameArea.entities[3].ticks = 1;
+						gameArea.entities[10].ticks = 1;
 
 						for (var i = 0; i < gameArea.droppable.length; i++) {
 							gameArea.droppable[i].parameter = "";
@@ -155,7 +155,7 @@ function update(dt) {
 						gameArea.entities[3].ticks = 1;
 						gameArea.score += 1;
 
-						gameArea.entities[10].index = gameArea.score;
+						gameArea.entities[11].index = gameArea.score;
 						for (var i = 0; i < load.droppable.length; i++) {
 							load.droppable[i].parameter = "";
 							load.droppable[i].isFilled = false;
