@@ -8,6 +8,7 @@ Settings:: x-20 y-400 h-120 w-300
 Guide:: x-331 y-400 h-120 w-300
 Leaderboards:: x-640 y-400 h-120 w-300
 Volume:: x-854 y-35 h-60 w-65
+Hard Stamp:: x-612 y-94 h-140 w-290
 
 -----------
 Settings
@@ -67,17 +68,29 @@ multiOperator:: x-500 y-449 h-80 w-80
 divOperator:: x-620 y-449 h-80 w-80
 
 -----------
+Marathon
+-----------
+submit:: x-330 y-443 h-67 w-300 xMax-630 yMax-510
+replay:: x-740 y-20 h-90 w-200 xMax-940 yMax-110
+scrollsprite :: w-57 h-57
+
+TEXT::
+your score:: x-527 y-183 h-34
+your time:: x-527 y-241 h-34
+completed:: x-527 y-299 h-34
+
+-----------
 Time Attack Score
 -----------
 
-Submit:: x-330 y-413 w-300 h-67 xMax-630 yMax-480
-Name Input Area:: x-395 y-331 w-170 h-67 xMax-565 yMax-398
-replay:: x-740 y-20 h-90 w-200
+submit:: x-330 y-443 h-67 w-300 xMax-630 yMax-510
+replay:: x-740 y-20 h-90 w-200 xMax-940 yMax-110
+scrollsprite :: w-57 h-57
 
-TEXT
-your time:: x-527 y-169 h-34
-completed:: x-527 y-227 h-34
-Enter your name:: x-407 y-343 h-44
+TEXT::
+your score:: x-527 y-183 h-34
+your time:: x-527 y-241 h-34
+completed:: x-527 y-299 h-34
 
 -----------
 Font/Text
