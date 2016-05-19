@@ -2,6 +2,9 @@
 /*                    CANVAS/RENDERING CODE                        */
 //****************************************************************//
 
+/*loads sound cookie*/
+var soundCookie;
+soundCookie = (getCookie("sound") === "false") ? false : true;
 /*Canvas namespace and data management*/
 var gameArea = {
 	canvas : null,
@@ -20,7 +23,7 @@ var gameArea = {
 	strings : [],
 	score : 0,
 	scoreTotal : 0,
-	sound : true,
+	sound : soundCookie,
 	difficulty : 0,
 	refTime : 0,
 	state : 0,

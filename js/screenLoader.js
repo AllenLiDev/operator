@@ -141,9 +141,11 @@ function Loader() {
 					music[0].stop();
 					gameArea.entities[4].index = 1;
 					gameArea.sound = false;
+                    setCookie("sound", "false", 30);
 				} else {
 					gameArea.entities[4].index = 0;
 					gameArea.sound = true;
+                    setCookie("sound", "", -1);
 					sfx[0].play();
 					music[0].play();
 				}
@@ -1028,6 +1030,7 @@ function Loader() {
 			clicked : function() {
 				if (!gameArea.sound) {
 					gameArea.sound = true;
+                    setCookie("sound", "", -1);
 					gameArea.entities[7].index = 0;
 					sfx[0].play();
 					music[0].play();
@@ -1048,6 +1051,7 @@ function Loader() {
 					music[0].setCurrentTime(0);
 					music[0].stop();
 					gameArea.sound = false;
+                    setCookie("sound", "false", 30);
 					gameArea.entities[7].index = 1;
 				}
 			}
