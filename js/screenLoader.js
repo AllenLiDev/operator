@@ -1384,6 +1384,15 @@ function Loader() {
 			index: 0
 		}
 
+		var overlay = {
+			src : "./assets/scoreAssets/scrollOverlay.png",
+			width : 420,
+			height : 118,
+			xPos : 270,
+			yPos : 316,
+			index: 0
+		}
+
 		var quitBox = {
 			xMin : 20,
 			yMin : 20,
@@ -1480,7 +1489,7 @@ function Loader() {
 			isClicked : false
 		}
 
-		this.entities.push(background, replayImage, submitImage, quitImage, letter1, letter2, letter3);
+		this.entities.push(background, replayImage, submitImage, quitImage, letter1, letter2, letter3, overlay);
 		this.clickable.push(quitBox);
 		this.strings.push(finalTime, completed);
 

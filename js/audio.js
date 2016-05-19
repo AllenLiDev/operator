@@ -6,10 +6,11 @@
 var music = [];
 var sfx = [];
 
-function sound(src, loop) {
+function sound(src, loop, volume) {
     this.sound = document.createElement("audio");
     this.sound.src = src;
     this.sound.loop = loop;
+    this.sound.volume = volume;
     this.sound.setAttribute("preload", "auto");
     this.sound.setAttribute("controls", "none");
     this.sound.style.display = "none";
@@ -31,21 +32,21 @@ function sound(src, loop) {
 }
 
 /**/
-var menuMusic = new sound("./assets/audioAssets/menuMusic.mp3", true);
+var menuMusic = new sound("./assets/audioAssets/menuMusic.mp3", true, 0.5);
 
-var gameMusic = new sound("./assets/audioAssets/gameMusic.mp3", true);
+var gameMusic = new sound("./assets/audioAssets/gameMusic.mp3", true, 0.5);
 
 /**/
 
-var click = new sound("./assets/audioAssets/click.wav", false);
+var click = new sound("./assets/audioAssets/click.wav", false, 1);
 
-var bass = new sound("./assets/audioAssets/bass.wav", false);
+var bass = new sound("./assets/audioAssets/bass.wav", false, 0.5);
 
-var reward = new sound("./assets/audioAssets/reward.wav", false);
+var reward = new sound("./assets/audioAssets/reward.wav", false, 1);
 
-var correct = new sound("./assets/audioAssets/correct.wav", false);
+var correct = new sound("./assets/audioAssets/correct.wav", false, 0.5);
 
-var incorrect = new sound("./assets/audioAssets/incorrect.wav", false);
+var incorrect = new sound("./assets/audioAssets/incorrect.wav", false, 0.5);
 
 /**/
 music.push(menuMusic, gameMusic);
