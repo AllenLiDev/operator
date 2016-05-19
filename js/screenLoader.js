@@ -975,7 +975,7 @@ function Loader() {
 				if (gameArea.difficulty == 1) {
 					gameArea.entities[5].index = 0;
 					gameArea.difficulty = 0;
-                    setCookie("difficulty", 0, -1);
+                    setCookie("difficulty", "0", -1);
 				}
 			}
 		}
@@ -991,7 +991,7 @@ function Loader() {
 				if (gameArea.difficulty == 0) {
 					gameArea.entities[5].index = 1;
 					gameArea.difficulty = 1;
-                    setCookie("difficulty", 1, 30);
+                    setCookie("difficulty", "1", 30);
 				}
 			}
 		}
