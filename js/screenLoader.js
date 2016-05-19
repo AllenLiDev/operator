@@ -1572,7 +1572,6 @@ function Loader() {
 					/*Reloads pre-game screen and game mode*/
 					clicked : function() {
 						sfx[3].play();
-						/**pushMarathonScore(getCharacters(gameArea.entities[4].index, gameArea.entities[5].index, gameArea.entities[6].index), Math.floor(gameArea.totalTime * 10) / 10, gameArea.difficulty);*/
 						pushMarathonScore(getCharacters(gameArea.entities[4].index, gameArea.entities[5].index, gameArea.entities[6].index), gameArea.scoreTotal, gameArea.difficulty);
 						gameArea.clickable.pop();
 					}
