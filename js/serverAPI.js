@@ -223,3 +223,157 @@ function calcTime(problemNumber) {
     time = Math.max(time, minimumTime);
     return time;
 }
+
+/*
+pushTimeAttackScore(String name, double scores, int hard) {
+@param name 3 letter initials
+@param scores time in milliseconds
+@param hard 1 = hard, 0 = easy
+}
+*/
+function pushTimeAttackScore(name, scores, hard) {
+    var date = new Date().getTime();
+    $.ajax({
+        async: true,
+        type: "GET",
+        url: "timeAttackScore.php",
+        data: {date: date, name: name, scores: scores, hard: hard},
+    });
+}
+
+function pushMarathonScore(name, scores, hard) {
+    var date = new Date().getTime();
+    $.ajax({
+        async: true,
+        type: "GET",
+        url: "marathonScore.php",
+        data: {date: date, name: name, scores: scores, hard: hard},
+    });
+}
+
+/*
+Returns character string based on index position of scrollwheels
+*/
+function getCharacters(index1, index2, index3) {
+    var input = [];
+    input[0] = index1;
+    input[1] = index2;
+    input[2] = index3;
+    var characters = "";
+
+    for (var i = 0; i < input.length; i++) {
+        switch (input[i]) {
+            case 0:
+                characters = characters + "A";
+                break;
+            case 1:
+                characters = characters + "B";
+                break;
+            case 2:
+                characters = characters + "C";
+                break;
+            case 3:
+                characters = characters + "D";
+                break;
+            case 4:
+                characters = characters + "E";
+                break;
+            case 5:
+                characters = characters + "F";
+                break;
+            case 6:
+                characters = characters + "G";
+                break;
+            case 7:
+                characters = characters + "H";
+                break;
+            case 8:
+                characters = characters + "I";
+                break;
+            case 9:
+                characters = characters + "J";
+                break;
+            case 10:
+                characters = characters + "K";
+                break;
+            case 11:
+                characters = characters + "L";
+                break;
+            case 12:
+                characters = characters + "M";
+                break;
+            case 13:
+                characters = characters + "N";
+                break;
+            case 14:
+                characters = characters + "O";
+                break;
+            case 15:
+                characters = characters + "P";
+                break;
+            case 16:
+                characters = characters + "Q";
+                break;
+            case 17:
+                characters = characters + "R";
+                break;
+            case 18:
+                characters = characters + "S";
+                break;
+            case 19:
+                characters = characters + "T";
+                break;
+            case 20:
+                characters = characters + "U";
+                break;
+            case 21:
+                characters = characters + "V";
+                break;
+            case 22:
+                characters = characters + "W";
+                break;
+            case 23:
+                characters = characters + "X";
+                break;
+            case 24:
+                characters = characters + "Y";
+                break;
+            case 25:
+                characters = characters + "Z";
+                break;
+            case 26:
+                characters = characters + "0";
+                break;
+            case 27:
+                characters = characters + "1";
+                break;
+            case 28:
+                characters = characters + "2";
+                break;
+            case 29:
+                characters = characters + "3";
+                break;
+            case 30:
+                characters = characters + "4";
+                break;
+            case 31:
+                characters = characters + "5";
+                break;
+            case 32:
+                characters = characters + "6";
+                break;
+            case 33:
+                characters = characters + "7";
+                break;
+            case 34:
+                characters = characters + "8";
+                break;
+            case 35:
+                characters = characters + "9";
+                break;
+        }
+    }
+
+    return characters;
+    
+}

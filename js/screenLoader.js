@@ -1448,8 +1448,20 @@ function Loader() {
 					}
 				}
 
+				var submitBox = {
+					xMin : 330,
+					yMin : 443,
+					xMax : 630,
+					yMax : 510,
+					/*Reloads pre-game screen and game mode*/
+					clicked : function() {
+						pushTimeAttackScore(getCharacters(gameArea.entities[4].index, gameArea.entities[5].index, gameArea.entities[6].index), Math.floor(gameArea.refTime * 10) / 10, gameArea.difficulty);
+						gameArea.clickable.pop();
+					}
+				}
+
 				this.entities[0] = background;
-				this.clickable.push(replayBox);
+				this.clickable.push(replayBox, submitBox);
 				break;
 
 			case 4:
@@ -1490,8 +1502,20 @@ function Loader() {
 					colour : "#5C5C5C"
 				}
 
+				var submitBox = {
+					xMin : 330,
+					yMin : 443,
+					xMax : 630,
+					yMax : 510,
+					/*Reloads pre-game screen and game mode*/
+					clicked : function() {
+						pushTimeAttackScore(getCharacters(gameArea.entities[4].index, gameArea.entities[5].index, gameArea.entities[6].index), Math.floor(gameArea.totalTime * 10) / 10, gameArea.difficulty);
+						gameArea.clickable.pop();
+					}
+				}
+
 				this.entities[0] = background;
-				this.clickable.push(replayBox);
+				this.clickable.push(replayBox, submitBox);
 				this.strings.push(totalNum);
 				break;
 		}
