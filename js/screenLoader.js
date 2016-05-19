@@ -95,6 +95,22 @@ function Loader() {
 				return load.preGameScreen();
 			}
 		}
+
+		var hardImage = {
+			src : "./assets/menuAssets/hardStamp.png",
+			width : 290,
+			height : 140,
+			xPos : 345,
+			yPos : 75,
+			index: (function() {
+				if (gameArea.difficulty) {
+					return 0;
+				} else {
+					return 1;
+				}
+			})(),
+			frames: 2
+		}
 		
 		var audioImage = {
 			src : "./assets/menuAssets/audioButton.png",
@@ -271,7 +287,7 @@ function Loader() {
 			}
 		}
 
-		this.entities.push(background, staticImage, timeAtkImage, endlessImage, audioImage, leaderImage, guideImage, settingImage);
+		this.entities.push(background, staticImage, timeAtkImage, endlessImage, audioImage, leaderImage, guideImage, settingImage, hardImage);
 		this.clickable.push(timeAtkBox, endlessBox, audioBox, leaderBox, guideBox, settingBox, symbolAdd, symbolMinus, symbolMulti, symbolDivide);
 		this.fill();
 
@@ -1555,7 +1571,8 @@ function Loader() {
 					/*Reloads pre-game screen and game mode*/
 					clicked : function() {
 						sfx[3].play();
-						pushMarathonScore(getCharacters(gameArea.entities[4].index, gameArea.entities[5].index, gameArea.entities[6].index), Math.floor(gameArea.totalTime * 10) / 10, gameArea.difficulty);
+						/**pushMarathonScore(getCharacters(gameArea.entities[4].index, gameArea.entities[5].index, gameArea.entities[6].index), Math.floor(gameArea.totalTime * 10) / 10, gameArea.difficulty);*/
+						pushMarathonScore(getCharacters(gameArea.entities[4].index, gameArea.entities[5].index, gameArea.entities[6].index), gameArea.scoreTotal, gameArea.difficulty);
 						gameArea.clickable.pop();
 					}
 				}
