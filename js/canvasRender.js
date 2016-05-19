@@ -41,8 +41,14 @@ var gameArea = {
 		gameArea.strings = gameArea.loaded[3];
 	},
 	resize : function() {
-		this.canvas.width = window.innerWidth;
-		this.canvas.height = window.innerHeight;
+		if (detectmob()) {
+			this.canvas.width = window.innerWidth;
+			this.canvas.height = window.innerHeight;
+		} else {
+			this.canvas.width = window.innerWidth;
+			this.canvas.height = window.innerHeight;
+		}
+		
 		gameArea.ratioX = this.canvas.width / gameArea.WIDTH;
 		gameArea.ratioY = this.canvas.height / gameArea.HEIGHT;
 	},
@@ -92,15 +98,14 @@ var gameArea = {
 	init : function() {
 		this.canvas = document.getElementById("canvas");
 		this.ctx = this.canvas.getContext("2d");
-		this.canvas.width = window.innerWidth;
-		this.canvas.height = window.innerHeight;
-		this.ratioX = this.canvas.width / gameArea.WIDTH;
-		this.ratioY = this.canvas.height / gameArea.HEIGHT;
 		gameArea.resize();
 
 		if (detectmob()) {
 			gameArea.canvas.addEventListener("touchstart", touchCollision);
-			gameArea.canvas.addEventListener("touchmove", getCoords);
+			gameArea.canvas.addEventListener("touchmove", function(e) {
+				getCoords(e);
+				e.preventDefault();
+			});
 			gameArea.canvas.addEventListener("touchend", dropCollision);
 			window.addEventListener("deviceorientation", gameArea.resize);
 		} else {
@@ -202,7 +207,7 @@ function touchCollision(event) {
 	}
 	
 	for (var i = 0; i < gameArea.entities.length; i++) {
-		if (gameArea.entities[i].xMin * gameArea.ratioX <= xCoord && gameArea.entities[i].xMax * gameArea.ratioX >= xCoord && gameArea.entities[i].yMin * gameArea.ratioY <= yCoord && gameArea.entities[i].yMax * gameArea.ratioY >= yCoord && gameArea.entities[i].isDraggable) {
+		if (gameArea.entities[i].xMin * gameArea.ratioX <= xCoord && gameArea.entities[i].xMax * gameArea.ratioX >= xCoord && gameArea.entities[i].yMin * gameArea.ratioY <= yCoord && gameArea.entities[i].yMax * gameArea.ratioY >= yCoord && gameArea.entities[i].isDraggable == true) {
 			gameArea.entities[i].isClicked = true;
 		}
 	}

@@ -100,8 +100,8 @@ function Loader() {
 			src : "./assets/menuAssets/hardStamp.png",
 			width : 290,
 			height : 140,
-			xPos : 345,
-			yPos : 75,
+			xPos : 612,
+			yPos : 94,
 			index: (function() {
 				if (gameArea.difficulty) {
 					return 0;
