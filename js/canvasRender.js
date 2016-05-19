@@ -5,6 +5,8 @@
 /*loads sound cookie*/
 var soundCookie;
 soundCookie = (getCookie("sound") === "false") ? false : true;
+var difficultyCookie = (getCookie("difficulty") == ""
+    || getCookie("difficulty") === 0) ? 0 : 1;
 /*Canvas namespace and data management*/
 var gameArea = {
 	canvas : null,
@@ -24,7 +26,7 @@ var gameArea = {
 	score : 0,
 	scoreTotal : 0,
 	sound : soundCookie,
-	difficulty : 0,
+	difficulty : difficultyCookie,
 	refTime : 0,
 	state : 0,
 	combo : 1,
