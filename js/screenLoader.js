@@ -1348,6 +1348,7 @@ function Loader() {
 	};
 	this.scoreScreen = function() {//Loads score screen objects
 		this.clear();
+		sfx[2].play();
 		music[1].setCurrentTime(0);
 		music[1].stop();
 
