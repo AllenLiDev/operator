@@ -187,6 +187,7 @@ function touchCollision(event) {
 	getCoords(event);
 	var xCoord = gameArea.xMouse;
 	var yCoord = gameArea.yMouse;
+	gameArea.yRef = gameArea.yMouse;
 
 	if (gameArea.clickable.length > 0) {
 		for (var i = 0; i < gameArea.clickable.length; i++) {
