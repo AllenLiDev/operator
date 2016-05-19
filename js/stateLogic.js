@@ -231,7 +231,7 @@ function update(dt) {
 
 			} else if (gameArea.refTime < 0 && gameArea.entities.length == 2 && gameArea.entities[1].index == 2) {//Pre-load screen
 				gameArea.clear();
-				gameArea.refTime = 10;
+				gameArea.refTime = 24;
 				gameArea.loaded = load.gameScreen();
 				gameArea.parse();
 				getProblem(difficultyCurve(gameArea.score + 1, gameArea.difficulty), gameArea.difficulty);
