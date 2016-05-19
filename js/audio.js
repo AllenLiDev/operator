@@ -25,7 +25,7 @@ function sound(src) {
     this.setCurrentTime = function(x){
         if (gameArea.sound) {
     	   this.sound.currentTime = x;
-    }
+        }
     }
 }
 
