@@ -60,6 +60,7 @@ function Loader() {
 			LOADER : true,
 			/*Loads pre-game screen and starts time attack*/
 			clicked : function() {
+				sfx[1].play();
 				music[0].setCurrentTime(0);
 				music[0].stop();
 				music[1].play();
@@ -85,6 +86,7 @@ function Loader() {
 			LOADER : true,
 			/*Loads pre-game screen and starts endless mode*/
 			clicked : function() {
+				sfx[1].play();
 				music[0].setCurrentTime(0);
 				music[0].stop();
 				music[1].play();
@@ -117,6 +119,7 @@ function Loader() {
 			yMax : 105,
 			/*Sets the audio state to on or off*/
 			clicked : function() {
+				sfx[0].play();
 				if (gameArea.sound) {
 					music[0].setCurrentTime(0);
 					music[0].stop();
@@ -125,6 +128,7 @@ function Loader() {
 				} else {
 					gameArea.entities[4].index = 0;
 					gameArea.sound = true;
+					sfx[0].play();
 					music[0].play();
 				}
 			}
@@ -147,6 +151,7 @@ function Loader() {
 			LOADER : true,
 			/*Loads leader screen*/
 			clicked : function() {
+				sfx[0].play();
 				return load.leaderScreen();
 			}
 		}
@@ -168,6 +173,7 @@ function Loader() {
 			LOADER : true,
 			/*Load guide screen*/
 			clicked : function() {
+				sfx[0].play();
 				return load.guideScreen();
 			}
 		}
@@ -189,6 +195,7 @@ function Loader() {
 			LOADER : true,
 			/*Loads settings screen*/
 			clicked : function() {
+				sfx[0].play();
 				return load.settingScreen();
 			}
 		}
@@ -223,6 +230,7 @@ function Loader() {
 				if (gameArea.clickable[6].state) {
 					gameArea.state = 0;
 					gameArea.clear();
+					sfx[2].play();
 					gameArea.loaded = load.easterScreen(Math.floor((Math.random() * 5) + 1));
 					gameArea.parse();
 				}
@@ -514,6 +522,7 @@ function Loader() {
 			LOADER : true,
 			/*Loads menu screen*/
 			clicked : function() {
+				sfx[0].play();
 				music[1].setCurrentTime(0);
 				music[1].stop();
 				music[0].play();
@@ -552,6 +561,7 @@ function Loader() {
 			parameter : "+",
 			z : 1,
 			drop : function() {
+				sfx[0].play();
 				window["plusOp" + this.caseOp] = {
 					src : "./assets/gameAssets/plusOperator.png",
 					width : 80,
@@ -583,6 +593,7 @@ function Loader() {
 			parameter : "-",
 			z : 1,
 			drop : function() {
+				sfx[0].play();
 				window["minusOp" + this.caseOp] = {
 					src : "./assets/gameAssets/minusOperator.png",
 					width : 80,
@@ -614,6 +625,7 @@ function Loader() {
 			parameter : "*",
 			z : 1,
 			drop : function() {
+				sfx[0].play();
 				window["multiOp" + this.caseOp] = {
 					src : "./assets/gameAssets/multiOperator.png",
 					width : 80,
@@ -645,6 +657,7 @@ function Loader() {
 			parameter : "/",
 			z : 1,
 			drop : function() {
+				sfx[0].play();
 				window["divOp" + this.caseOp] = {
 					src : "./assets/gameAssets/divOperator.png",
 					width : 80,
@@ -774,6 +787,7 @@ function Loader() {
 					yMax : 110,
 					/*Loads new problem and resets operators*/
 					clicked : function() {
+						sfx[0].play();
 						getProblem(timeAttackDifficulty(gameArea.score + 1, gameArea.difficulty), gameArea.difficulty);
 						for (var i = 0; i < gameArea.droppable.length; i++) {
 							if (gameArea.droppable[i].isFilled) {
@@ -813,6 +827,7 @@ function Loader() {
 					yMax : 110,
 					/*Loads new problem and resets operators*/
 					clicked : function() {
+						sfx[0].play();
 						getProblem(timeAttackDifficulty(gameArea.score + 1, gameArea.difficulty), gameArea.difficulty);
 						for (var i = 0; i < gameArea.droppable.length; i++) {
 							if (gameArea.droppable[i].isFilled) {
@@ -891,6 +906,7 @@ function Loader() {
 			LOADER : true,
 			/*Loads menu screen*/
 			clicked : function() {
+				sfx[0].play();
 				gameArea.state = 0;
 				return load.menuScreen();
 			}
@@ -937,6 +953,7 @@ function Loader() {
 			yMax : 390,
 			/*Enables easy mode*/
 			clicked : function() {
+				sfx[0].play();
 				if (gameArea.difficulty == 1) {
 					gameArea.entities[5].index = 0;
 					gameArea.difficulty = 0;
@@ -951,6 +968,7 @@ function Loader() {
 			yMax : 390,
 			/*Enable hard mode*/
 			clicked : function() {
+				sfx[0].play();
 				if (gameArea.difficulty == 0) {
 					gameArea.entities[5].index = 1;
 					gameArea.difficulty = 1;
@@ -995,6 +1013,7 @@ function Loader() {
 				if (!gameArea.sound) {
 					gameArea.sound = true;
 					gameArea.entities[7].index = 0;
+					sfx[0].play();
 					music[0].play();
 				}
 			}
@@ -1008,6 +1027,7 @@ function Loader() {
 			isClicked : false,
 			/*Disable sound*/
 			clicked : function() {
+				sfx[0].play();
 				if (gameArea.sound) {
 					music[0].setCurrentTime(0);
 					music[0].stop();
@@ -1055,6 +1075,7 @@ function Loader() {
 			LOADER : true,
 			/*Loads menu screen*/
 			clicked : function() {
+				sfx[0].play();
 				gameArea.state = 0;
 				return load.menuScreen();
 			}
@@ -1297,6 +1318,7 @@ function Loader() {
 			LOADER : true,
 			/*Loads menu screen*/
 			clicked : function() {
+				sfx[0].play();
 				gameArea.state = 0;
 				return load.menuScreen();
 			}
@@ -1349,6 +1371,7 @@ function Loader() {
 			LOADER : true,
 			/*Loads menu screen*/
 			clicked : function() {
+				sfx[0].play();
 				gameArea.refTime = 0;
 				gameArea.score = 0;
 				gameArea.state = 0;
@@ -1459,6 +1482,7 @@ function Loader() {
 					LOADER : true,
 					/*Reloads pre-game screen and game mode*/
 					clicked : function() {
+						sfx[1].play();
 						gameArea.refTime = 0;
 						gameArea.state = 1;
 						gameArea.score = 0;
@@ -1473,6 +1497,7 @@ function Loader() {
 					yMax : 510,
 					/*Reloads pre-game screen and game mode*/
 					clicked : function() {
+						sfx[3].play();
 						pushTimeAttackScore(getCharacters(gameArea.entities[4].index, gameArea.entities[5].index, gameArea.entities[6].index), Math.floor(gameArea.refTime * 10) / 10, gameArea.difficulty);
 						gameArea.clickable.pop();
 					}
@@ -1500,6 +1525,7 @@ function Loader() {
 					LOADER : true,
 					/*Reloads pre-game screen and game mode*/
 					clicked : function() {
+						sfx[1].play();
 						music[1].play();
 						gameArea.refTime = 3;
 						gameArea.state = 2;
@@ -1528,6 +1554,7 @@ function Loader() {
 					yMax : 510,
 					/*Reloads pre-game screen and game mode*/
 					clicked : function() {
+						sfx[3].play();
 						pushMarathonScore(getCharacters(gameArea.entities[4].index, gameArea.entities[5].index, gameArea.entities[6].index), Math.floor(gameArea.totalTime * 10) / 10, gameArea.difficulty);
 						gameArea.clickable.pop();
 					}

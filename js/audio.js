@@ -36,29 +36,17 @@ var gameMusic = new sound("./assets/audioAssets/gameMusic.mp3");
 
 /**/
 
-var success = new sound("./assets/audioAssets/bling.aif");
+var click = new sound("./assets/audioAssets/click.wav");
+
+var bass = new sound("./assets/audioAssets/bass.wav");
+
+var reward = new sound("./assets/audioAssets/reward.wav");
 
 var correct = new sound("./assets/audioAssets/correct.wav");
 
 var incorrect = new sound("./assets/audioAssets/incorrect.wav");
 
-var clickOne = new sound("./assets/audioAssets/click1.wav");
-
-var clickTwo = new sound("./assets/audioAssets/click2.wav");
-
-var transition = new sound("./assets/audioAssets/transition1.wav");
-
-var transition = new sound("./assets/audioAssets/transition2.flac");
-
-var transition = new sound("./assets/audioAssets/transition3.wav");
-
-var transition = new sound("./assets/audioAssets/transition4.wav");
-
-var transition = new sound("./assets/audioAssets/transition5.wav");
-
-var transition = new sound("./assets/audioAssets/transition6.wav");
-
 /**/
 music.push(menuMusic, gameMusic);
 
-sfx.push(success, correct, incorrect, clickOne, clickTwo, transition);
+sfx.push(click, bass, reward, correct, incorrect);
