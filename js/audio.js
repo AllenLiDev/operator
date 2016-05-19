@@ -30,20 +30,25 @@ function sound(src) {
 }
 
 /**/
-var menuMusic = new sound("./assets/audio/menuMusic.mp3");
+var menuMusic = new sound("./assets/audioAssets/menuMusic.mp3");
 
-var gameMusic = new sound("./assets/audio/gameMusic.mp3");
+var gameMusic = new sound("./assets/audioAssets/gameMusic.mp3");
 
 /**/
-var transition = new sound();
 
-var success = new sound();
+var success = new sound("./assets/audioAssets/bling.aif");
 
-var failure = new sound();
+var correct = new sound("./assets/audioAssets/correct.wav");
 
-var click = new sound();
+var incorrect = new sound("./assets/audioAssets/incorrect.wav");
+
+var clickOne = new sound("./assets/audioAssets/click1.wav");
+
+var clickTwo = new sound("./assets/audioAssets/click2.wav");
+
+var transition = new sound("./assets/audioAssets/menuMusic.mp3");
 
 /**/
 music.push(menuMusic, gameMusic);
 
-sfx.push();
+sfx.push(success, correct, incorrect, clickOne, clickTwo, transition);
