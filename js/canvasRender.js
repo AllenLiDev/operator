@@ -12,6 +12,7 @@ var gameArea = {
 	ratioY : null,
 	xMouse : null,
 	yMouse : null,
+	yRef : null,
 	loaded : [],
 	entities : [],
 	clickable : [],
@@ -56,7 +57,12 @@ var gameArea = {
 				img.xPos = this.entities[i].xPos;
 				img.yPos = this.entities[i].yPos;
 				img.index = this.entities[i].index;
-				this.ctx.drawImage(img, 0, img.index * img.height, img.width, img.height, img.xPos * this.ratioX, img.yPos * this.ratioY, img.width * this.ratioX, img.height * this.ratioY);
+				if (this.entities[i].modifier == null) {
+					img.modifier = 0;
+				} else {
+					img.modifier = this.entities[i].modifier;
+				}
+				this.ctx.drawImage(img, 0, img.index * (img.height - img.modifier), img.width, img.height, img.xPos * this.ratioX, img.yPos * this.ratioY, img.width * this.ratioX, img.height * this.ratioY);
 			}
 		}
 
@@ -166,6 +172,7 @@ function clickCollision() {
 function dragCollision() {
 	var xCoord = gameArea.xMouse;
 	var yCoord = gameArea.yMouse;
+	gameArea.yRef = gameArea.yMouse;
 
 	for (var i = 0; i < gameArea.entities.length; i++) {
 		if (gameArea.entities[i].xMin * gameArea.ratioX <= xCoord && gameArea.entities[i].xMax * gameArea.ratioX >= xCoord && gameArea.entities[i].yMin * gameArea.ratioY <= yCoord && gameArea.entities[i].yMax * gameArea.ratioY >= yCoord && gameArea.entities[i].isDraggable) {
@@ -205,7 +212,7 @@ quads. This does not account for larger drag objects than hit boxes.*/
 function dropCollision() {
 	for (var i = 0; i < gameArea.entities.length; i++) {
 		if (gameArea.entities[i].isClicked) {
-			for (var d = 0; d < load.droppable.length; d++) {
+			for (var d = 0; d < gameArea.droppable.length; d++) {
 				if ((((gameArea.entities[i].xPos * gameArea.ratioX) >= (load.droppable[d].xMin * gameArea.ratioX)
 					&& (gameArea.entities[i].xPos * gameArea.ratioX) <= (load.droppable[d].xMax * gameArea.ratioX)
 					&& ((gameArea.entities[i].yPos + gameArea.entities[i].height) * gameArea.ratioY) >= (load.droppable[d].yMin * gameArea.ratioY)
@@ -226,7 +233,7 @@ function dropCollision() {
 
 					
 
-					if (load.droppable[d].isFilled) {
+					if (gameArea.droppable[d].isFilled) {
 						for (var pos = 0; pos < gameArea.entities.length; pos++) {
 							if (load.droppable[d].position == gameArea.entities[pos].position) {
 								gameArea.entities.splice(pos, 1);
@@ -254,7 +261,11 @@ function dropCollision() {
 					}
 				}
 			}
-			if (gameArea.entities[i].isClicked) {
+
+			if (gameArea.entities[i].isClicked && gameArea.entities[i].isScrollable) {
+				gameArea.entities[i].index = Math.round(gameArea.entities[i].index);
+				gameArea.entities[i].isClicked = false;
+			} else if(gameArea.entities[i].isClicked) {
 				gameArea.entities[i].xPos = gameArea.entities[i].xInit;
 				gameArea.entities[i].yPos = gameArea.entities[i].yInit;
 				gameArea.entities[i].isClicked = false;
@@ -267,7 +278,20 @@ function dropCollision() {
 function handleInput(dt) {
 	for (var i = 0; i < gameArea.entities.length; i++) {
 		if (gameArea.entities[i].isClicked && gameArea.entities[i].isScrollable) {
-			
+			var dp = gameArea.yMouse - gameArea.yRef;
+			if (dp > 118) {
+				dp = 118;
+			} else if (dp < -118) {
+				dp = -118;
+			}
+
+			if (gameArea.entities[i].index < 0) {
+				gameArea.entities[i].index = 35;
+			} else if (gameArea.entities[i].index > 35) {
+				gameArea.entities[i].index = 0;
+			}
+
+			gameArea.entities[i].index += (1 * ((dp * -1) / 826));
 		} else if (gameArea.entities[i].isClicked) {
 			gameArea.entities[i].xPos = (gameArea.xMouse / gameArea.ratioX) - (gameArea.entities[i].width / 2);
 			gameArea.entities[i].yPos = (gameArea.yMouse / gameArea.ratioY) - (gameArea.entities[i].height / 2);

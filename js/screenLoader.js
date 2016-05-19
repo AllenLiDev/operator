@@ -1362,65 +1362,60 @@ function Loader() {
 		}
 
 		var letter1 = {
-			src : "./assets/scoreAssets/scrollWheel.png",
+			src : "./assets/scoreAssets/scrollWheel3.png",
 			width : 57,
 			height : 118,
 			xPos : 311,
-			yPos : 346,
+			yPos : 316,
 			xInit : 311,
-			yInit : 346,
+			yInit : 316,
 			index : 0,
 			xMin : 270,
-			yMin : 316,
-			xMax : 410,
-			yMax : 434,
+			yMin : 306,
+			xMax : 412,
+			yMax : 444,
+			modifier : 61,
 			isDraggable : true,
 			isScrollable : true,
-			isClicked : false,
-			drop : function() {
-			}
+			isClicked : false
 		}
 
 		var letter2 = {
-			src : "./assets/scoreAssets/scrollWheel.png",
+			src : "./assets/scoreAssets/scrollWheel3.png",
 			width : 57,
 			height : 118,
 			xPos : 451,
-			yPos : 346,
+			yPos : 316,
 			xInit : 451,
-			yInit : 346,
+			yInit : 316,
 			index : 0,
-			xMin : 270,
+			xMin : 413,
 			yMin : 316,
-			xMax : 410,
+			xMax : 553,
 			yMax : 434,
+			modifier : 61,
 			isDraggable : true,
 			isScrollable : true,
-			isClicked : false,
-			z : 1,
-			drop : function() {
-			}
+			isClicked : false
 		}
 
 		var letter3 = {
-			src : "./assets/scoreAssets/scrollWheel.png",
+			src : "./assets/scoreAssets/scrollWheel3.png",
 			width : 57,
 			height : 118,
 			xPos : 591,
-			yPos : 346,
+			yPos : 316,
 			xInit : 591,
-			yInit : 346,
+			yInit : 316,
 			index : 0,
-			xMin : 270,
+			xMin : 554,
 			yMin : 316,
-			xMax : 410,
+			xMax : 690,
 			yMax : 434,
+			modifier : 61,
 			isDraggable : true,
 			isScrollable : true,
-			isClicked : false,
-			z : 1,
-			drop : function() {
-			}
+			isClicked : false
 		}
 
 		this.entities.push(background, replayImage, submitImage, quitImage, letter1, letter2, letter3);
