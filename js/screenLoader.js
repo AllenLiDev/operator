@@ -1361,7 +1361,69 @@ function Loader() {
 			colour : "#5C5C5C"
 		}
 
-		this.entities.push(background, replayImage, submitImage, quitImage);
+		var letter1 = {
+			src : "./assets/scoreAssets/scrollWheel.png",
+			width : 57,
+			height : 118,
+			xPos : 311,
+			yPos : 346,
+			xInit : 311,
+			yInit : 346,
+			index : 0,
+			xMin : 270,
+			yMin : 316,
+			xMax : 410,
+			yMax : 434,
+			isDraggable : true,
+			isScrollable : true,
+			isClicked : false,
+			drop : function() {
+			}
+		}
+
+		var letter2 = {
+			src : "./assets/scoreAssets/scrollWheel.png",
+			width : 57,
+			height : 118,
+			xPos : 451,
+			yPos : 346,
+			xInit : 451,
+			yInit : 346,
+			index : 0,
+			xMin : 270,
+			yMin : 316,
+			xMax : 410,
+			yMax : 434,
+			isDraggable : true,
+			isScrollable : true,
+			isClicked : false,
+			z : 1,
+			drop : function() {
+			}
+		}
+
+		var letter3 = {
+			src : "./assets/scoreAssets/scrollWheel.png",
+			width : 57,
+			height : 118,
+			xPos : 591,
+			yPos : 346,
+			xInit : 591,
+			yInit : 346,
+			index : 0,
+			xMin : 270,
+			yMin : 316,
+			xMax : 410,
+			yMax : 434,
+			isDraggable : true,
+			isScrollable : true,
+			isClicked : false,
+			z : 1,
+			drop : function() {
+			}
+		}
+
+		this.entities.push(background, replayImage, submitImage, quitImage, letter1, letter2, letter3);
 		this.clickable.push(quitBox);
 		this.strings.push(finalTime, completed);
 

@@ -266,7 +266,9 @@ function dropCollision() {
 /*Handles draggable location on click*/
 function handleInput(dt) {
 	for (var i = 0; i < gameArea.entities.length; i++) {
-		if (gameArea.entities[i].isClicked) {
+		if (gameArea.entities[i].isClicked && gameArea.entities[i].isScrollable) {
+			
+		} else if (gameArea.entities[i].isClicked) {
 			gameArea.entities[i].xPos = (gameArea.xMouse / gameArea.ratioX) - (gameArea.entities[i].width / 2);
 			gameArea.entities[i].yPos = (gameArea.yMouse / gameArea.ratioY) - (gameArea.entities[i].height / 2);
 		}
