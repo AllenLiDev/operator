@@ -61,6 +61,7 @@ function update(dt) {
 				if (gameArea.droppable[0].isFilled && gameArea.droppable[1].isFilled && gameArea.droppable[2].isFilled) {
 
 					if (validate(gameArea.strings[1].parameter, gameArea.strings[2].parameter, gameArea.strings[3].parameter, gameArea.strings[4].parameter, gameArea.droppable[0].parameter, gameArea.droppable[1].parameter, gameArea.droppable[2].parameter)) {
+						sfx[3].play();
 
 						gameArea.entities[3].index = 1;
 						gameArea.entities[10].index = 1;
@@ -93,6 +94,7 @@ function update(dt) {
 							gameArea.entities.pop();
 						}
 					} else {
+						sfx[4].play();
 
 						gameArea.entities[3].index = 2;						
 						gameArea.entities[10].index = 2;
@@ -165,6 +167,8 @@ function update(dt) {
 
 					if (validate(gameArea.strings[1].parameter, gameArea.strings[2].parameter, gameArea.strings[3].parameter, gameArea.strings[4].parameter, gameArea.droppable[0].parameter, gameArea.droppable[1].parameter, gameArea.droppable[2].parameter)) {
 
+						sfx[3].play();
+
 						gameArea.entities[3].index = 1;
 						// gameArea.entities[10].index = 1;
 
@@ -193,6 +197,8 @@ function update(dt) {
 						gameArea.entities.pop();
 						gameArea.entities.pop();
 					} else {
+
+						sfx[4].play();
 
 						gameArea.combo = 1;
 
