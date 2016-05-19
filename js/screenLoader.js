@@ -24,6 +24,7 @@ function Loader() {
 	};
 	this.menuScreen = function() {
 		this.clear();
+		music[0].play();
 		var background = {
 			src : "./assets/menuAssets/background.png",
 			width : 960,
@@ -59,6 +60,10 @@ function Loader() {
 			LOADER : true,
 			/*Loads pre-game screen and starts time attack*/
 			clicked : function() {
+				sfx[1].play();
+				music[0].setCurrentTime(0);
+				music[0].stop();
+				music[1].play();
 				gameArea.state = 1;
 				return load.preGameScreen();
 			}
@@ -81,10 +86,30 @@ function Loader() {
 			LOADER : true,
 			/*Loads pre-game screen and starts endless mode*/
 			clicked : function() {
+				sfx[1].play();
+				music[0].setCurrentTime(0);
+				music[0].stop();
+				music[1].play();
 				gameArea.state = 2;
 				gameArea.refTime = 3;
 				return load.preGameScreen();
 			}
+		}
+
+		var hardImage = {
+			src : "./assets/menuAssets/hardStamp.png",
+			width : 290,
+			height : 140,
+			xPos : 612,
+			yPos : 94,
+			index: (function() {
+				if (gameArea.difficulty) {
+					return 0;
+				} else {
+					return 1;
+				}
+			})(),
+			frames: 2
 		}
 		
 		var audioImage = {
@@ -110,12 +135,19 @@ function Loader() {
 			yMax : 105,
 			/*Sets the audio state to on or off*/
 			clicked : function() {
+				sfx[0].play();
 				if (gameArea.sound) {
+					music[0].setCurrentTime(0);
+					music[0].stop();
 					gameArea.entities[4].index = 1;
 					gameArea.sound = false;
+                    setCookie("sound", "false", 30);
 				} else {
 					gameArea.entities[4].index = 0;
 					gameArea.sound = true;
+                    setCookie("sound", "", -1);
+					sfx[0].play();
+					music[0].play();
 				}
 			}
 		}
@@ -137,6 +169,7 @@ function Loader() {
 			LOADER : true,
 			/*Loads leader screen*/
 			clicked : function() {
+				sfx[0].play();
 				return load.leaderScreen();
 			}
 		}
@@ -158,6 +191,7 @@ function Loader() {
 			LOADER : true,
 			/*Load guide screen*/
 			clicked : function() {
+				sfx[0].play();
 				return load.guideScreen();
 			}
 		}
@@ -179,6 +213,7 @@ function Loader() {
 			LOADER : true,
 			/*Loads settings screen*/
 			clicked : function() {
+				sfx[0].play();
 				return load.settingScreen();
 			}
 		}
@@ -207,11 +242,15 @@ function Loader() {
 			yMin : 174,
 			xMax : 479,
 			yMax : 243,
-			LOADER : true,
+			state : false,
 			/*Clickable operator subtraction*/
 			clicked : function(){
 				if (gameArea.clickable[6].state) {
-					return load.easterScreen(Math.floor((Math.random() * 5) + 1));
+					gameArea.state = 0;
+					gameArea.clear();
+					sfx[2].play();
+					gameArea.loaded = load.easterScreen(Math.floor((Math.random() * 5) + 1));
+					gameArea.parse();
 				}
 			}
 		}
@@ -250,7 +289,7 @@ function Loader() {
 			}
 		}
 
-		this.entities.push(background, staticImage, timeAtkImage, endlessImage, audioImage, leaderImage, guideImage, settingImage);
+		this.entities.push(background, staticImage, timeAtkImage, endlessImage, audioImage, leaderImage, guideImage, settingImage, hardImage);
 		this.clickable.push(timeAtkBox, endlessBox, audioBox, leaderBox, guideBox, settingBox, symbolAdd, symbolMinus, symbolMulti, symbolDivide);
 		this.fill();
 
@@ -345,32 +384,31 @@ function Loader() {
 			yMax : 540,
 			/*Exit easter egg*/
 			clicked : function() {
-				gameArea.entities = [];
-				gameArea.state = 3;
-				gameArea.entities = this.menuScreen();
+				gameArea.clear();
+				gameArea.state = 0;
+				gameArea.loaded = load.menuScreen();
+				gameArea.parse();
 			}
 		}
 
-		var rng = comicNum;
-
-		switch (rng) {
+		switch (comicNum) {
 			case 1:
 				var easterImage = {
-					src : "./assets/menuAssets/easter1.gif",
-					width : 640,
-					height : 159,
-					xPos : 160,
-					yPos : 120,
+					src : "./assets/menuAssets/easter1.jpg",
+					width : 540,
+					height : 540,
+					xPos : 210,
+					yPos : 0,
 					index: 0
 				}
 				break;
 			case 2:
 				var easterImage = {
-					src : "./assets/menuAssets/easter2.gif",
-					width : 600,
-					height : 191,
-					xPos : 180,
-					yPos : 120,
+					src : "./assets/menuAssets/easter2.jpg",
+					width : 424,
+					height : 540,
+					xPos : 268,
+					yPos : 0,
 					index: 0
 				}
 				break;
@@ -386,20 +424,20 @@ function Loader() {
 				break;
 			case 4:
 				var easterImage = {
-					src : "./assets/menuAssets/easter4.gif",
-					width : 600,
-					height : 190,
-					xPos : 180,
-					yPos : 120,
+					src : "./assets/menuAssets/easter4.jpg",
+					width : 428,
+					height : 540,
+					xPos : 267,
+					yPos : 0,
 					index: 0
 				}
 				break;
 			case 5:
 				var easterImage = {
 					src : "./assets/menuAssets/easter5.jpg",
-					width : 600,
-					height : 192,
-					xPos : 180,
+					width : 937,
+					height : 299,
+					xPos : 11.5,
 					yPos : 120,
 					index: 0
 				}
@@ -502,6 +540,10 @@ function Loader() {
 			LOADER : true,
 			/*Loads menu screen*/
 			clicked : function() {
+				sfx[0].play();
+				music[1].setCurrentTime(0);
+				music[1].stop();
+				music[0].play();
 				gameArea.state = 0;
 				gameArea.refTime = 0;
 				gameArea.score = 0;
@@ -537,6 +579,7 @@ function Loader() {
 			parameter : "+",
 			z : 1,
 			drop : function() {
+				sfx[0].play();
 				window["plusOp" + this.caseOp] = {
 					src : "./assets/gameAssets/plusOperator.png",
 					width : 80,
@@ -568,6 +611,7 @@ function Loader() {
 			parameter : "-",
 			z : 1,
 			drop : function() {
+				sfx[0].play();
 				window["minusOp" + this.caseOp] = {
 					src : "./assets/gameAssets/minusOperator.png",
 					width : 80,
@@ -599,6 +643,7 @@ function Loader() {
 			parameter : "*",
 			z : 1,
 			drop : function() {
+				sfx[0].play();
 				window["multiOp" + this.caseOp] = {
 					src : "./assets/gameAssets/multiOperator.png",
 					width : 80,
@@ -630,6 +675,7 @@ function Loader() {
 			parameter : "/",
 			z : 1,
 			drop : function() {
+				sfx[0].play();
 				window["divOp" + this.caseOp] = {
 					src : "./assets/gameAssets/divOperator.png",
 					width : 80,
@@ -759,6 +805,7 @@ function Loader() {
 					yMax : 110,
 					/*Loads new problem and resets operators*/
 					clicked : function() {
+						sfx[0].play();
 						getProblem(timeAttackDifficulty(gameArea.score + 1, gameArea.difficulty), gameArea.difficulty);
 						for (var i = 0; i < gameArea.droppable.length; i++) {
 							if (gameArea.droppable[i].isFilled) {
@@ -798,6 +845,7 @@ function Loader() {
 					yMax : 110,
 					/*Loads new problem and resets operators*/
 					clicked : function() {
+						sfx[0].play();
 						getProblem(timeAttackDifficulty(gameArea.score + 1, gameArea.difficulty), gameArea.difficulty);
 						for (var i = 0; i < gameArea.droppable.length; i++) {
 							if (gameArea.droppable[i].isFilled) {
@@ -814,8 +862,20 @@ function Loader() {
 					}
 				}
 
+				var scoreTrack = {
+					font : "px Calibri",
+					sizeInit : 26,
+					xPos : 440,
+					xInit : 440,
+					yPos : 55,
+					parameter : 0,
+					maxWidth : 91,
+					colour : "#5C5C5C"
+				}
+
 				this.entities[2] = scoreImage;
 				this.clickable.push(skipBox);
+				this.strings.push(scoreTrack);
 				break;
 
 			default:
@@ -864,6 +924,8 @@ function Loader() {
 			LOADER : true,
 			/*Loads menu screen*/
 			clicked : function() {
+				sfx[0].play();
+				gameArea.state = 0;
 				return load.menuScreen();
 			}
 		}
@@ -909,9 +971,11 @@ function Loader() {
 			yMax : 390,
 			/*Enables easy mode*/
 			clicked : function() {
+				sfx[0].play();
 				if (gameArea.difficulty == 1) {
 					gameArea.entities[5].index = 0;
 					gameArea.difficulty = 0;
+                    setCookie("difficulty", "0", -1);
 				}
 			}
 		}
@@ -923,9 +987,11 @@ function Loader() {
 			yMax : 390,
 			/*Enable hard mode*/
 			clicked : function() {
+				sfx[0].play();
 				if (gameArea.difficulty == 0) {
 					gameArea.entities[5].index = 1;
 					gameArea.difficulty = 1;
+                    setCookie("difficulty", "1", 30);
 				}
 			}
 		}
@@ -966,8 +1032,10 @@ function Loader() {
 			clicked : function() {
 				if (!gameArea.sound) {
 					gameArea.sound = true;
+                    setCookie("sound", "", -1);
 					gameArea.entities[7].index = 0;
-					//code needs to be here one day
+					sfx[0].play();
+					music[0].play();
 				}
 			}
 		}
@@ -980,8 +1048,12 @@ function Loader() {
 			isClicked : false,
 			/*Disable sound*/
 			clicked : function() {
+				sfx[0].play();
 				if (gameArea.sound) {
+					music[0].setCurrentTime(0);
+					music[0].stop();
 					gameArea.sound = false;
+                    setCookie("sound", "false", 30);
 					gameArea.entities[7].index = 1;
 				}
 			}
@@ -1025,6 +1097,8 @@ function Loader() {
 			LOADER : true,
 			/*Loads menu screen*/
 			clicked : function() {
+				sfx[0].play();
+				gameArea.state = 0;
 				return load.menuScreen();
 			}
 		}
@@ -1266,6 +1340,8 @@ function Loader() {
 			LOADER : true,
 			/*Loads menu screen*/
 			clicked : function() {
+				sfx[0].play();
+				gameArea.state = 0;
 				return load.menuScreen();
 			}
 		}
@@ -1278,15 +1354,10 @@ function Loader() {
 	};
 	this.scoreScreen = function() {//Loads score screen objects
 		this.clear();
+		sfx[2].play();
+		music[1].setCurrentTime(0);
+		music[1].stop();
 
-		var background = {
-			src : "./assets/scoreAssets/timeAttackScore.png",
-			width : 960,
-			height : 540,
-			xPos : 0,
-			yPos : 0,
-			index: 0
-		}
 
 		var replayImage = {
 			src : "./assets/scoreAssets/replay.png",
@@ -1302,7 +1373,7 @@ function Loader() {
 			width : 300,
 			height : 67,
 			xPos : 330,
-			yPos : 413,
+			yPos : 443,
 			index: 0
 		}
 
@@ -1315,6 +1386,15 @@ function Loader() {
 			index: 0
 		}
 
+		var overlay = {
+			src : "./assets/scoreAssets/scrollOverlay.png",
+			width : 420,
+			height : 118,
+			xPos : 270,
+			yPos : 316,
+			index: 0
+		}
+
 		var quitBox = {
 			xMin : 20,
 			yMin : 20,
@@ -1323,9 +1403,13 @@ function Loader() {
 			LOADER : true,
 			/*Loads menu screen*/
 			clicked : function() {
+				sfx[0].play();
 				gameArea.refTime = 0;
 				gameArea.score = 0;
 				gameArea.state = 0;
+				gameArea.totalTime = 0;
+				gameArea.scoreTotal = 0;
+				gameArea.combo = 1;
 				return load.menuScreen();
 			}
 		}
@@ -1334,7 +1418,7 @@ function Loader() {
 			font : "px Calibri",
 			sizeInit : 50,
 			xPos : 527,
-			yPos : 203,
+			yPos : 183,
 			parameter : "",
 			maxWidth : 141,
 			colour : "#5C5C5C"
@@ -1344,18 +1428,84 @@ function Loader() {
 			font : "px Calibri",
 			sizeInit : 50,
 			xPos : 527,
-			yPos : 261,
+			yPos : 241,
 			parameter : "",
 			maxWidth : 141,
 			colour : "#5C5C5C"
 		}
 
-		this.entities.push(background, replayImage, submitImage, quitImage);
+		var letter1 = {
+			src : "./assets/scoreAssets/scrollWheel3.png",
+			width : 57,
+			height : 118,
+			xPos : 311,
+			yPos : 316,
+			xInit : 311,
+			yInit : 316,
+			index : 0,
+			xMin : 270,
+			yMin : 306,
+			xMax : 412,
+			yMax : 444,
+			modifier : 61,
+			isDraggable : true,
+			isScrollable : true,
+			isClicked : false
+		}
+
+		var letter2 = {
+			src : "./assets/scoreAssets/scrollWheel3.png",
+			width : 57,
+			height : 118,
+			xPos : 451,
+			yPos : 316,
+			xInit : 451,
+			yInit : 316,
+			index : 0,
+			xMin : 413,
+			yMin : 316,
+			xMax : 553,
+			yMax : 434,
+			modifier : 61,
+			isDraggable : true,
+			isScrollable : true,
+			isClicked : false
+		}
+
+		var letter3 = {
+			src : "./assets/scoreAssets/scrollWheel3.png",
+			width : 57,
+			height : 118,
+			xPos : 591,
+			yPos : 316,
+			xInit : 591,
+			yInit : 316,
+			index : 0,
+			xMin : 554,
+			yMin : 316,
+			xMax : 690,
+			yMax : 434,
+			modifier : 61,
+			isDraggable : true,
+			isScrollable : true,
+			isClicked : false
+		}
+
+		this.entities.push(background, replayImage, submitImage, quitImage, letter1, letter2, letter3, overlay);
 		this.clickable.push(quitBox);
 		this.strings.push(finalTime, completed);
 
 		switch (gameArea.state) {
 			case 3:
+				var background = {
+					src : "./assets/scoreAssets/timeAttackScore.png",
+					width : 960,
+					height : 540,
+					xPos : 0,
+					yPos : 0,
+					index: 0
+				}
+
 				var replayBox = {
 					xMin : 740,
 					yMin : 20,
@@ -1364,6 +1514,7 @@ function Loader() {
 					LOADER : true,
 					/*Reloads pre-game screen and game mode*/
 					clicked : function() {
+						sfx[1].play();
 						gameArea.refTime = 0;
 						gameArea.state = 1;
 						gameArea.score = 0;
@@ -1371,10 +1522,33 @@ function Loader() {
 					}
 				}
 
-				this.clickable.push(replayBox);
+				var submitBox = {
+					xMin : 330,
+					yMin : 443,
+					xMax : 630,
+					yMax : 510,
+					/*Reloads pre-game screen and game mode*/
+					clicked : function() {
+						sfx[3].play();
+						pushTimeAttackScore(getCharacters(gameArea.entities[4].index, gameArea.entities[5].index, gameArea.entities[6].index), Math.floor(gameArea.refTime * 10) / 10, gameArea.difficulty);
+						gameArea.clickable.pop();
+					}
+				}
+
+				this.entities[0] = background;
+				this.clickable.push(replayBox, submitBox);
 				break;
 
 			case 4:
+				var background = {
+					src : "./assets/scoreAssets/marathonScore.png",
+					width : 960,
+					height : 540,
+					xPos : 0,
+					yPos : 0,
+					index: 0
+				}
+
 				var replayBox = {
 					xMin : 740,
 					yMin : 20,
@@ -1383,14 +1557,44 @@ function Loader() {
 					LOADER : true,
 					/*Reloads pre-game screen and game mode*/
 					clicked : function() {
+						sfx[1].play();
+						music[1].play();
 						gameArea.refTime = 3;
 						gameArea.state = 2;
 						gameArea.score = 0;
+						gameArea.totalTime = 0;
+						gameArea.scoreTotal = 0;
+						gameArea.combo = 1;
 						return load.preGameScreen();
 					}
 				}
 
-				this.clickable.push(replayBox);
+				var totalNum = {
+					font : "px Calibri",
+					sizeInit : 50,
+					xPos : 527,
+					yPos : 298,
+					parameter : "",
+					maxWidth : 141,
+					colour : "#5C5C5C"
+				}
+
+				var submitBox = {
+					xMin : 330,
+					yMin : 443,
+					xMax : 630,
+					yMax : 510,
+					/*Reloads pre-game screen and game mode*/
+					clicked : function() {
+						sfx[3].play();
+						pushMarathonScore(getCharacters(gameArea.entities[4].index, gameArea.entities[5].index, gameArea.entities[6].index), gameArea.scoreTotal, gameArea.difficulty);
+						gameArea.clickable.pop();
+					}
+				}
+
+				this.entities[0] = background;
+				this.clickable.push(replayBox, submitBox);
+				this.strings.push(totalNum);
 				break;
 		}
 

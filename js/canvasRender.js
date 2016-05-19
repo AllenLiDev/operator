@@ -2,6 +2,13 @@
 /*                    CANVAS/RENDERING CODE                        */
 //****************************************************************//
 
+/*loads cookies*/
+var soundCookie;
+/*sound defaults to on*/
+soundCookie = (getCookie("sound") === "false") ? false : true;
+var difficultyCookie;
+/*difficulty defaults to easy*/
+difficultyCookie = (getCookie("difficulty") === "1") ? 1 : 0;
 /*Canvas namespace and data management*/
 var gameArea = {
 	canvas : null,
@@ -12,15 +19,21 @@ var gameArea = {
 	ratioY : null,
 	xMouse : null,
 	yMouse : null,
+	yRef : null,
 	loaded : [],
 	entities : [],
 	clickable : [],
 	droppable : [],
 	strings : [],
 	score : 0,
-	sound : true,
-	difficulty : 0,
+	scoreTotal : 0,
+	sound : soundCookie,
+	difficulty : difficultyCookie,
 	refTime : 0,
+	state : 0,
+	combo : 1,
+	totalTime : 0,
+	problemTime : 0,
 	clear : function() {
 		gameArea.loaded = [];
 		gameArea.entities = [];
@@ -35,8 +48,14 @@ var gameArea = {
 		gameArea.strings = gameArea.loaded[3];
 	},
 	resize : function() {
-		this.canvas.width = window.innerWidth;
-		this.canvas.height = window.innerHeight;
+		if (detectmob()) {
+			this.canvas.width = window.innerWidth;
+			this.canvas.height = window.innerHeight;
+		} else {
+			this.canvas.width = window.innerWidth;
+			this.canvas.height = window.innerHeight;
+		}
+		
 		gameArea.ratioX = this.canvas.width / gameArea.WIDTH;
 		gameArea.ratioY = this.canvas.height / gameArea.HEIGHT;
 	},
@@ -51,7 +70,12 @@ var gameArea = {
 				img.xPos = this.entities[i].xPos;
 				img.yPos = this.entities[i].yPos;
 				img.index = this.entities[i].index;
-				this.ctx.drawImage(img, 0, img.index * img.height, img.width, img.height, img.xPos * this.ratioX, img.yPos * this.ratioY, img.width * this.ratioX, img.height * this.ratioY);
+				if (this.entities[i].modifier == null) {
+					img.modifier = 0;
+				} else {
+					img.modifier = this.entities[i].modifier;
+				}
+				this.ctx.drawImage(img, 0, img.index * (img.height - img.modifier), img.width, img.height, img.xPos * this.ratioX, img.yPos * this.ratioY, img.width * this.ratioX, img.height * this.ratioY);
 			}
 		}
 
@@ -81,15 +105,14 @@ var gameArea = {
 	init : function() {
 		this.canvas = document.getElementById("canvas");
 		this.ctx = this.canvas.getContext("2d");
-		this.canvas.width = window.innerWidth;
-		this.canvas.height = window.innerHeight;
-		this.ratioX = this.canvas.width / gameArea.WIDTH;
-		this.ratioY = this.canvas.height / gameArea.HEIGHT;
 		gameArea.resize();
 
 		if (detectmob()) {
 			gameArea.canvas.addEventListener("touchstart", touchCollision);
-			gameArea.canvas.addEventListener("touchmove", getCoords);
+			gameArea.canvas.addEventListener("touchmove", function(e) {
+				getCoords(e);
+				e.preventDefault();
+			});
 			gameArea.canvas.addEventListener("touchend", dropCollision);
 			window.addEventListener("deviceorientation", gameArea.resize);
 		} else {
@@ -161,6 +184,7 @@ function clickCollision() {
 function dragCollision() {
 	var xCoord = gameArea.xMouse;
 	var yCoord = gameArea.yMouse;
+	gameArea.yRef = gameArea.yMouse;
 
 	for (var i = 0; i < gameArea.entities.length; i++) {
 		if (gameArea.entities[i].xMin * gameArea.ratioX <= xCoord && gameArea.entities[i].xMax * gameArea.ratioX >= xCoord && gameArea.entities[i].yMin * gameArea.ratioY <= yCoord && gameArea.entities[i].yMax * gameArea.ratioY >= yCoord && gameArea.entities[i].isDraggable) {
@@ -175,6 +199,7 @@ function touchCollision(event) {
 	getCoords(event);
 	var xCoord = gameArea.xMouse;
 	var yCoord = gameArea.yMouse;
+	gameArea.yRef = gameArea.yMouse;
 
 	if (gameArea.clickable.length > 0) {
 		for (var i = 0; i < gameArea.clickable.length; i++) {
@@ -189,7 +214,7 @@ function touchCollision(event) {
 	}
 	
 	for (var i = 0; i < gameArea.entities.length; i++) {
-		if (gameArea.entities[i].xMin * gameArea.ratioX <= xCoord && gameArea.entities[i].xMax * gameArea.ratioX >= xCoord && gameArea.entities[i].yMin * gameArea.ratioY <= yCoord && gameArea.entities[i].yMax * gameArea.ratioY >= yCoord && gameArea.entities[i].isDraggable) {
+		if (gameArea.entities[i].xMin * gameArea.ratioX <= xCoord && gameArea.entities[i].xMax * gameArea.ratioX >= xCoord && gameArea.entities[i].yMin * gameArea.ratioY <= yCoord && gameArea.entities[i].yMax * gameArea.ratioY >= yCoord && gameArea.entities[i].isDraggable == true) {
 			gameArea.entities[i].isClicked = true;
 		}
 	}
@@ -200,7 +225,7 @@ quads. This does not account for larger drag objects than hit boxes.*/
 function dropCollision() {
 	for (var i = 0; i < gameArea.entities.length; i++) {
 		if (gameArea.entities[i].isClicked) {
-			for (var d = 0; d < load.droppable.length; d++) {
+			for (var d = 0; d < gameArea.droppable.length; d++) {
 				if ((((gameArea.entities[i].xPos * gameArea.ratioX) >= (load.droppable[d].xMin * gameArea.ratioX)
 					&& (gameArea.entities[i].xPos * gameArea.ratioX) <= (load.droppable[d].xMax * gameArea.ratioX)
 					&& ((gameArea.entities[i].yPos + gameArea.entities[i].height) * gameArea.ratioY) >= (load.droppable[d].yMin * gameArea.ratioY)
@@ -221,7 +246,7 @@ function dropCollision() {
 
 					
 
-					if (load.droppable[d].isFilled) {
+					if (gameArea.droppable[d].isFilled) {
 						for (var pos = 0; pos < gameArea.entities.length; pos++) {
 							if (load.droppable[d].position == gameArea.entities[pos].position) {
 								gameArea.entities.splice(pos, 1);
@@ -249,7 +274,11 @@ function dropCollision() {
 					}
 				}
 			}
-			if (gameArea.entities[i].isClicked) {
+
+			if (gameArea.entities[i].isClicked && gameArea.entities[i].isScrollable) {
+				gameArea.entities[i].index = Math.round(gameArea.entities[i].index);
+				gameArea.entities[i].isClicked = false;
+			} else if(gameArea.entities[i].isClicked) {
 				gameArea.entities[i].xPos = gameArea.entities[i].xInit;
 				gameArea.entities[i].yPos = gameArea.entities[i].yInit;
 				gameArea.entities[i].isClicked = false;
@@ -261,7 +290,22 @@ function dropCollision() {
 /*Handles draggable location on click*/
 function handleInput(dt) {
 	for (var i = 0; i < gameArea.entities.length; i++) {
-		if (gameArea.entities[i].isClicked) {
+		if (gameArea.entities[i].isClicked && gameArea.entities[i].isScrollable) {
+			var dp = gameArea.yMouse - gameArea.yRef;
+			if (dp > 118) {
+				dp = 118;
+			} else if (dp < -118) {
+				dp = -118;
+			}
+
+			if (gameArea.entities[i].index < 0) {
+				gameArea.entities[i].index = 35;
+			} else if (gameArea.entities[i].index > 35) {
+				gameArea.entities[i].index = 0;
+			}
+
+			gameArea.entities[i].index += (1 * ((dp * -1) / 826));
+		} else if (gameArea.entities[i].isClicked) {
 			gameArea.entities[i].xPos = (gameArea.xMouse / gameArea.ratioX) - (gameArea.entities[i].width / 2);
 			gameArea.entities[i].yPos = (gameArea.yMouse / gameArea.ratioY) - (gameArea.entities[i].height / 2);
 		}

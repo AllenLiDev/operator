@@ -24,6 +24,12 @@ function update(dt) {
 				gameArea.parse();
 				getProblem(timeAttackDifficulty(gameArea.score + 1, gameArea.difficulty), gameArea.difficulty);
 			} else if (gameArea.strings.length > 0) {//loaded game logic
+				if (gameArea.refTime < 1) {
+					gameArea.strings[0].parameter = Math.floor(gameArea.refTime) + "." + Math.floor(gameArea.refTime * 10);
+				} else {
+					gameArea.strings[0].parameter = Math.floor(gameArea.refTime) + "." + (Math.floor(gameArea.refTime * 10) % (Math.floor(gameArea.refTime) * 10));
+				}
+
 				for (var i = 1; i < gameArea.strings.length; i++) {
 					if (gameArea.strings[i].parameter > 9) {
 						gameArea.strings[i].xPos = gameArea.strings[i].xInit - (gameArea.strings[i].maxWidth / 6);
@@ -47,21 +53,15 @@ function update(dt) {
 					gameArea.entities[3].index = 0;
 					gameArea.entities[3].ticks = 0;
 				}
-
 				if (gameArea.entities[10].ticks > gameArea.entities[10].ticksPer) {
 					gameArea.entities[10].index = 0;
 					gameArea.entities[10].ticks = 0;
-				}
-
-				if (gameArea.refTime < 0) {
-					gameArea.strings[0].parameter = Math.floor(gameArea.refTime) + "." + Math.floor(gameArea.refTime * 10);
-				} else {
-					gameArea.strings[0].parameter = Math.floor(gameArea.refTime) + "." + (Math.floor(gameArea.refTime * 10) % (Math.floor(gameArea.refTime) * 10));
 				}
 				
 				if (gameArea.droppable[0].isFilled && gameArea.droppable[1].isFilled && gameArea.droppable[2].isFilled) {
 
 					if (validate(gameArea.strings[1].parameter, gameArea.strings[2].parameter, gameArea.strings[3].parameter, gameArea.strings[4].parameter, gameArea.droppable[0].parameter, gameArea.droppable[1].parameter, gameArea.droppable[2].parameter)) {
+						sfx[3].play();
 
 						gameArea.entities[3].index = 1;
 						gameArea.entities[10].index = 1;
@@ -94,6 +94,7 @@ function update(dt) {
 							gameArea.entities.pop();
 						}
 					} else {
+						sfx[4].play();
 
 						gameArea.entities[3].index = 2;						
 						gameArea.entities[10].index = 2;
@@ -125,7 +126,9 @@ function update(dt) {
 
 			/*Naive animation update for preloading screen*/
 			if (gameArea.strings.length > 0) {
-				for (var i = 1; i < gameArea.strings.length; i++) {
+				gameArea.problemTime += dt;
+				gameArea.totalTime += dt;
+				for (var i = 1; i < gameArea.strings.length - 1; i++) {
 					if (gameArea.strings[i].parameter > 9) {
 						gameArea.strings[i].xPos = gameArea.strings[i].xInit - (gameArea.strings[i].maxWidth / 6);
 					} else {
@@ -137,25 +140,25 @@ function update(dt) {
 					gameArea.entities[3].ticks += 1;
 				}
 
-				if (gameArea.entities[10].ticks != 0) {
-					gameArea.entities[10].ticks += 1;
-				}
+				// if (gameArea.entities[10].ticks != 0) {
+				// 	gameArea.entities[10].ticks += 1;
+				// }
 
 				if (gameArea.entities[3].ticks > gameArea.entities[3].ticksPer) {
-					if(gameArea.entities[3].index == 1){						
-						getProblem(timeAttackDifficulty(gameArea.score + 1, gameArea.difficulty), gameArea.difficulty);
-					}
+					// if(gameArea.entities[3].index == 1){						
+					// 	getProblem(timeAttackDifficulty(gameArea.score + 1, gameArea.difficulty), gameArea.difficulty);
+					// }
 					gameArea.entities[3].index = 0;
 					gameArea.entities[3].ticks = 0;
 				}
 
-				if (gameArea.entities[10].ticks > gameArea.entities[10].ticksPer) {
-					gameArea.entities[10].index = 0;
-					gameArea.entities[10].ticks = 0;
-				}
+				// if (gameArea.entities[10].ticks > gameArea.entities[10].ticksPer) {
+				// 	gameArea.entities[10].index = 0;
+				// 	gameArea.entities[10].ticks = 0;
+				// }
 
-				if (isNaN((Math.floor(gameArea.refTime * 10) % (Math.floor(gameArea.refTime) * 10)))) {
-					gameArea.strings[0].parameter = "0.0";
+				if (gameArea.refTime < 1) {
+					gameArea.strings[0].parameter = Math.floor(gameArea.refTime) + "." + (Math.floor(gameArea.refTime * 10));
 				} else {
 					gameArea.strings[0].parameter = Math.floor(gameArea.refTime) + "." + (Math.floor(gameArea.refTime * 10) % (Math.floor(gameArea.refTime) * 10));
 				}
@@ -164,19 +167,27 @@ function update(dt) {
 
 					if (validate(gameArea.strings[1].parameter, gameArea.strings[2].parameter, gameArea.strings[3].parameter, gameArea.strings[4].parameter, gameArea.droppable[0].parameter, gameArea.droppable[1].parameter, gameArea.droppable[2].parameter)) {
 
+						sfx[3].play();
+
 						gameArea.entities[3].index = 1;
-						gameArea.entities[10].index = 1;
+						// gameArea.entities[10].index = 1;
 
 						gameArea.entities[3].ticks = 1;
-						gameArea.entities[10].ticks = 1;
+						// gameArea.entities[10].ticks = 1;
 
 						gameArea.score += 1;
+						gameArea.scoreTotal += calcScore(difficultyCurve(gameArea.score + 1, gameArea.difficulty), gameArea.problemTime, gameArea.combo);
+						gameArea.problemTime = 0;
+						gameArea.refTime += calcTime(gameArea.score);
+						gameArea.strings[5].parameter = gameArea.scoreTotal;
 
-						gameArea.entities[11].index = gameArea.score;
-						for (var i = 0; i < load.droppable.length; i++) {
-							load.droppable[i].parameter = "";
-							load.droppable[i].isFilled = false;
+						// gameArea.entities[10].index = gameArea.score;
+						getProblem(difficultyCurve(gameArea.score + 1, gameArea.difficulty), gameArea.difficulty);
+						for (var i = 0; i < gameArea.droppable.length; i++) {
+							gameArea.droppable[i].parameter = "";
+							gameArea.droppable[i].isFilled = false;
 						}
+						gameArea.combo += 1;
 
 						gameArea.entities[6].caseOp = 1;
 						gameArea.entities[7].caseOp = 1;
@@ -187,15 +198,19 @@ function update(dt) {
 						gameArea.entities.pop();
 					} else {
 
+						sfx[4].play();
+
+						gameArea.combo = 1;
+
 						gameArea.entities[3].index = 2;
-						gameArea.entities[10].index = 2;
+						// gameArea.entities[10].index = 2;
 
 						gameArea.entities[3].ticks = 1;
-						gameArea.entities[10].ticks = 1;
+						// gameArea.entities[10].ticks = 1;
 
-						for (var i = 0; i < load.droppable.length; i++) {
-							load.droppable[i].parameter = "";
-							load.droppable[i].isFilled = false;
+						for (var i = 0; i < gameArea.droppable.length; i++) {
+							gameArea.droppable[i].parameter = "";
+							gameArea.droppable[i].isFilled = false;
 						}
 
 						gameArea.entities[6].caseOp = 1;
@@ -212,15 +227,17 @@ function update(dt) {
 				if (gameArea.refTime <= 0.0) {
 					gameArea.clear();
 					gameArea.state = 4;
+					gameArea.problemTime = 0;
 					gameArea.loaded = load.scoreScreen();
 					gameArea.parse();
-					gameArea.strings[0].parameter = ((Math.floor(gameArea.refTime * 10) / 10));
-					gameArea.strings[1].parameter = gameArea.score;
+					gameArea.strings[0].parameter = gameArea.scoreTotal;
+					gameArea.strings[1].parameter = Math.floor(gameArea.totalTime) + "." + (Math.floor(gameArea.totalTime * 10) % (Math.floor(gameArea.totalTime) * 10));
+					gameArea.strings[2].parameter = gameArea.score;
 				}
 
 			} else if (gameArea.refTime < 0 && gameArea.entities.length == 2 && gameArea.entities[1].index == 2) {//Pre-load screen
 				gameArea.clear();
-				gameArea.refTime = 60;
+				gameArea.refTime = 24;
 				gameArea.loaded = load.gameScreen();
 				gameArea.parse();
 				getProblem(difficultyCurve(gameArea.score + 1, gameArea.difficulty), gameArea.difficulty);
