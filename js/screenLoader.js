@@ -24,6 +24,7 @@ function Loader() {
 	};
 	this.menuScreen = function() {
 		this.clear();
+		music[0].play();
 		var background = {
 			src : "./assets/menuAssets/background.png",
 			width : 960,
@@ -59,6 +60,9 @@ function Loader() {
 			LOADER : true,
 			/*Loads pre-game screen and starts time attack*/
 			clicked : function() {
+				music[0].setCurrentTime(0);
+				music[0].stop();
+				music[1].play();
 				gameArea.state = 1;
 				return load.preGameScreen();
 			}
@@ -81,6 +85,9 @@ function Loader() {
 			LOADER : true,
 			/*Loads pre-game screen and starts endless mode*/
 			clicked : function() {
+				music[0].setCurrentTime(0);
+				music[0].stop();
+				music[1].play();
 				gameArea.state = 2;
 				gameArea.refTime = 3;
 				return load.preGameScreen();
@@ -111,11 +118,14 @@ function Loader() {
 			/*Sets the audio state to on or off*/
 			clicked : function() {
 				if (gameArea.sound) {
+					music[0].setCurrentTime(0);
+					music[0].stop();
 					gameArea.entities[4].index = 1;
 					gameArea.sound = false;
 				} else {
 					gameArea.entities[4].index = 0;
 					gameArea.sound = true;
+					music[0].play();
 				}
 			}
 		}
@@ -504,6 +514,9 @@ function Loader() {
 			LOADER : true,
 			/*Loads menu screen*/
 			clicked : function() {
+				music[1].setCurrentTime(0);
+				music[1].stop();
+				music[0].play();
 				gameArea.state = 0;
 				gameArea.refTime = 0;
 				gameArea.score = 0;
@@ -982,7 +995,7 @@ function Loader() {
 				if (!gameArea.sound) {
 					gameArea.sound = true;
 					gameArea.entities[7].index = 0;
-					//code needs to be here one day
+					music[0].play();
 				}
 			}
 		}
@@ -996,6 +1009,8 @@ function Loader() {
 			/*Disable sound*/
 			clicked : function() {
 				if (gameArea.sound) {
+					music[0].setCurrentTime(0);
+					music[0].stop();
 					gameArea.sound = false;
 					gameArea.entities[7].index = 1;
 				}
@@ -1295,6 +1310,9 @@ function Loader() {
 	};
 	this.scoreScreen = function() {//Loads score screen objects
 		this.clear();
+		music[1].setCurrentTime(0);
+		music[1].stop();
+
 
 		var replayImage = {
 			src : "./assets/scoreAssets/replay.png",
@@ -1482,6 +1500,7 @@ function Loader() {
 					LOADER : true,
 					/*Reloads pre-game screen and game mode*/
 					clicked : function() {
+						music[1].play();
 						gameArea.refTime = 3;
 						gameArea.state = 2;
 						gameArea.score = 0;

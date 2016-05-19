@@ -46,7 +46,17 @@ var clickOne = new sound("./assets/audioAssets/click1.wav");
 
 var clickTwo = new sound("./assets/audioAssets/click2.wav");
 
-var transition = new sound();
+var transition = new sound("./assets/audioAssets/transition1.wav");
+
+var transition = new sound("./assets/audioAssets/transition2.flac");
+
+var transition = new sound("./assets/audioAssets/transition3.wav");
+
+var transition = new sound("./assets/audioAssets/transition4.wav");
+
+var transition = new sound("./assets/audioAssets/transition5.wav");
+
+var transition = new sound("./assets/audioAssets/transition6.wav");
 
 /**/
 music.push(menuMusic, gameMusic);
