@@ -2,10 +2,13 @@
 /*                    CANVAS/RENDERING CODE                        */
 //****************************************************************//
 
-/*loads sound cookie*/
+/*loads cookies*/
 var soundCookie;
+/*sound defaults to on*/
 soundCookie = (getCookie("sound") === "false") ? false : true;
-var difficultyCookie = (getCookie("difficulty") == 1) ? 1 : 0;
+var difficultyCookie;
+/*difficulty defaults to easy*/
+difficultyCookie = (getCookie("difficulty") === "1") ? 1 : 0;
 /*Canvas namespace and data management*/
 var gameArea = {
 	canvas : null,

@@ -42,20 +42,9 @@ function update(dt) {
 					gameArea.entities[3].ticks += 1;
 				}
 
-				if (gameArea.entities[10].ticks != 0) {
-					gameArea.entities[10].ticks += 1;
-				}
-
 				if (gameArea.entities[3].ticks > gameArea.entities[3].ticksPer) {
-					if(gameArea.entities[3].index == 1){						
-						getProblem(timeAttackDifficulty(gameArea.score + 1, gameArea.difficulty), gameArea.difficulty);
-					}
 					gameArea.entities[3].index = 0;
 					gameArea.entities[3].ticks = 0;
-				}
-				if (gameArea.entities[10].ticks > gameArea.entities[10].ticksPer) {
-					gameArea.entities[10].index = 0;
-					gameArea.entities[10].ticks = 0;
 				}
 				
 				if (gameArea.droppable[0].isFilled && gameArea.droppable[1].isFilled && gameArea.droppable[2].isFilled) {
@@ -64,10 +53,8 @@ function update(dt) {
 						sfx[3].play();
 
 						gameArea.entities[3].index = 1;
-						gameArea.entities[10].index = 1;
 
 						gameArea.entities[3].ticks = 1;
-						gameArea.entities[10].ticks = 1;
 
 						gameArea.score += 1;
 
@@ -79,7 +66,8 @@ function update(dt) {
 							gameArea.strings[0].parameter = Math.floor(gameArea.refTime) + "." + (Math.floor(gameArea.refTime * 10) % (Math.floor(gameArea.refTime) * 10));
 							gameArea.strings[1].parameter = gameArea.score;
 						} else {
-							gameArea.entities[11].index = gameArea.score;
+							gameArea.entities[10].index = gameArea.score;							
+							getProblem(timeAttackDifficulty(gameArea.score + 1, gameArea.difficulty), gameArea.difficulty);
 							for (var i = 0; i < gameArea.droppable.length; i++) {
 								gameArea.droppable[i].parameter = "";
 								gameArea.droppable[i].isFilled = false;
@@ -96,11 +84,9 @@ function update(dt) {
 					} else {
 						sfx[4].play();
 
-						gameArea.entities[3].index = 2;						
-						gameArea.entities[10].index = 2;
+						gameArea.entities[3].index = 2;	
 
 						gameArea.entities[3].ticks = 1;
-						gameArea.entities[10].ticks = 1;
 
 						for (var i = 0; i < gameArea.droppable.length; i++) {
 							gameArea.droppable[i].parameter = "";
@@ -140,22 +126,10 @@ function update(dt) {
 					gameArea.entities[3].ticks += 1;
 				}
 
-				// if (gameArea.entities[10].ticks != 0) {
-				// 	gameArea.entities[10].ticks += 1;
-				// }
-
 				if (gameArea.entities[3].ticks > gameArea.entities[3].ticksPer) {
-					// if(gameArea.entities[3].index == 1){						
-					// 	getProblem(timeAttackDifficulty(gameArea.score + 1, gameArea.difficulty), gameArea.difficulty);
-					// }
 					gameArea.entities[3].index = 0;
 					gameArea.entities[3].ticks = 0;
 				}
-
-				// if (gameArea.entities[10].ticks > gameArea.entities[10].ticksPer) {
-				// 	gameArea.entities[10].index = 0;
-				// 	gameArea.entities[10].ticks = 0;
-				// }
 
 				if (gameArea.refTime < 1) {
 					gameArea.strings[0].parameter = Math.floor(gameArea.refTime) + "." + (Math.floor(gameArea.refTime * 10));
@@ -170,10 +144,8 @@ function update(dt) {
 						sfx[3].play();
 
 						gameArea.entities[3].index = 1;
-						// gameArea.entities[10].index = 1;
 
 						gameArea.entities[3].ticks = 1;
-						// gameArea.entities[10].ticks = 1;
 
 						gameArea.score += 1;
 						gameArea.scoreTotal += calcScore(difficultyCurve(gameArea.score + 1, gameArea.difficulty), gameArea.problemTime, gameArea.combo);
@@ -203,10 +175,8 @@ function update(dt) {
 						gameArea.combo = 1;
 
 						gameArea.entities[3].index = 2;
-						// gameArea.entities[10].index = 2;
 
 						gameArea.entities[3].ticks = 1;
-						// gameArea.entities[10].ticks = 1;
 
 						for (var i = 0; i < gameArea.droppable.length; i++) {
 							gameArea.droppable[i].parameter = "";
