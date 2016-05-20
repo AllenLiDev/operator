@@ -106,12 +106,11 @@ function update(dt) {
 			}
 			break;
 
-		case 2: //Endless logic ONLY DIFFERENCE SO FAR IS DIFFICULTY CURVE
+		case 2: //Endless logic
 
 			gameArea.refTime -= dt;
 
-			/*Naive animation update for preloading screen*/
-			if (gameArea.strings.length > 0) {
+			if (gameArea.strings.length > 0) {//Loaded endless logic
 				gameArea.problemTime += dt;
 				gameArea.totalTime += dt;
 				for (var i = 1; i < gameArea.strings.length - 1; i++) {
@@ -153,7 +152,6 @@ function update(dt) {
 						gameArea.refTime += calcTime(gameArea.score);
 						gameArea.strings[5].parameter = gameArea.scoreTotal;
 
-						// gameArea.entities[10].index = gameArea.score;
 						getProblem(difficultyCurve(gameArea.score + 1, gameArea.difficulty), gameArea.difficulty);
 						for (var i = 0; i < gameArea.droppable.length; i++) {
 							gameArea.droppable[i].parameter = "";
@@ -205,6 +203,7 @@ function update(dt) {
 					gameArea.strings[2].parameter = gameArea.score;
 				}
 
+			/*Naive animation update for preloading screen*/
 			} else if (gameArea.refTime < 0 && gameArea.entities.length == 2 && gameArea.entities[1].index == 2) {//Pre-load screen
 				gameArea.clear();
 				gameArea.refTime = 24;
