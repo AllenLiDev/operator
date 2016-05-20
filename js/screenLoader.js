@@ -1423,7 +1423,7 @@ function Loader() {
 		}
 
 		var letter1 = {
-			src : "./assets/scoreAssets/scrollWheel3.png",
+			src : "./assets/scoreAssets/scrollWheel4.png",
 			width : 57,
 			height : 118,
 			xPos : 311,
@@ -1442,7 +1442,7 @@ function Loader() {
 		}
 
 		var letter2 = {
-			src : "./assets/scoreAssets/scrollWheel3.png",
+			src : "./assets/scoreAssets/scrollWheel4.png",
 			width : 57,
 			height : 118,
 			xPos : 451,
@@ -1461,7 +1461,7 @@ function Loader() {
 		}
 
 		var letter3 = {
-			src : "./assets/scoreAssets/scrollWheel3.png",
+			src : "./assets/scoreAssets/scrollWheel4.png",
 			width : 57,
 			height : 118,
 			xPos : 591,
