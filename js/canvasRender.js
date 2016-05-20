@@ -295,9 +295,9 @@ function handleInput(dt) {
 				dp = -118;
 			}
 
-			if (gameArea.entities[i].index < 0) {
+			if (gameArea.entities[i].index < -0.5) {
 				gameArea.entities[i].index = 35;
-			} else if (gameArea.entities[i].index > 35) {
+			} else if (gameArea.entities[i].index > 35.5) {
 				gameArea.entities[i].index = 0;
 			}
 

@@ -371,6 +371,9 @@ function getCharacters(index1, index2, index3) {
             case 35:
                 characters = characters + "9";
                 break;
+            case 36:
+                characters = characters + "A";
+                break;
         }
     }
 
