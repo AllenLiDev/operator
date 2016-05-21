@@ -6,23 +6,23 @@
 the scene data for:
 images, hit boxes, draggable items,
 drop zones, and strings*/
-function Loader() {
+function Loader() {//Load constructor
 	this.entities = [];
 	this.clickable = [];
 	this.droppable = [];
 	this.strings = [];
 	this.loaded = [];
-	this.clear = function() {
+	this.clear = function() {//Empties local data
 		this.entities = [];
 		this.clickable = [];
 		this.droppable = [];
 		this.strings = [];
 		this.loaded = [];
 	};
-	this.fill = function() {
+	this.fill = function() {//Fills data package to be sent to render
 		this.loaded.push(this.entities, this.clickable, this.droppable, this.strings);
 	};
-	this.menuScreen = function() {
+	this.menuScreen = function() {//Loads main menu screen
 		this.clear();
 		music[0].play();
 		var background = {
@@ -1423,7 +1423,7 @@ function Loader() {
 		}
 
 		var letter1 = {
-			src : "./assets/scoreAssets/scrollWheel3.png",
+			src : "./assets/scoreAssets/scrollWheel4.png",
 			width : 57,
 			height : 118,
 			xPos : 311,
@@ -1442,7 +1442,7 @@ function Loader() {
 		}
 
 		var letter2 = {
-			src : "./assets/scoreAssets/scrollWheel3.png",
+			src : "./assets/scoreAssets/scrollWheel4.png",
 			width : 57,
 			height : 118,
 			xPos : 451,
@@ -1461,7 +1461,7 @@ function Loader() {
 		}
 
 		var letter3 = {
-			src : "./assets/scoreAssets/scrollWheel3.png",
+			src : "./assets/scoreAssets/scrollWheel4.png",
 			width : 57,
 			height : 118,
 			xPos : 591,

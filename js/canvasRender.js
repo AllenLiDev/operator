@@ -4,11 +4,14 @@
 
 /*loads cookies*/
 var soundCookie;
+
 /*sound defaults to on*/
 soundCookie = (getCookie("sound") === "false") ? false : true;
 var difficultyCookie;
+
 /*difficulty defaults to easy*/
 difficultyCookie = (getCookie("difficulty") === "1") ? 1 : 0;
+
 /*Canvas namespace and data management*/
 var gameArea = {
 	canvas : null,
@@ -299,8 +302,8 @@ function handleInput(dt) {
 			}
 
 			if (gameArea.entities[i].index < 0) {
-				gameArea.entities[i].index = 35;
-			} else if (gameArea.entities[i].index > 35) {
+				gameArea.entities[i].index = 36;
+			} else if (gameArea.entities[i].index > 36) {
 				gameArea.entities[i].index = 0;
 			}
 
