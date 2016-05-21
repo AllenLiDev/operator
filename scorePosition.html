@@ -4,13 +4,25 @@
     <script src="https://cdn.jsdelivr.net/jquery/3.0.0-beta1/jquery.min.js"></script>
     <script src="./scorePosition.js"></script>
     <script>
-        function testMarathon() {
+        function testMarathonHard() {
             var score = window.prompt("enter score");
             var pos = getMarathonScorePosition(score, 1);
             alert(pos);
         }
         
-        function testTimeAttack() {
+        function testMarathonEasy() {
+            var score = window.prompt("enter score");
+            var pos = getMarathonScorePosition(score, 0);
+            alert(pos);
+        }
+        
+        function testTimeAttackHard() {
+            var score = window.prompt("enter time");
+            var pos = getTimeAttackScorePosition(score, 1);
+            alert(pos);
+        }
+        
+        function testTimeAttackEasy() {
             var score = window.prompt("enter time");
             var pos = getTimeAttackScorePosition(score, 0);
             alert(pos);
@@ -18,10 +30,16 @@
     </script>
 </head>
 <body>
-    <div onclick="testMarathon()">
+    <div onclick="testMarathonHard()">
         Test Marathon Hard
     </div>
-    <div onclick="testTimeAttack()">
+    <div onclick="testMarathonEasy()">
+        Test Marathon Easy
+    </div>
+    <div onclick="testTimeAttackHard()">
+        Test Time Attack Hard
+    </div>
+    <div onclick="testTimeAttackEasy()">
         Test Time Attack Easy
     </div>
 </body>
