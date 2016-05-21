@@ -2,13 +2,8 @@
 session_start();
 
 // retrieve data from ajax request
-$hard = $_GET['hard'];
-$name = $_GET['name'];
 $scores = $_GET['scores'];
-if ($scores <= 0) {
-    die("score less than or equal to zero");
-}
-$date = $_GET['date'];
+$hard = $_GET['hard'];
 if ($hard) {
     $upperCard = 13;
 } else {
@@ -27,8 +22,12 @@ if ($conn->connect_error) {
     die("connection failed: " . $conn->connect_error);
 }
 
-// selects table based on $upperCard
-$sql = "INSERT INTO `MarathonScores1-" . $upperCard . "` (`name`, `score`, `dateKey`) VALUES ('$name', $scores, $date)";
-// inserts score data into timeattackTable
-$conn->query($sql);
-$conn->close();
+$sql = "SELECT * FROM `TimeAttackScores1-" . $upperCard . "` WHERE `score` < ". $scores ." ORDER BY `score` ASC";
+$result = $conn->query($sql);
+// number of rows greater than score
+$position = $result->num_rows;
+// score position is number of rows greater than score + 1
+$position++;
+
+echo json_encode(array("position"=>$position));
+?>
