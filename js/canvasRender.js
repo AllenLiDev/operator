@@ -177,9 +177,12 @@ function clickCollision() {
 			gameArea.clear();
 			gameArea.loaded = load.clickable[i].clicked();
 			gameArea.parse();
+			break;
 		} else if (gameArea.clickable[i].xMin * gameArea.ratioX <= xCoord && gameArea.clickable[i].xMax * gameArea.ratioX >= xCoord && gameArea.clickable[i].yMin * gameArea.ratioY <= yCoord && gameArea.clickable[i].yMax * gameArea.ratioY >= yCoord) {
 			load.clickable[i].clicked();
+			break;
 		}
+
 	}
 }
 
@@ -192,6 +195,7 @@ function dragCollision() {
 	for (var i = 0; i < gameArea.entities.length; i++) {
 		if (gameArea.entities[i].xMin * gameArea.ratioX <= xCoord && gameArea.entities[i].xMax * gameArea.ratioX >= xCoord && gameArea.entities[i].yMin * gameArea.ratioY <= yCoord && gameArea.entities[i].yMax * gameArea.ratioY >= yCoord && gameArea.entities[i].isDraggable) {
 			gameArea.entities[i].isClicked = true;
+			break;
 		}
 	}
 }
@@ -210,8 +214,10 @@ function touchCollision(event) {
 				gameArea.clear();
 				gameArea.loaded = load.clickable[i].clicked();
 				gameArea.parse();
+				break;
 			} else if (gameArea.clickable[i].xMin * gameArea.ratioX <= xCoord && gameArea.clickable[i].xMax * gameArea.ratioX >= xCoord && gameArea.clickable[i].yMin * gameArea.ratioY <= yCoord && gameArea.clickable[i].yMax * gameArea.ratioY >= yCoord) {
 				load.clickable[i].clicked();
+				break;
 			}
 		}
 	}
@@ -219,6 +225,7 @@ function touchCollision(event) {
 	for (var i = 0; i < gameArea.entities.length; i++) {
 		if (gameArea.entities[i].xMin * gameArea.ratioX <= xCoord && gameArea.entities[i].xMax * gameArea.ratioX >= xCoord && gameArea.entities[i].yMin * gameArea.ratioY <= yCoord && gameArea.entities[i].yMax * gameArea.ratioY >= yCoord && gameArea.entities[i].isDraggable == true) {
 			gameArea.entities[i].isClicked = true;
+			break;
 		}
 	}
 }

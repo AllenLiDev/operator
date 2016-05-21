@@ -35,7 +35,7 @@ function Loader() {//Load constructor
 		}
 
 		var staticImage = {
-			src : "./assets/menuAssets/staticBackground.png",
+			src : "./assets/menuAssets/menunew2.png",
 			width : 960,
 			height : 540,
 			xPos : 0,
@@ -45,9 +45,9 @@ function Loader() {//Load constructor
 
 		var timeAtkImage = {
 			src : "./assets/menuAssets/timeAttackButton.png",
-			width : 480,
-			height : 130,
-			xPos : 0,
+			width : 455,
+			height : 120,
+			xPos : 20,
 			yPos : 270,
 			index: 0
 		}
@@ -71,9 +71,9 @@ function Loader() {//Load constructor
 		
 		var endlessImage = {
 			src : "./assets/menuAssets/endlessButton.png",
-			width : 480,
-			height : 130,
-			xPos : 480,
+			width : 455,
+			height : 120,
+			xPos : 485,
 			yPos : 270,
 			index: 0
 		}
@@ -101,7 +101,7 @@ function Loader() {//Load constructor
 			width : 290,
 			height : 140,
 			xPos : 612,
-			yPos : 94,
+			yPos : 105,
 			index: (function() {
 				if (gameArea.difficulty) {
 					return 0;
@@ -154,9 +154,9 @@ function Loader() {//Load constructor
 
 		var leaderImage = {
 			src : "./assets/menuAssets/leaderButton.png",
-			width : 329,
-			height : 140,
-			xPos : 631,
+			width : 300,
+			height : 120,
+			xPos : 640,
 			yPos : 400,
 			index: 0
 		}
@@ -177,7 +177,7 @@ function Loader() {//Load constructor
 		var guideImage = {
 			src : "./assets/menuAssets/guideButton.png",
 			width : 300,
-			height : 140,
+			height : 120,
 			xPos : 331,
 			yPos : 400,
 			index: 0
@@ -198,9 +198,9 @@ function Loader() {//Load constructor
 
 		var settingImage = {
 			src : "./assets/menuAssets/settingButton.png",
-			width : 331,
-			height : 140,
-			xPos : 0,
+			width : 300,
+			height : 120,
+			xPos : 20,
 			yPos : 400,
 			index: 0
 		}
@@ -247,10 +247,12 @@ function Loader() {//Load constructor
 			clicked : function(){
 				if (gameArea.clickable[6].state) {
 					gameArea.state = 0;
+					var index = gameArea.entities[0].index;
 					gameArea.clear();
 					sfx[2].play();
 					gameArea.loaded = load.easterScreen(Math.floor((Math.random() * 5) + 1));
 					gameArea.parse();
+					gameArea.entities[0].index = index;
 				}
 			}
 		}
@@ -289,8 +291,30 @@ function Loader() {//Load constructor
 			}
 		}
 
-		this.entities.push(background, staticImage, timeAtkImage, endlessImage, audioImage, leaderImage, guideImage, settingImage, hardImage);
-		this.clickable.push(timeAtkBox, endlessBox, audioBox, leaderBox, guideBox, settingBox, symbolAdd, symbolMinus, symbolMulti, symbolDivide);
+		var trophyImage = {
+			src : "./assets/menuAssets/trophy.png",
+			width : 82,
+			height : 66,
+			xPos : 40,
+			yPos : 35,
+			index: 0
+		}
+
+		var trophyBox = {
+			xMin : 40,
+			yMin : 35,
+			xMax : 101,
+			yMax : 122,
+			LOADER : true,
+			/*Load guide screen*/
+			clicked : function() {
+				sfx[0].play();
+				return load.achievementScreen();
+			}
+		}
+
+		this.entities.push(background, staticImage, timeAtkImage, endlessImage, audioImage, leaderImage, guideImage, settingImage, hardImage, trophyImage);
+		this.clickable.push(trophyBox, endlessBox, timeAtkBox, audioBox, leaderBox, guideBox, settingBox, symbolAdd, symbolMinus, symbolMulti, symbolDivide);
 		this.fill();
 
 		return this.loaded;
@@ -308,7 +332,7 @@ function Loader() {//Load constructor
 		}
 
 		var staticImage = {
-			src : "./assets/menuAssets/staticBackground.png",
+			src : "./assets/menuAssets/menunew2.png",
 			width : 960,
 			height : 540,
 			xPos : 0,
@@ -318,22 +342,22 @@ function Loader() {//Load constructor
 
 		var timeAtkImage = {
 			src : "./assets/menuAssets/timeAttackButton.png",
-			width : 480,
-			height : 130,
-			xPos : 0,
+			width : 455,
+			height : 120,
+			xPos : 20,
 			yPos : 270,
 			index: 0
 		}
-		
+
 		var endlessImage = {
 			src : "./assets/menuAssets/endlessButton.png",
-			width : 480,
-			height : 130,
-			xPos : 480,
+			width : 455,
+			height : 120,
+			xPos : 485,
 			yPos : 270,
 			index: 0
 		}
-		
+
 		var audioImage = {
 			src : "./assets/menuAssets/audioButton.png",
 			width : 126,
@@ -352,9 +376,9 @@ function Loader() {//Load constructor
 
 		var leaderImage = {
 			src : "./assets/menuAssets/leaderButton.png",
-			width : 329,
-			height : 140,
-			xPos : 631,
+			width : 300,
+			height : 120,
+			xPos : 640,
 			yPos : 400,
 			index: 0
 		}
@@ -362,7 +386,7 @@ function Loader() {//Load constructor
 		var guideImage = {
 			src : "./assets/menuAssets/guideButton.png",
 			width : 300,
-			height : 140,
+			height : 120,
 			xPos : 331,
 			yPos : 400,
 			index: 0
@@ -370,10 +394,19 @@ function Loader() {//Load constructor
 
 		var settingImage = {
 			src : "./assets/menuAssets/settingButton.png",
-			width : 331,
-			height : 140,
-			xPos : 0,
+			width : 300,
+			height : 120,
+			xPos : 20,
 			yPos : 400,
+			index: 0
+		}
+
+		var trophyImage = {
+			src : "./assets/menuAssets/trophy.png",
+			width : 82,
+			height : 66,
+			xPos : 40,
+			yPos : 35,
 			index: 0
 		}
 
@@ -384,10 +417,12 @@ function Loader() {//Load constructor
 			yMax : 540,
 			/*Exit easter egg*/
 			clicked : function() {
+				var index = gameArea.entities[0].index;
 				gameArea.clear();
 				gameArea.state = 0;
 				gameArea.loaded = load.menuScreen();
 				gameArea.parse();
+				gameArea.entities[0].index = index;
 			}
 		}
 
@@ -444,7 +479,7 @@ function Loader() {//Load constructor
 				break;
 		}
 
-		this.entities.push(background, staticImage, timeAtkImage, endlessImage, audioImage, leaderImage, guideImage, settingImage, easterImage);
+		this.entities.push(background, staticImage, timeAtkImage, endlessImage, trophyImage, audioImage, leaderImage, guideImage, settingImage, easterImage);
 		this.clickable.push(exitEaster);
 		this.fill();
 
@@ -477,7 +512,7 @@ function Loader() {//Load constructor
 		this.fill();
 
 		return this.loaded;
-	},
+	};
 	this.gameScreen = function() {//Load game screen objects
 		this.clear();
 
@@ -502,7 +537,7 @@ function Loader() {//Load constructor
 		var cardsImage = {
 			src : "./assets/gameAssets/cardsImage.png",
 			width : 920,
-			height : 224,
+			height : 225,
 			xPos : 20,
 			yPos : 208,
 			index: 0,
@@ -513,10 +548,10 @@ function Loader() {//Load constructor
 
 		var quitImage = {
 			src : "./assets/gameAssets/quitImage.png",
-			width : 220,
-			height : 208,
-			xPos : 0,
-			yPos : 0,
+			width : 200,
+			height : 90,
+			xPos : 20,
+			yPos : 20,
 			index: 0
 		}
 
@@ -541,10 +576,10 @@ function Loader() {//Load constructor
 
 		var skipImage = {
 			src : "./assets/gameAssets/skipImage.png",
-			width : 220,
-			height : 208,
+			width : 200,
+			height : 90,
 			xPos : 740,
-			yPos : 0,
+			yPos : 20,
 			index: 0
 		}
 
@@ -896,12 +931,11 @@ function Loader() {//Load constructor
 
 		var quitImage = {
 			src : "./assets/gameAssets/quitImage.png",
-			width : 220,
-			height : 208,
-			xPos : 0,
-			yPos : 0,
+			width : 200,
+			height : 90,
+			xPos : 20,
+			yPos : 20,
 			index: 0
-
 		}
 
 		var quitBox = {
@@ -1060,7 +1094,16 @@ function Loader() {//Load constructor
 		var score = getScores(5);
 
 		var background = {
-			src : "./assets/leaderboardAssets/leaderboard.png",
+			src : "./assets/menuAssets/background.png",
+			width : 960,
+			height : 540,
+			xPos : 0,
+			yPos : 0,
+			index: 0
+		}
+
+		var border = {
+			src : "./assets/settingsAssets/border.png",
 			width : 960,
 			height : 540,
 			xPos : 0,
@@ -1070,10 +1113,10 @@ function Loader() {//Load constructor
 
 		var quitImage = {
 			src : "./assets/gameAssets/quitImage.png",
-			width : 220,
-			height : 208,
-			xPos : 0,
-			yPos : 0,
+			width : 200,
+			height : 90,
+			xPos : 20,
+			yPos : 20,
 			index: 0
 		}
 
@@ -1291,7 +1334,7 @@ function Loader() {//Load constructor
 			colour : "#5C5C5C"
 		}
 
-		this.entities.push(background, quitImage);
+		this.entities.push(background, quitImage, border);
 		this.clickable.push(quitBox);
 		this.strings.push(easyTime1, easyTime2, easyTime3, easyTime4, easyTime5, hardTime1, hardTime2, hardTime3, hardTime4, hardTime5, easyMara1, easyMara2, easyMara3, easyMara4, easyMara5, hardMara1, hardMara2, hardMara3, hardMara4, hardMara5);
 		this.fill();
@@ -1303,7 +1346,16 @@ function Loader() {//Load constructor
 		this.clear();
 
 		var background = {
-			src : "./assets/guideAssets/guide.png",
+			src : "./assets/menuAssets/background.png",
+			width : 960,
+			height : 540,
+			xPos : 0,
+			yPos : 0,
+			index: 0
+		}
+
+		var border = {
+			src : "./assets/settingsAssets/border.png",
 			width : 960,
 			height : 540,
 			xPos : 0,
@@ -1313,10 +1365,10 @@ function Loader() {//Load constructor
 
 		var quitImage = {
 			src : "./assets/gameAssets/quitImage.png",
-			width : 220,
-			height : 208,
-			xPos : 0,
-			yPos : 0,
+			width : 200,
+			height : 90,
+			xPos : 20,
+			yPos : 20,
 			index: 0
 		}
 
@@ -1334,7 +1386,7 @@ function Loader() {//Load constructor
 			}
 		}
 
-		this.entities.push(background, quitImage);
+		this.entities.push(background, quitImage, border);
 		this.clickable.push(quitBox);
 		this.fill();
 
@@ -1367,10 +1419,10 @@ function Loader() {//Load constructor
 
 		var quitImage = {
 			src : "./assets/gameAssets/quitImage.png",
-			width : 220,
-			height : 208,
-			xPos : 0,
-			yPos : 0,
+			width : 200,
+			height : 90,
+			xPos : 20,
+			yPos : 20,
 			index: 0
 		}
 
@@ -1590,4 +1642,55 @@ function Loader() {//Load constructor
 
 		return this.loaded;
 	};
+	this.achievementScreen = function() {
+		this.clear();
+
+		var background = {
+			src : "./assets/menuAssets/background.png",
+			width : 960,
+			height : 540,
+			xPos : 0,
+			yPos : 0,
+			index: 0
+		}
+
+		var border = {
+			src : "./assets/settingsAssets/border.png",
+			width : 960,
+			height : 540,
+			xPos : 0,
+			yPos : 0,
+			index: 0
+		}
+
+		var quitImage = {
+			src : "./assets/gameAssets/quitImage.png",
+			width : 200,
+			height : 90,
+			xPos : 20,
+			yPos : 20,
+			index: 0
+		}
+
+		var quitBox = {
+			xMin : 20,
+			yMin : 20,
+			xMax : 220,
+			yMax : 110,
+			LOADER : true,
+			/*Loads menu screen*/
+			clicked : function() {
+				sfx[0].play();
+				gameArea.state = 0;
+				return load.menuScreen();
+			}
+		}
+
+		this.entities.push(background, border, quitImage);
+		this.clickable.push(quitBox);
+
+		this.fill();
+
+		return this.loaded;
+	}
 }
