@@ -517,7 +517,7 @@ function Loader() {//Load constructor
 		this.clear();
 
 		var background = {
-			src : "./assets/gameAssets/background.png",
+			src : "./assets/menuAssets/background.png",
 			width : 960,
 			height : 540,
 			xPos : 0,
@@ -1714,7 +1714,22 @@ function Loader() {//Load constructor
 			isClicked : false
 		}
 
-		this.entities.push(background, border, quitImage, achieveScroll, overlay);
+		var ribbonImage = {
+			src : "./assets/achievementAssets/awardSprite.png",
+			width : 112,
+			height : 150,
+			xPos : 663,
+			yPos : 342,
+			index: (function() {
+				if (checkTime1Easy()) {
+					return 1;
+				} else {
+					return 0;
+				}
+			})()
+		}
+
+		this.entities.push(background, border, quitImage, achieveScroll, overlay, ribbonImage);
 		this.clickable.push(quitBox);
 
 		this.fill();

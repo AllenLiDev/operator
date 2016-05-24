@@ -65,6 +65,10 @@ function update(dt) {
 					if (validate(gameArea.strings[1].parameter, gameArea.strings[2].parameter, gameArea.strings[3].parameter, gameArea.strings[4].parameter, gameArea.droppable[0].parameter, gameArea.droppable[1].parameter, gameArea.droppable[2].parameter)) {
 						sfx[3].play();
 
+						// if (gameArea.difficulty == 0) {
+						// 	validateSetHighScoreEasy()
+						// }
+
 						gameArea.entities[3].index = 1;
 
 						gameArea.entities[3].ticks = 1;
@@ -78,6 +82,11 @@ function update(dt) {
 							gameArea.parse();
 							gameArea.strings[0].parameter = Math.floor(gameArea.refTime) + "." + (Math.floor(gameArea.refTime * 10) % (Math.floor(gameArea.refTime) * 10));
 							gameArea.strings[1].parameter = gameArea.score;
+							if (gameArea.difficulty == 0) {
+								validateSetFastestTimeEasy(gameArea.strings[0].parameter);
+							} else {
+								validateSetFastestTimeHard(gameArea.strings[0].parameter);
+							}
 						} else {
 							gameArea.entities[10].index = gameArea.score;							
 							getProblem(timeAttackDifficulty(gameArea.score + 1, gameArea.difficulty), gameArea.difficulty);
