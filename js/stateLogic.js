@@ -8,7 +8,20 @@
 - Easter Egg*/
 function update(dt) {
 
+	if (gameArea.entities[0].index - 0.0005 < 0) {
+		gameArea.entities[0].index = 0.9995;
+	}
+	gameArea.entities[0].index -= 0.0005;
+
 	switch (gameArea.state) {
+		// case 0: //main menu
+		// 	if (gameArea.entities[0].index - 0.0005 < 0) {
+		// 		gameArea.entities[0].index = 0.9995;
+		// 	}
+		// 	gameArea.entities[0].index -= 0.0005;
+
+		// 	break;
+
 		case 1: //time attack logic
 
 			gameArea.refTime += dt;
