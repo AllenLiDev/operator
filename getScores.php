@@ -16,10 +16,10 @@ if ($conn->connect_error) {
     die("connection failed: " . $conn->connect_error);
 }
 
-$time9sql = "SELECT * FROM `TimeAttackScores1-9` ORDER BY `score` ASC LIMIT " . $limit;
-$time13sql = "SELECT * FROM `TimeAttackScores1-13` ORDER BY `score` ASC LIMIT " . $limit;
-$marathon9sql = "SELECT * FROM `MarathonScores1-9` ORDER BY `score` DESC LIMIT " . $limit;
-$marathon13sql = "SELECT * FROM `MarathonScores1-13` ORDER BY `score` DESC LIMIT " . $limit;
+$time9sql = "SELECT * FROM `TimeAttackScores1-9` ORDER BY `score` ASC, `dateKey` ASC LIMIT " . $limit;
+$time13sql = "SELECT * FROM `TimeAttackScores1-13` ORDER BY `score` ASC, `dateKey` ASC LIMIT " . $limit;
+$marathon9sql = "SELECT * FROM `MarathonScores1-9` ORDER BY `score` DESC, `dateKey` ASC LIMIT " . $limit;
+$marathon13sql = "SELECT * FROM `MarathonScores1-13` ORDER BY `score` DESC, `dateKey` ASC LIMIT " . $limit;
 
 $namesTimeEasy = array();
 $scoresTimeEasy = array();
