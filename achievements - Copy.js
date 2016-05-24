@@ -87,8 +87,15 @@ function getMaxCombo() {
 * @return boolean
 */
 function checkTime1Easy() {
-    var time = getCookie("time1Easy");
-    if (time === "true") {
+    var threshhold = 180;
+    var fastestTimeEasy = getFastestTimeEasy();
+    var fastestTimeHard = getFastestTimeHard();
+    if (fastestTimeEasy != null
+            && fastestTimeEasy < threshhold) {
+        return true;
+    }
+    if (fastestTimeHard != null
+            && fastestTimeHard < threshhold) {
         return true;
     }
     return false;
@@ -100,8 +107,15 @@ function checkTime1Easy() {
 * @return boolean
 */
 function checkTime2Easy() {
-    var time = getCookie("time2Easy");
-    if (time === "true") {
+    var threshhold = 120;
+    var fastestTimeEasy = getFastestTimeEasy();
+    var fastestTimeHard = getFastestTimeHard();
+    if (fastestTimeEasy != null
+            && fastestTimeEasy < threshhold) {
+        return true;
+    }
+    if (fastestTimeHard != null
+            && fastestTimeHard < threshhold) {
         return true;
     }
     return false;
@@ -113,8 +127,15 @@ function checkTime2Easy() {
 * @return boolean
 */
 function checkTime3Easy() {
-    var time = getCookie("time3Easy");
-    if (time === "true") {
+    var threshhold = 60;
+    var fastestTimeEasy = getFastestTimeEasy();
+    var fastestTimeHard = getFastestTimeHard();
+    if (fastestTimeEasy != null
+            && fastestTimeEasy < threshhold) {
+        return true;
+    }
+    if (fastestTimeHard != null
+            && fastestTimeHard < threshhold) {
         return true;
     }
     return false;
@@ -126,8 +147,10 @@ function checkTime3Easy() {
 * @return boolean
 */
 function checkTime1Hard() {
-    var time = getCookie("time1Hard");
-    if (time === "true") {
+    var threshhold = 180;
+    var fastestTimeHard = getFastestTimeHard();
+    if (fastestTimeHard != null
+            && fastestTimeHard < threshhold) {
         return true;
     }
     return false;
@@ -139,8 +162,10 @@ function checkTime1Hard() {
 * @return boolean
 */
 function checkTime2Hard() {
-    var time = getCookie("time2Hard");
-    if (time === "true") {
+    var threshhold = 120;
+    var fastestTimeHard = getFastestTimeHard();
+    if (fastestTimeHard != null
+            && fastestTimeHard < threshhold) {
         return true;
     }
     return false;
@@ -152,8 +177,10 @@ function checkTime2Hard() {
 * @return boolean
 */
 function checkTime3Hard() {
-    var time = getCookie("time3Hard");
-    if (time === "true") {
+    var threshhold = 60;
+    var fastestTimeHard = getFastestTimeHard();
+    if (fastestTimeHard != null
+            && fastestTimeHard < threshhold) {
         return true;
     }
     return false;
@@ -165,8 +192,10 @@ function checkTime3Hard() {
 * @return boolean
 */
 function checkMileHighClub() {
-    var score = getCookie("mileHighClub");
-    if (score === "true") {
+    var highScoreEasy = getHighScoreEasy();
+    var highScoreHard = getHighScoreHard();
+    if (highScoreEasy >= 5280
+            || highScoreHard >= 5280) {
         return true;
     }
     return false;
@@ -178,8 +207,8 @@ function checkMileHighClub() {
 * @return boolean
 */
 function checkMillionaire() {
-    var score = getCookie("millionaire");
-    if (score === "true") {
+    var highScoreHard = getHighScoreHard();
+    if (highScoreHard >= 1000000) {
         return true;
     }
     return false;
@@ -191,8 +220,8 @@ function checkMillionaire() {
 * @return boolean
 */
 function checkJackBauer() {
-    var score = getCookie("jackBauer");
-    if (score === "true") {
+    var marathonProblemsHard = getMarathonProblemsHard();
+    if (marathonProblemsHard >= 24) {
         return true;
     }
     return false;
@@ -230,8 +259,9 @@ function checkLEET() {
 * @return boolean
 */
 function checkCombo1() {
-    var combo = getCookie("combo1");
-    if (combo === "true") {
+    var threshhold = 10;
+    var maxCombo = getMaxCombo();
+    if (maxCombo >= threshhold) {
         return true;
     }
     return false;
@@ -243,8 +273,9 @@ function checkCombo1() {
 * @return boolean
 */
 function checkCombo2() {
-    var combo = getCookie("combo2");
-    if (combo === "true") {
+    var threshhold = 25;
+    var maxCombo = getMaxCombo();
+    if (maxCombo >= threshhold) {
         return true;
     }
     return false;
@@ -256,8 +287,9 @@ function checkCombo2() {
 * @return boolean
 */
 function checkCombo3() {
-    var combo = getCookie("combo3");
-    if (combo === "true") {
+    var threshhold = 50;
+    var maxCombo = getMaxCombo();
+    if (maxCombo >= threshhold) {
         return true;
     }
     return false;
@@ -269,8 +301,9 @@ function checkCombo3() {
 * @return boolean
 */
 function checkCombo4() {
-    var combo = getCookie("combo4");
-    if (combo === "true") {
+    var threshhold = 100;
+    var maxCombo = getMaxCombo();
+    if (maxCombo >= threshhold) {
         return true;
     }
     return false;
@@ -329,78 +362,6 @@ function setMaxCombo(combo) {
 /* These set achievements to unlocked */
 
 /**
-* unlockTime1Easy()
-* unlocks the "Walker" achievement
-*/
-function unlockTime1Easy() {
-    setCookie("time1Easy", "true", 30);
-}
-
-/**
-* unlockTime2Easy()
-* unlocks the "Jogger" achievement
-*/
-function unlockTime2Easy() {
-    setCookie("time2Easy", "true", 30);
-}
-
-/**
-* unlockTime3Easy)
-* unlocks the "Sprinter" achievement
-*/
-function unlockTime3Easy() {
-    setCookie("time1Easy", "true", 30);
-}
-
-/**
-* unlockTime1Hard()
-* unlocks the "Walker" achievement
-*/
-function unlockTime1Hard() {
-    setCookie("time1Hard", "true", 30);
-}
-
-/**
-* unlockTime2Hard()
-* unlocks the "Jogger" achievement
-*/
-function unlockTime2Hard() {
-    setCookie("time2Hard", "true", 30);
-}
-
-/**
-* unlockTime3Hard)
-* unlocks the "Sprinter" achievement
-*/
-function unlockTime3Hard() {
-    setCookie("time3Hard", "true", 30);
-}
-
-/**
-* unlockMileHighClub()
-* unlocks the "MileHighClub" achievement
-*/
-function unlockMileHighClub() {
-    setCookie("mileHighClub", "true", 30);
-}
-
-/**
-* unlockMillionaire()
-* unlocks the "Millionaire" achievement
-*/
-function unlockMillionaire() {
-    setCookie("millionaire", "true", 30);
-}
-
-/**
-* unlockJackBauer()
-* unlocks the "Jack Bauer" achievement
-*/
-function unlockJackBauer() {
-    setCookie("jackBauer", "true", 30);
-}
-
-/**
 * unlockSatan()
 * unlocks the "Literally Satan" achievement
 */
@@ -414,38 +375,6 @@ function unlockSatan() {
 */
 function unlockLEET() {
     setCookie("leet", "true", 30);
-}
-
-/**
-* unlockCombo1()
-* unlocks the "Combo Novice" achievement
-*/
-function unlockCombo1() {
-    setCookie("combo1", "true", 30);
-}
-
-/**
-* unlockCombo2()
-* unlocks the "Combo Adept" achievement
-*/
-function unlockCombo2() {
-    setCookie("combo2", "true", 30);
-}
-
-/**
-* unlockCombo3()
-* unlocks the "Combo Expert" achievement
-*/
-function unlockCombo3() {
-    setCookie("combo3", "true", 30);
-}
-
-/**
-* unlockCombo4()
-* unlocks the "Combo Master" achievement
-*/
-function unlockCombo4() {
-    setCookie("combo4", "true", 30);
 }
 
 /* These functions compares values with those already stored in the cookies */
