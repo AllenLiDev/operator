@@ -537,7 +537,7 @@ function Loader() {//Load constructor
 		var cardsImage = {
 			src : "./assets/gameAssets/cardsImage.png",
 			width : 920,
-			height : 225,
+			height : 224,
 			xPos : 20,
 			yPos : 208,
 			index: 0,
@@ -814,10 +814,10 @@ function Loader() {//Load constructor
 
 				var scoreImage = {
 					src : "./assets/gameAssets/scoreboard.png",
-					width : 439,
-					height : 178,
-					xPos : 260,
-					yPos : 20,
+					width : 449,
+					height : 188,
+					xPos : 255,
+					yPos : 15,
 					index: 0
 				}
 
@@ -854,10 +854,10 @@ function Loader() {//Load constructor
 
 				var scoreImage = {
 					src : "./assets/gameAssets/scoreImage.png",
-					width : 520,
-					height : 208,
-					xPos : 215,
-					yPos : 0,
+					width : 449,
+					height : 188,
+					xPos : 255,
+					yPos : 15,
 					index: 0
 				}
 
@@ -1655,11 +1655,20 @@ function Loader() {//Load constructor
 		}
 
 		var border = {
-			src : "./assets/settingsAssets/border.png",
+			src : "./assets/achievementAssets/achievementBorder.png",
 			width : 960,
 			height : 540,
 			xPos : 0,
 			yPos : 0,
+			index: 0
+		}
+
+		var overlay = {
+			src : "./assets/achievementAssets/overlay.png",
+			width : 703,
+			height : 140,
+			xPos : 128,
+			yPos : 153,
 			index: 0
 		}
 
@@ -1686,7 +1695,26 @@ function Loader() {//Load constructor
 			}
 		}
 
-		this.entities.push(background, border, quitImage);
+		var achieveScroll = {
+			src : "./assets/achievementAssets/achieveScroll.png",
+			width : 600,
+			height : 130,
+			xPos : 180,
+			yPos : 158,
+			xInit : 180,
+			yInit : 158,
+			index : 0,
+			xMin : 180,
+			yMin : 158,
+			xMax : 780,
+			yMax : 288,
+			modifier : 77,
+			isDraggable : true,
+			isScrollable2 : true,
+			isClicked : false
+		}
+
+		this.entities.push(background, border, quitImage, achieveScroll, overlay);
 		this.clickable.push(quitBox);
 
 		this.fill();

@@ -288,6 +288,9 @@ function dropCollision() {
 			if (gameArea.entities[i].isClicked && gameArea.entities[i].isScrollable) {
 				gameArea.entities[i].index = Math.round(gameArea.entities[i].index);
 				gameArea.entities[i].isClicked = false;
+			} else if (gameArea.entities[i].isClicked && gameArea.entities[i].isScrollable2) {
+				gameArea.entities[i].index = Math.round(gameArea.entities[i].index);
+				gameArea.entities[i].isClicked = false;
 			} else if(gameArea.entities[i].isClicked) {
 				gameArea.entities[i].xPos = gameArea.entities[i].xInit;
 				gameArea.entities[i].yPos = gameArea.entities[i].yInit;
@@ -311,6 +314,21 @@ function handleInput(dt) {
 			if (gameArea.entities[i].index < 0) {
 				gameArea.entities[i].index = 36;
 			} else if (gameArea.entities[i].index > 36) {
+				gameArea.entities[i].index = 0;
+			}
+
+			gameArea.entities[i].index += (1 * ((dp * -1) / 826));
+		} else if (gameArea.entities[i].isClicked && gameArea.entities[i].isScrollable2) {
+			var dp = gameArea.yMouse - gameArea.yRef;
+			if (dp > 118) {
+				dp = 118;
+			} else if (dp < -118) {
+				dp = -118;
+			}
+
+			if (gameArea.entities[i].index < 0) {
+				gameArea.entities[i].index = 15;
+			} else if (gameArea.entities[i].index > 15) {
 				gameArea.entities[i].index = 0;
 			}
 
