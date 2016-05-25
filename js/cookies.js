@@ -64,5 +64,5 @@ function refreshAllCookies() {
     refreshCookie("combo3");
     refreshCookie("combo4");
     refreshCookie("sound");
-    refershCookie("difficulty");
+    refreshCookie("difficulty");
 }
