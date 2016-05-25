@@ -9,3 +9,7 @@ canvas {
 	font-family: "Digital7";
 	src: url("./assets/digital-7.ttf");
 }
+@font-face {
+	font-family: "ArcadeClassic";
+	src: url("./assets/arcadeClassic.ttf");
+}

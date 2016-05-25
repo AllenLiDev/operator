@@ -80,33 +80,33 @@ function update(dt) {
 							gameArea.strings[1].parameter = gameArea.score;
 							//achievement unlocks
 							if (gameArea.difficulty == 0) {
-								if (gameArea.refTime < 180 && checkTime3Easy() == false) {
-									unlockTime3Easy();
+								if (gameArea.refTime < 180 && checkTime1Easy() == false) {
+									unlockTime1Easy();
 								}
 								if (gameArea.refTime < 120 && checkTime2Easy() == false) {
 									unlockTime2Easy();
 								}
-								if (gameArea.refTime < 60 && checkTime1Easy() == false) {
-									unlockTime1Easy();
+								if (gameArea.refTime < 60 && checkTime3Easy() == false) {
+									unlockTime3Easy();
 								}
 							} else {
-								if (gameArea.refTime < 180 && checkTime3Hard() == false) {
-									unlockTime3Hard();
+								if (gameArea.refTime < 180 && checkTime1Hard() == false) {
+									unlockTime1Hard();
 								}
 								if (gameArea.refTime < 120 && checkTime2Hard() == false) {
 									unlockTime2Hard();
 								}
-								if (gameArea.refTime < 60 && checkTime1Hard() == false) {
-									unlockTime1Hard();
+								if (gameArea.refTime < 60 && checkTime3Hard() == false) {
+									unlockTime3Hard();
 								}
-								if (gameArea.refTime < 180 && checkTime3Easy() == false) {
-									unlockTime3Easy();
+								if (gameArea.refTime < 180 && checkTime1Easy() == false) {
+									unlockTime1Easy();
 								}
 								if (gameArea.refTime < 120 && checkTime2Easy() == false) {
 									unlockTime2Easy();
 								}
-								if (gameArea.refTime < 60 && checkTime1Easy() == false) {
-									unlockTime1Easy();
+								if (gameArea.refTime < 60 && checkTime3Easy() == false) {
+									unlockTime3Easy();
 								}
 							}
 						} else { //if game incomplete
