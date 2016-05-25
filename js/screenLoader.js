@@ -426,6 +426,22 @@ function Loader() {//Load constructor
 			}
 		}
 
+		var hardImage = {
+			src : "./assets/menuAssets/hardStamp.png",
+			width : 290,
+			height : 140,
+			xPos : 612,
+			yPos : 105,
+			index: (function() {
+				if (gameArea.difficulty) {
+					return 0;
+				} else {
+					return 1;
+				}
+			})(),
+			frames: 2
+		}
+
 		switch (comicNum) {
 			case 1:
 				var easterImage = {
@@ -479,7 +495,7 @@ function Loader() {//Load constructor
 				break;
 		}
 
-		this.entities.push(background, staticImage, timeAtkImage, endlessImage, trophyImage, audioImage, leaderImage, guideImage, settingImage, easterImage);
+		this.entities.push(background, staticImage, timeAtkImage, endlessImage, trophyImage, audioImage, leaderImage, guideImage, settingImage, hardImage, easterImage);
 		this.clickable.push(exitEaster);
 		this.fill();
 
@@ -561,7 +577,7 @@ function Loader() {//Load constructor
 			index: 0,
 			frames : 3,
 			ticks : 0,
-			ticksPer : 130
+			ticksPer : 85
 		}
 
 		var quitImage = {
@@ -921,6 +937,20 @@ function Loader() {//Load constructor
 
 			default:
 		}
+
+		var sliderImage = {
+			src : "./assets/gameAssets/sliders.png",
+			width : 419,
+			height : 111,
+			xPos : 270,
+			yPos : 77,
+			index: 1,
+			indexInit : 1,
+			z : 1
+		}
+
+		this.entities.push(sliderImage);
+
 		this.fill();
 
 		return this.loaded;
