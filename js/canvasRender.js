@@ -106,6 +106,7 @@ var gameArea = {
 		}
 	},
 	init : function() {
+        refreshAllCookies();
 		this.canvas = document.getElementById("canvas");
 		this.ctx = this.canvas.getContext("2d");
 		gameArea.resize();
