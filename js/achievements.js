@@ -349,7 +349,7 @@ function unlockTime2Easy() {
 * unlocks the "Sprinter" achievement
 */
 function unlockTime3Easy() {
-    setCookie("time1Easy", "true", 30);
+    setCookie("time3Easy", "true", 30);
 }
 
 /**
