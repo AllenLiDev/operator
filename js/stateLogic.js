@@ -49,16 +49,20 @@ function update(dt) {
 				}
 
 				if (gameArea.entities[3].ticks > gameArea.entities[3].ticksPer) {
+					if(gameArea.entities[3].index == 1){
+						getProblem(timeAttackDifficulty(gameArea.score + 1, gameArea.difficulty), gameArea.difficulty); //load new problem
+					}
 					gameArea.entities[3].index = 0;
 					gameArea.entities[3].ticks = 0;
-					disableDrag(0);
+					disableDrag(0); //enable drag
+
 				}
 				
 				if (gameArea.droppable[0].isFilled && gameArea.droppable[1].isFilled && gameArea.droppable[2].isFilled) {
 					//if answer is correct
 					if (validate(gameArea.strings[1].parameter, gameArea.strings[2].parameter, gameArea.strings[3].parameter, gameArea.strings[4].parameter, gameArea.droppable[0].parameter, gameArea.droppable[1].parameter, gameArea.droppable[2].parameter)) {
 						sfx[3].play();
-						disableDrag(1);
+						disableDrag(1); //disable drag
 
 						// if (gameArea.difficulty == 0) {
 						// 	validateSetHighScoreEasy()
@@ -111,7 +115,7 @@ function update(dt) {
 							}
 						} else { //if game incomplete
 							gameArea.entities[10].index = gameArea.score;
-							getProblem(timeAttackDifficulty(gameArea.score + 1, gameArea.difficulty), gameArea.difficulty);
+
 							for (var i = 0; i < gameArea.droppable.length; i++) {
 								gameArea.droppable[i].parameter = "";
 								gameArea.droppable[i].isFilled = false;
@@ -170,9 +174,12 @@ function update(dt) {
 				}
 
 				if (gameArea.entities[3].ticks > gameArea.entities[3].ticksPer) {
+					if(gameArea.entities[3].index == 1){
+						getProblem(timeAttackDifficulty(gameArea.score + 1, gameArea.difficulty), gameArea.difficulty); //load new problem
+					}
 					gameArea.entities[3].index = 0;
 					gameArea.entities[3].ticks = 0;
-					disableDrag(0);
+					disableDrag(0); //enable drag
 				}
 
 				if (gameArea.refTime < 1) {
@@ -185,7 +192,7 @@ function update(dt) {
 
 					if (validate(gameArea.strings[1].parameter, gameArea.strings[2].parameter, gameArea.strings[3].parameter, gameArea.strings[4].parameter, gameArea.droppable[0].parameter, gameArea.droppable[1].parameter, gameArea.droppable[2].parameter)) {
 						sfx[3].play();						
-						disableDrag(1);
+						disableDrag(1); //disable drag
 
 						gameArea.entities[3].index = 1;
 
@@ -227,7 +234,6 @@ function update(dt) {
 							unlockJackBauer();
 						}
 
-						getProblem(difficultyCurve(gameArea.score + 1, gameArea.difficulty), gameArea.difficulty);
 						for (var i = 0; i < gameArea.droppable.length; i++) {
 							gameArea.droppable[i].parameter = "";
 							gameArea.droppable[i].isFilled = false;

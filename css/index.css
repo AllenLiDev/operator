@@ -7,9 +7,9 @@ canvas {
 }
 @font-face {
 	font-family: "Digital7";
-	src: url("./assets/digital-7.ttf");
+	src: url("../assets/digital-7.ttf");
 }
 @font-face {
 	font-family: "ArcadeClassic";
-	src: url("./assets/arcadeClassic.ttf");
+	src: url("../assets/arcadeClassic.ttf");
 }
