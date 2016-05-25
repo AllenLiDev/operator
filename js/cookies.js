@@ -32,3 +32,37 @@ function checkSoundCookie() {
     }
     return true;
 }
+
+/**
+* refreshCookie(String name)
+* checks to see if a cookie has a value, and if it does sets the expire time to 30 days
+*/
+function refreshCookie(name) {
+    if (getCookie(name) != "") {
+        setCookie(name, getCookie(name), 30);
+    }
+}
+
+/**
+* refreshAllCookies()
+* refreshes all the cookies
+*/
+function refreshAllCookies() {
+    refreshCookie("time1Easy");
+    refreshCookie("time2Easy");
+    refreshCookie("time3Easy");
+    refreshCookie("time1Hard");
+    refreshCookie("time2Hard");
+    refreshCookie("time3Hard");
+    refreshCookie("mileHighClub");
+    refreshCookie("millionaire");
+    refreshCookie("jackBauer");
+    refreshCookie("satan");
+    refreshCookie("leet");
+    refreshCookie("combo1");
+    refreshCookie("combo2");
+    refreshCookie("combo3");
+    refreshCookie("combo4");
+    refreshCookie("sound");
+    refreshCookie("difficulty");
+}
