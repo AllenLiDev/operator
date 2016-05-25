@@ -87,15 +87,15 @@ function getMaxCombo() {
 * @return boolean
 */
 function checkTime1Easy() {
-    var threshhold = 180;
+    var threshold = 180;
     var fastestTimeEasy = getFastestTimeEasy();
     var fastestTimeHard = getFastestTimeHard();
     if (fastestTimeEasy != null
-            && fastestTimeEasy < threshhold) {
+            && fastestTimeEasy < threshold) {
         return true;
     }
     if (fastestTimeHard != null
-            && fastestTimeHard < threshhold) {
+            && fastestTimeHard < threshold) {
         return true;
     }
     return false;
@@ -107,15 +107,15 @@ function checkTime1Easy() {
 * @return boolean
 */
 function checkTime2Easy() {
-    var threshhold = 120;
+    var threshold = 120;
     var fastestTimeEasy = getFastestTimeEasy();
     var fastestTimeHard = getFastestTimeHard();
     if (fastestTimeEasy != null
-            && fastestTimeEasy < threshhold) {
+            && fastestTimeEasy < threshold) {
         return true;
     }
     if (fastestTimeHard != null
-            && fastestTimeHard < threshhold) {
+            && fastestTimeHard < threshold) {
         return true;
     }
     return false;
@@ -127,15 +127,15 @@ function checkTime2Easy() {
 * @return boolean
 */
 function checkTime3Easy() {
-    var threshhold = 60;
+    var threshold = 60;
     var fastestTimeEasy = getFastestTimeEasy();
     var fastestTimeHard = getFastestTimeHard();
     if (fastestTimeEasy != null
-            && fastestTimeEasy < threshhold) {
+            && fastestTimeEasy < threshold) {
         return true;
     }
     if (fastestTimeHard != null
-            && fastestTimeHard < threshhold) {
+            && fastestTimeHard < threshold) {
         return true;
     }
     return false;
@@ -147,10 +147,10 @@ function checkTime3Easy() {
 * @return boolean
 */
 function checkTime1Hard() {
-    var threshhold = 180;
+    var threshold = 180;
     var fastestTimeHard = getFastestTimeHard();
     if (fastestTimeHard != null
-            && fastestTimeHard < threshhold) {
+            && fastestTimeHard < threshold) {
         return true;
     }
     return false;
@@ -162,10 +162,10 @@ function checkTime1Hard() {
 * @return boolean
 */
 function checkTime2Hard() {
-    var threshhold = 120;
+    var threshold = 120;
     var fastestTimeHard = getFastestTimeHard();
     if (fastestTimeHard != null
-            && fastestTimeHard < threshhold) {
+            && fastestTimeHard < threshold) {
         return true;
     }
     return false;
@@ -177,10 +177,10 @@ function checkTime2Hard() {
 * @return boolean
 */
 function checkTime3Hard() {
-    var threshhold = 60;
+    var threshold = 60;
     var fastestTimeHard = getFastestTimeHard();
     if (fastestTimeHard != null
-            && fastestTimeHard < threshhold) {
+            && fastestTimeHard < threshold) {
         return true;
     }
     return false;
@@ -259,9 +259,9 @@ function checkLEET() {
 * @return boolean
 */
 function checkCombo1() {
-    var threshhold = 10;
+    var threshold = 10;
     var maxCombo = getMaxCombo();
-    if (maxCombo >= threshhold) {
+    if (maxCombo >= threshold) {
         return true;
     }
     return false;
@@ -273,9 +273,9 @@ function checkCombo1() {
 * @return boolean
 */
 function checkCombo2() {
-    var threshhold = 25;
+    var threshold = 25;
     var maxCombo = getMaxCombo();
-    if (maxCombo >= threshhold) {
+    if (maxCombo >= threshold) {
         return true;
     }
     return false;
@@ -287,9 +287,9 @@ function checkCombo2() {
 * @return boolean
 */
 function checkCombo3() {
-    var threshhold = 50;
+    var threshold = 50;
     var maxCombo = getMaxCombo();
-    if (maxCombo >= threshhold) {
+    if (maxCombo >= threshold) {
         return true;
     }
     return false;
@@ -301,9 +301,9 @@ function checkCombo3() {
 * @return boolean
 */
 function checkCombo4() {
-    var threshhold = 100;
+    var threshold = 100;
     var maxCombo = getMaxCombo();
-    if (maxCombo >= threshhold) {
+    if (maxCombo >= threshold) {
         return true;
     }
     return false;
