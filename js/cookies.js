@@ -38,7 +38,7 @@ function checkSoundCookie() {
 * checks to see if a cookie has a value, and if it does sets the expire time to 30 days
 */
 function refreshCookie(name) {
-    if (getCookie(name) != null) {
+    if (getCookie(name) != "") {
         setCookie(name, getCookie(name), 30);
     }
 }
