@@ -51,12 +51,14 @@ function update(dt) {
 				if (gameArea.entities[3].ticks > gameArea.entities[3].ticksPer) {
 					gameArea.entities[3].index = 0;
 					gameArea.entities[3].ticks = 0;
+					disableDrag(0);
 				}
 				
 				if (gameArea.droppable[0].isFilled && gameArea.droppable[1].isFilled && gameArea.droppable[2].isFilled) {
-
+					//if answer is correct
 					if (validate(gameArea.strings[1].parameter, gameArea.strings[2].parameter, gameArea.strings[3].parameter, gameArea.strings[4].parameter, gameArea.droppable[0].parameter, gameArea.droppable[1].parameter, gameArea.droppable[2].parameter)) {
 						sfx[3].play();
+						disableDrag(1);
 
 						// if (gameArea.difficulty == 0) {
 						// 	validateSetHighScoreEasy()
@@ -68,6 +70,7 @@ function update(dt) {
 
 						gameArea.score += 1;
 
+						//if game complete
 						if (gameArea.score == 10) {
 							gameArea.clear();
 							gameArea.state = 3;
@@ -75,6 +78,7 @@ function update(dt) {
 							gameArea.parse();
 							gameArea.strings[0].parameter = Math.floor(gameArea.refTime) + "." + (Math.floor(gameArea.refTime * 10) % (Math.floor(gameArea.refTime) * 10));
 							gameArea.strings[1].parameter = gameArea.score;
+							//achievement unlocks
 							if (gameArea.difficulty == 0) {
 								if (gameArea.refTime < 180 && checkTime3Easy() == false) {
 									unlockTime3Easy();
@@ -105,8 +109,8 @@ function update(dt) {
 									unlockTime1Easy();
 								}
 							}
-						} else {
-							gameArea.entities[10].index = gameArea.score;							
+						} else { //if game incomplete
+							gameArea.entities[10].index = gameArea.score;
 							getProblem(timeAttackDifficulty(gameArea.score + 1, gameArea.difficulty), gameArea.difficulty);
 							for (var i = 0; i < gameArea.droppable.length; i++) {
 								gameArea.droppable[i].parameter = "";
@@ -121,7 +125,7 @@ function update(dt) {
 							gameArea.entities.pop();
 							gameArea.entities.pop();
 						}
-					} else {
+					} else { // question is wrong
 						sfx[4].play();
 
 						gameArea.entities[3].index = 2;	
@@ -168,6 +172,7 @@ function update(dt) {
 				if (gameArea.entities[3].ticks > gameArea.entities[3].ticksPer) {
 					gameArea.entities[3].index = 0;
 					gameArea.entities[3].ticks = 0;
+					disableDrag(0);
 				}
 
 				if (gameArea.refTime < 1) {
@@ -179,10 +184,8 @@ function update(dt) {
 				if (gameArea.droppable[0].isFilled && gameArea.droppable[1].isFilled && gameArea.droppable[2].isFilled) {
 
 					if (validate(gameArea.strings[1].parameter, gameArea.strings[2].parameter, gameArea.strings[3].parameter, gameArea.strings[4].parameter, gameArea.droppable[0].parameter, gameArea.droppable[1].parameter, gameArea.droppable[2].parameter)) {
-
-
-
-						sfx[3].play();
+						sfx[3].play();						
+						disableDrag(1);
 
 						gameArea.entities[3].index = 1;
 
