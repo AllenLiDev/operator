@@ -67,6 +67,9 @@ minusOperator:: x-380 y-449 h-80 w-80
 multiOperator:: x-500 y-449 h-80 w-80
 divOperator:: x-620 y-449 h-80 w-80
 
+-- SLIDERS --
+index size h-111 w-419
+location x-270 y-77
 -----------
 Marathon
 -----------
