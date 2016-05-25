@@ -380,3 +380,20 @@ function getCharacters(index1, index2, index3) {
     return characters;
     
 }
+
+/*
+Disables draggable feature of operators while new question is being loaded to avoid abuse of game mechanics.
+*/
+function disableDrag(onOff){
+    if(onOff){
+        gameArea.entities[9].isDraggable = false;
+        gameArea.entities[8].isDraggable = false;
+        gameArea.entities[7].isDraggable = false;
+        gameArea.entities[6].isDraggable = false;
+    } else {        
+        gameArea.entities[9].isDraggable = true;
+        gameArea.entities[8].isDraggable = true;
+        gameArea.entities[7].isDraggable = true;
+        gameArea.entities[6].isDraggable = true;
+    }
+}
