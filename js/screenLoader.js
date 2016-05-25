@@ -1143,8 +1143,8 @@ function Loader() {//Load constructor
 		}
 
 		var easyTime1 = {
-			font : "px Calibri",
-			sizeInit : 22,
+			font : "px ArcadeClassic",
+			sizeInit : 26,
 			xPos : 105,
 			yPos : 241,
 			parameter : score[0][0] + " " + score[1][0],
@@ -1153,8 +1153,8 @@ function Loader() {//Load constructor
 		}
 
 		var easyTime2 = {
-			font : "px Calibri",
-			sizeInit : 22,
+			font : "px ArcadeClassic",
+			sizeInit : 26,
 			xPos : 105,
 			yPos : 292,
 			parameter : score[0][1] + " " + score[1][1],
@@ -1163,8 +1163,8 @@ function Loader() {//Load constructor
 		}
 
 		var easyTime3 = {
-			font : "px Calibri",
-			sizeInit : 22,
+			font : "px ArcadeClassic",
+			sizeInit : 26,
 			xPos : 105,
 			yPos : 344,
 			parameter : score[0][2] + " " + score[1][2],
@@ -1173,8 +1173,8 @@ function Loader() {//Load constructor
 		}
 
 		var easyTime4 = {
-			font : "px Calibri",
-			sizeInit : 22,
+			font : "px ArcadeClassic",
+			sizeInit : 26,
 			xPos : 105,
 			yPos : 396,
 			parameter : score[0][3] + " " + score[1][3],
@@ -1183,8 +1183,8 @@ function Loader() {//Load constructor
 		}
 
 		var easyTime5 = {
-			font : "px Calibri",
-			sizeInit : 22,
+			font : "px ArcadeClassic",
+			sizeInit : 26,
 			xPos : 105,
 			yPos : 448,
 			parameter : score[0][4] + " " + score[1][4],
@@ -1193,8 +1193,8 @@ function Loader() {//Load constructor
 		}
 
 		var hardTime1 = {
-			font : "px Calibri",
-			sizeInit : 22,
+			font : "px ArcadeClassic",
+			sizeInit : 26,
 			xPos : 285,
 			yPos : 241,
 			parameter : score[2][0] + " " + score[3][0],
@@ -1203,8 +1203,8 @@ function Loader() {//Load constructor
 		}
 
 		var hardTime2 = {
-			font : "px Calibri",
-			sizeInit : 22,
+			font : "px ArcadeClassic",
+			sizeInit : 26,
 			xPos : 285,
 			yPos : 292,
 			parameter : score[2][1] + " " + score[3][1],
@@ -1213,8 +1213,8 @@ function Loader() {//Load constructor
 		}
 
 		var hardTime3 = {
-			font : "px Calibri",
-			sizeInit : 22,
+			font : "px ArcadeClassic",
+			sizeInit : 26,
 			xPos : 285,
 			yPos : 344,
 			parameter : score[2][2] + " " + score[3][2],
@@ -1223,8 +1223,8 @@ function Loader() {//Load constructor
 		}
 
 		var hardTime4 = {
-			font : "px Calibri",
-			sizeInit : 22,
+			font : "px ArcadeClassic",
+			sizeInit : 26,
 			xPos : 285,
 			yPos : 396,
 			parameter : score[2][3] + " " + score[3][3],
@@ -1233,8 +1233,8 @@ function Loader() {//Load constructor
 		}
 
 		var hardTime5 = {
-			font : "px Calibri",
-			sizeInit : 22,
+			font : "px ArcadeClassic",
+			sizeInit : 26,
 			xPos : 285,
 			yPos : 448,
 			parameter : score[2][4] + " " + score[3][4],
@@ -1243,8 +1243,8 @@ function Loader() {//Load constructor
 		}
 
 		var easyMara1 = {
-			font : "px Calibri",
-			sizeInit : 22,
+			font : "px ArcadeClassic",
+			sizeInit : 26,
 			xPos : 555,
 			yPos : 241,
 			parameter : score[4][0] + " " + score[5][0],
@@ -1253,8 +1253,8 @@ function Loader() {//Load constructor
 		}
 
 		var easyMara2 = {
-			font : "px Calibri",
-			sizeInit : 22,
+			font : "px ArcadeClassic",
+			sizeInit : 26,
 			xPos : 555,
 			yPos : 292,
 			parameter : score[4][1] + " " + score[5][1],
@@ -1263,8 +1263,8 @@ function Loader() {//Load constructor
 		}
 
 		var easyMara3 = {
-			font : "px Calibri",
-			sizeInit : 22,
+			font : "px ArcadeClassic",
+			sizeInit : 26,
 			xPos : 555,
 			yPos : 344,
 			parameter : score[4][2] + " " + score[5][2],
@@ -1273,8 +1273,8 @@ function Loader() {//Load constructor
 		}
 
 		var easyMara4 = {
-			font : "px Calibri",
-			sizeInit : 22,
+			font : "px ArcadeClassic",
+			sizeInit : 26,
 			xPos : 555,
 			yPos : 396,
 			parameter : score[4][3] + " " + score[5][3],
@@ -1283,8 +1283,8 @@ function Loader() {//Load constructor
 		}
 
 		var easyMara5 = {
-			font : "px Calibri",
-			sizeInit : 22,
+			font : "px ArcadeClassic",
+			sizeInit : 26,
 			xPos : 555,
 			yPos : 448,
 			parameter : score[4][4] + " " + score[5][4],
@@ -1293,8 +1293,8 @@ function Loader() {//Load constructor
 		}
 
 		var hardMara1 = {
-			font : "px Calibri",
-			sizeInit : 22,
+			font : "px ArcadeClassic",
+			sizeInit : 26,
 			xPos : 735,
 			yPos : 241,
 			parameter : score[6][0] + " " + score[7][0],
@@ -1303,8 +1303,8 @@ function Loader() {//Load constructor
 		}
 
 		var hardMara2 = {
-			font : "px Calibri",
-			sizeInit : 22,
+			font : "px ArcadeClassic",
+			sizeInit : 26,
 			xPos : 735,
 			yPos : 292,
 			parameter : score[6][1] + " " + score[7][1],
@@ -1313,8 +1313,8 @@ function Loader() {//Load constructor
 		}
 
 		var hardMara3 = {
-			font : "px Calibri",
-			sizeInit : 22,
+			font : "px ArcadeClassic",
+			sizeInit : 26,
 			xPos : 735,
 			yPos : 344,
 			parameter : score[6][2] + " " + score[7][2],
@@ -1323,8 +1323,8 @@ function Loader() {//Load constructor
 		}
 
 		var hardMara4 = {
-			font : "px Calibri",
-			sizeInit : 22,
+			font : "px ArcadeClassic",
+			sizeInit : 26,
 			xPos : 735,
 			yPos : 396,
 			parameter : score[6][3] + " " + score[7][3],
@@ -1333,8 +1333,8 @@ function Loader() {//Load constructor
 		}
 
 		var hardMara5 = {
-			font : "px Calibri",
-			sizeInit : 22,
+			font : "px ArcadeClassic",
+			sizeInit : 26,
 			xPos : 735,
 			yPos : 448,
 			parameter : score[6][4] + " " + score[7][4],
