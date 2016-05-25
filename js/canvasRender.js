@@ -285,10 +285,124 @@ function dropCollision() {
 				}
 			}
 
-			if (gameArea.entities[i].isClicked && gameArea.entities[i].isScrollable) {
+			if (gameArea.entities[i].isClicked && gameArea.entities[i].isScrollable2) {
 				gameArea.entities[i].index = Math.round(gameArea.entities[i].index);
+				switch (gameArea.entities[i].index) {
+					case 0:
+						if (checkTime1Easy()) {
+							gameArea.entities[5].index = 1;
+						} else {
+							gameArea.entities[5].index = 0;
+						}
+						break;
+					case 1:
+						if (checkTime2Easy()) {
+							gameArea.entities[5].index = 1;
+						} else {
+							gameArea.entities[5].index = 0;
+						}
+						break;
+					case 2:
+						if (checkTime3Easy()) {
+							gameArea.entities[5].index = 1;
+						} else {
+							gameArea.entities[5].index = 0;
+						}
+						break;
+					case 3:
+						if (checkTime1Hard()) {
+							gameArea.entities[5].index = 1;
+						} else {
+							gameArea.entities[5].index = 0;
+						}
+						break;
+					case 4:
+						if (checkTime2Hard()) {
+							gameArea.entities[5].index = 1;
+						} else {
+							gameArea.entities[5].index = 0;
+						}
+						break;
+					case 5:
+						if (checkTime3Hard()) {
+							gameArea.entities[5].index = 1;
+						} else {
+							gameArea.entities[5].index = 0;
+						}
+						break;
+					case 6:
+						if (checkMileHighClub()) {
+							gameArea.entities[5].index = 1;
+						} else {
+							gameArea.entities[5].index = 0;
+						}
+						break;
+					case 7:
+						if (checkJackBauer()) {
+							gameArea.entities[5].index = 1;
+						} else {
+							gameArea.entities[5].index = 0;
+						}
+						break;
+					case 8:
+						if (checkMillionaire()) {
+							gameArea.entities[5].index = 1;
+						} else {
+							gameArea.entities[5].index = 0;
+						}
+						break;
+					case 9:
+						if (checkSatan()) {
+							gameArea.entities[5].index = 1;
+						} else {
+							gameArea.entities[5].index = 0;
+						}
+						break;
+					case 10:
+						if (checkLEET()) {
+							gameArea.entities[5].index = 1;
+						} else {
+							gameArea.entities[5].index = 0;
+						}
+						break;
+					case 11:
+						if (checkCombo1()) {
+							gameArea.entities[5].index = 1;
+						} else {
+							gameArea.entities[5].index = 0;
+						}
+						break;
+					case 12:
+						if (checkCombo2()) {
+							gameArea.entities[5].index = 1;
+						} else {
+							gameArea.entities[5].index = 0;
+						}
+						break;
+					case 13:
+						if (checkCombo3()) {
+							gameArea.entities[5].index = 1;
+						} else {
+							gameArea.entities[5].index = 0;
+						}
+						break;
+					case 14:
+						if (checkCombo4()) {
+							gameArea.entities[5].index = 1;
+						} else {
+							gameArea.entities[5].index = 0;
+						}
+						break;
+					case 15:
+						if (checkTime1Easy()) {
+							gameArea.entities[5].index = 1;
+						} else {
+							gameArea.entities[5].index = 0;
+						}
+						break;
+				}
 				gameArea.entities[i].isClicked = false;
-			} else if (gameArea.entities[i].isClicked && gameArea.entities[i].isScrollable2) {
+			} else if (gameArea.entities[i].isClicked && gameArea.entities[i].isScrollable) {
 				gameArea.entities[i].index = Math.round(gameArea.entities[i].index);
 				gameArea.entities[i].isClicked = false;
 			} else if(gameArea.entities[i].isClicked) {

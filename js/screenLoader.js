@@ -489,6 +489,15 @@ function Loader() {//Load constructor
 		this.clear();
 
 		var background = {
+			src : "./assets/menuAssets/background.png",
+			width : 960,
+			height : 540,
+			xPos : 0,
+			yPos : 0,
+			index: 0
+		}
+
+		var pregame = {
 			src : "./assets/preGameAssets/pregame.png",
 			width : 960,
 			height : 540,
@@ -508,7 +517,16 @@ function Loader() {//Load constructor
 			frames : 3
 		}
 
-		this.entities.push(background, countSprite);
+		var border = {
+			src : "./assets/settingsAssets/border.png",
+			width : 960,
+			height : 540,
+			xPos : 0,
+			yPos : 0,
+			index: 0
+		}
+
+		this.entities.push(background, pregame, countSprite, border);
 		this.fill();
 
 		return this.loaded;
@@ -517,7 +535,7 @@ function Loader() {//Load constructor
 		this.clear();
 
 		var background = {
-			src : "./assets/gameAssets/background.png",
+			src : "./assets/menuAssets/background.png",
 			width : 960,
 			height : 540,
 			xPos : 0,
@@ -952,22 +970,13 @@ function Loader() {//Load constructor
 			}
 		}
 
-		var settingsTitle = {
-			src : "./assets/settingsAssets/settingsLabel.png",
-			width : 392,
-			height : 110,
-			xPos : 284,
-			yPos : 48,
-			index : 0
-		}
-
-		var difficultyWindow = {
-			src : "./assets/settingsAssets/difficultyWindow.png",
-			width : 365,
-			height : 180,
-			xPos : 84,
-			yPos : 225,
-			index : 0
+		var settings = {
+			src : "./assets/settingsAssets/settings.png",
+			width : 960,
+			height : 540,
+			xPos : 0,
+			yPos : 0,
+			index: 0
 		}
 
 		var difficultyOptions = {
@@ -995,7 +1004,7 @@ function Loader() {//Load constructor
 			clicked : function() {
 				sfx[0].play();
 				if (gameArea.difficulty == 1) {
-					gameArea.entities[5].index = 0;
+					gameArea.entities[4].index = 0;
 					gameArea.difficulty = 0;
                     setCookie("difficulty", "0", -1);
 				}
@@ -1011,21 +1020,11 @@ function Loader() {//Load constructor
 			clicked : function() {
 				sfx[0].play();
 				if (gameArea.difficulty == 0) {
-					gameArea.entities[5].index = 1;
+					gameArea.entities[4].index = 1;
 					gameArea.difficulty = 1;
                     setCookie("difficulty", "1", 30);
 				}
 			}
-		}
-
-
-		var audioWindow = {
-			src : "./assets/settingsAssets/audioWindow.png",
-			width : 365,
-			height : 180,
-			xPos : 515,
-			yPos : 225,
-			index : 0
 		}
 
 		var audioOptions = {
@@ -1055,7 +1054,7 @@ function Loader() {//Load constructor
 				if (!gameArea.sound) {
 					gameArea.sound = true;
                     setCookie("sound", "", -1);
-					gameArea.entities[7].index = 0;
+					gameArea.entities[5].index = 0;
 					sfx[0].play();
 					music[0].play();
 				}
@@ -1076,13 +1075,13 @@ function Loader() {//Load constructor
 					music[0].stop();
 					gameArea.sound = false;
                     setCookie("sound", "false", 30);
-					gameArea.entities[7].index = 1;
+					gameArea.entities[5].index = 1;
 				}
 			}
 		}
 
 
-		this.entities.push(background, border, quitImage, settingsTitle, difficultyWindow, difficultyOptions, audioWindow, audioOptions);
+		this.entities.push(background, border, quitImage, settings, difficultyOptions, audioOptions);
 		this.clickable.push(quitBox, easyBox, hardBox, onBox, offBox);
 		this.fill();
 
@@ -1104,6 +1103,15 @@ function Loader() {//Load constructor
 
 		var border = {
 			src : "./assets/settingsAssets/border.png",
+			width : 960,
+			height : 540,
+			xPos : 0,
+			yPos : 0,
+			index: 0
+		}
+
+		var leaderboard = {
+			src : "./assets/leaderboardAssets/leaderboard.png",
 			width : 960,
 			height : 540,
 			xPos : 0,
@@ -1334,7 +1342,7 @@ function Loader() {//Load constructor
 			colour : "#5C5C5C"
 		}
 
-		this.entities.push(background, quitImage, border);
+		this.entities.push(background, quitImage, border, leaderboard);
 		this.clickable.push(quitBox);
 		this.strings.push(easyTime1, easyTime2, easyTime3, easyTime4, easyTime5, hardTime1, hardTime2, hardTime3, hardTime4, hardTime5, easyMara1, easyMara2, easyMara3, easyMara4, easyMara5, hardMara1, hardMara2, hardMara3, hardMara4, hardMara5);
 		this.fill();
@@ -1356,6 +1364,15 @@ function Loader() {//Load constructor
 
 		var border = {
 			src : "./assets/settingsAssets/border.png",
+			width : 960,
+			height : 540,
+			xPos : 0,
+			yPos : 0,
+			index: 0
+		}
+
+		var guide = {
+			src : "./assets/guideAssets/guide.png",
 			width : 960,
 			height : 540,
 			xPos : 0,
@@ -1386,7 +1403,7 @@ function Loader() {//Load constructor
 			}
 		}
 
-		this.entities.push(background, quitImage, border);
+		this.entities.push(background, quitImage, border, guide);
 		this.clickable.push(quitBox);
 		this.fill();
 
@@ -1714,7 +1731,22 @@ function Loader() {//Load constructor
 			isClicked : false
 		}
 
-		this.entities.push(background, border, quitImage, achieveScroll, overlay);
+		var ribbonImage = {
+			src : "./assets/achievementAssets/awardSprite.png",
+			width : 112,
+			height : 150,
+			xPos : 663,
+			yPos : 342,
+			index: (function() {
+				if (checkTime1Easy()) {
+					return 1;
+				} else {
+					return 0;
+				}
+			})()
+		}
+
+		this.entities.push(background, border, quitImage, achieveScroll, overlay, ribbonImage);
 		this.clickable.push(quitBox);
 
 		this.fill();
