@@ -295,6 +295,7 @@ function dropCollision() {
 						} else {
 							gameArea.entities[5].index = 0;
 						}
+						gameArea.entities[6].index = 0;
 						break;
 					case 1:
 						if (checkTime2Easy()) {
@@ -302,6 +303,7 @@ function dropCollision() {
 						} else {
 							gameArea.entities[5].index = 0;
 						}
+						gameArea.entities[6].index = 1;
 						break;
 					case 2:
 						if (checkTime3Easy()) {
@@ -309,6 +311,7 @@ function dropCollision() {
 						} else {
 							gameArea.entities[5].index = 0;
 						}
+						gameArea.entities[6].index = 2;
 						break;
 					case 3:
 						if (checkTime1Hard()) {
@@ -316,6 +319,7 @@ function dropCollision() {
 						} else {
 							gameArea.entities[5].index = 0;
 						}
+						gameArea.entities[6].index = 3;
 						break;
 					case 4:
 						if (checkTime2Hard()) {
@@ -323,6 +327,7 @@ function dropCollision() {
 						} else {
 							gameArea.entities[5].index = 0;
 						}
+						gameArea.entities[6].index = 4;
 						break;
 					case 5:
 						if (checkTime3Hard()) {
@@ -330,6 +335,7 @@ function dropCollision() {
 						} else {
 							gameArea.entities[5].index = 0;
 						}
+						gameArea.entities[6].index = 5;
 						break;
 					case 6:
 						if (checkMileHighClub()) {
@@ -337,6 +343,7 @@ function dropCollision() {
 						} else {
 							gameArea.entities[5].index = 0;
 						}
+						gameArea.entities[6].index = 6;
 						break;
 					case 7:
 						if (checkJackBauer()) {
@@ -344,6 +351,7 @@ function dropCollision() {
 						} else {
 							gameArea.entities[5].index = 0;
 						}
+						gameArea.entities[6].index = 7;
 						break;
 					case 8:
 						if (checkMillionaire()) {
@@ -351,6 +359,7 @@ function dropCollision() {
 						} else {
 							gameArea.entities[5].index = 0;
 						}
+						gameArea.entities[6].index = 8;
 						break;
 					case 9:
 						if (checkSatan()) {
@@ -358,6 +367,7 @@ function dropCollision() {
 						} else {
 							gameArea.entities[5].index = 0;
 						}
+						gameArea.entities[6].index = 9;
 						break;
 					case 10:
 						if (checkLEET()) {
@@ -365,6 +375,7 @@ function dropCollision() {
 						} else {
 							gameArea.entities[5].index = 0;
 						}
+						gameArea.entities[6].index = 10;
 						break;
 					case 11:
 						if (checkCombo1()) {
@@ -372,6 +383,7 @@ function dropCollision() {
 						} else {
 							gameArea.entities[5].index = 0;
 						}
+						gameArea.entities[6].index = 11;
 						break;
 					case 12:
 						if (checkCombo2()) {
@@ -379,6 +391,7 @@ function dropCollision() {
 						} else {
 							gameArea.entities[5].index = 0;
 						}
+						gameArea.entities[6].index = 12;
 						break;
 					case 13:
 						if (checkCombo3()) {
@@ -386,6 +399,7 @@ function dropCollision() {
 						} else {
 							gameArea.entities[5].index = 0;
 						}
+						gameArea.entities[6].index = 13;
 						break;
 					case 14:
 						if (checkCombo4()) {
@@ -393,6 +407,7 @@ function dropCollision() {
 						} else {
 							gameArea.entities[5].index = 0;
 						}
+						gameArea.entities[6].index = 14;
 						break;
 					case 15:
 						if (checkTime1Easy()) {
@@ -400,6 +415,7 @@ function dropCollision() {
 						} else {
 							gameArea.entities[5].index = 0;
 						}
+						gameArea.entities[6].index = 0;
 						break;
 				}
 				gameArea.entities[i].isClicked = false;

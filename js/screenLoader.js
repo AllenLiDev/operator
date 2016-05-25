@@ -1698,6 +1698,15 @@ function Loader() {//Load constructor
 			index: 0
 		}
 
+		var achievementImage = {
+			src : "./assets/achievementAssets/achievementDescription.png",
+			width : 400,
+			height : 170,
+			xPos : 165,
+			yPos : 330,
+			index: 0
+		}
+
 		var quitBox = {
 			xMin : 20,
 			yMin : 20,
@@ -1746,7 +1755,7 @@ function Loader() {//Load constructor
 			})()
 		}
 
-		this.entities.push(background, border, quitImage, achieveScroll, overlay, ribbonImage);
+		this.entities.push(background, border, quitImage, achieveScroll, overlay, ribbonImage, achievementImage);
 		this.clickable.push(quitBox);
 
 		this.fill();
