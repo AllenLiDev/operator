@@ -202,7 +202,7 @@ function update(dt) {
 						if (gameArea.score == 100 && checkCombo4() == false) {
 							unlockCombo4();
 						}
-						if (calcScore(diff/icultyCurve(gameArea.score + 1, gameArea.difficulty), gameArea.problemTime, gameArea.combo) == 666 && checkSatan() == false) {
+						if (calcScore(difficultyCurve(gameArea.score + 1, gameArea.difficulty), gameArea.problemTime, gameArea.combo) == 666 && checkSatan() == false) {
 							unlockSatan();
 						}
 						if (calcScore(difficultyCurve(gameArea.score + 1, gameArea.difficulty), gameArea.problemTime, gameArea.combo) == 1337 && checkLEET() == false) {
