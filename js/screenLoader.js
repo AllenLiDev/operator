@@ -1445,6 +1445,25 @@ function Loader() {//Load constructor
 		music[1].setCurrentTime(0);
 		music[1].stop();
 
+		var background = {
+			src : "./assets/menuAssets/background.png",
+			width : 960,
+			height : 540,
+			xPos : 0,
+			yPos : 0,
+			index: 0
+		}
+
+		var border = {
+			src : "./assets/settingsAssets/border.png",
+			width : 960,
+			height : 540,
+			xPos : 0,
+			yPos : 0,
+			index: 0
+		}
+
+		var scoreImage;
 
 		var replayImage = {
 			src : "./assets/scoreAssets/replay.png",
@@ -1511,15 +1530,7 @@ function Loader() {//Load constructor
 			colour : "#5C5C5C"
 		}
 
-		var completed = {
-			font : "px Calibri",
-			sizeInit : 50,
-			xPos : 527,
-			yPos : 241,
-			parameter : "",
-			maxWidth : 141,
-			colour : "#5C5C5C"
-		}
+		
 
 		var letter1 = {
 			src : "./assets/scoreAssets/scrollWheel4.png",
@@ -1578,13 +1589,13 @@ function Loader() {//Load constructor
 			isClicked : false
 		}
 
-		this.entities.push(background, replayImage, submitImage, quitImage, letter1, letter2, letter3, overlay);
+		this.entities.push(background, scoreImage, replayImage, quitImage, letter1, letter2, letter3, overlay, border, submitImage);
 		this.clickable.push(quitBox);
-		this.strings.push(finalTime, completed);
+		this.strings.push(finalTime);
 
 		switch (gameArea.state) {
 			case 3:
-				var background = {
+				var scoreImage = {
 					src : "./assets/scoreAssets/timeAttackScore.png",
 					width : 960,
 					height : 540,
@@ -1618,16 +1629,17 @@ function Loader() {//Load constructor
 					clicked : function() {
 						sfx[3].play();
 						pushTimeAttackScore(getCharacters(gameArea.entities[4].index, gameArea.entities[5].index, gameArea.entities[6].index), Math.floor(gameArea.refTime * 10) / 10, gameArea.difficulty);
+						gameArea.entities.pop();
 						gameArea.clickable.pop();
 					}
 				}
 
-				this.entities[0] = background;
+				this.entities[1] = scoreImage;
 				this.clickable.push(replayBox, submitBox);
 				break;
 
 			case 4:
-				var background = {
+				var scoreImage = {
 					src : "./assets/scoreAssets/marathonScore.png",
 					width : 960,
 					height : 540,
@@ -1675,13 +1687,24 @@ function Loader() {//Load constructor
 					clicked : function() {
 						sfx[3].play();
 						pushMarathonScore(getCharacters(gameArea.entities[4].index, gameArea.entities[5].index, gameArea.entities[6].index), gameArea.scoreTotal, gameArea.difficulty);
+						gameArea.entities.pop();
 						gameArea.clickable.pop();
 					}
 				}
 
-				this.entities[0] = background;
+				var completed = {
+					font : "px Calibri",
+					sizeInit : 50,
+					xPos : 527,
+					yPos : 241,
+					parameter : "",
+					maxWidth : 141,
+					colour : "#5C5C5C"
+				}
+
+				this.entities[1] = scoreImage;
 				this.clickable.push(replayBox, submitBox);
-				this.strings.push(totalNum);
+				this.strings.push(completed, totalNum);
 				break;
 		}
 

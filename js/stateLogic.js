@@ -71,19 +71,14 @@ function update(dt) {
 				}
 
 				if (gameArea.entities[3].ticks > gameArea.entities[3].ticksPer) {
-					if(gameArea.entities[3].index == 1){
-						getProblem(timeAttackDifficulty(gameArea.score + 1, gameArea.difficulty), gameArea.difficulty); //load new problem
-					}
 					gameArea.entities[3].index = 0;
 					gameArea.entities[3].ticks = 0;
 					disableDrag(0); //enable drag
-
 				}
 				
 				if (gameArea.droppable[0].isFilled && gameArea.droppable[1].isFilled && gameArea.droppable[2].isFilled) {
 					//if answer is correct
 					if (validate(gameArea.strings[1].parameter, gameArea.strings[2].parameter, gameArea.strings[3].parameter, gameArea.strings[4].parameter, gameArea.droppable[0].parameter, gameArea.droppable[1].parameter, gameArea.droppable[2].parameter)) {
-						getProblem(timeAttackDifficulty(gameArea.score + 1, gameArea.difficulty), gameArea.difficulty);
 
 						popup = false;
 						gameArea.entities[11].indexInit = 1;
@@ -106,7 +101,6 @@ function update(dt) {
 							gameArea.loaded = load.scoreScreen();
 							gameArea.parse();
 							gameArea.strings[0].parameter = Math.floor(gameArea.refTime) + "." + (Math.floor(gameArea.refTime * 10) % (Math.floor(gameArea.refTime) * 10));
-							gameArea.strings[1].parameter = gameArea.score;
 							//achievement unlocks
 							if (gameArea.difficulty == 0) {
 								if (gameArea.refTime < 180 && checkTime1Easy() == false) {
@@ -139,8 +133,9 @@ function update(dt) {
 								}
 							}
 						} else { //if game incomplete
+							getProblem(timeAttackDifficulty(gameArea.score + 1, gameArea.difficulty), gameArea.difficulty);
 							gameArea.entities[10].index = gameArea.score;
-							
+
 							for (var i = 0; i < gameArea.droppable.length; i++) {
 								gameArea.droppable[i].parameter = "";
 								gameArea.droppable[i].isFilled = false;
