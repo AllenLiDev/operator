@@ -28,6 +28,7 @@ var gameArea = {
 	clickable : [],
 	droppable : [],
 	strings : [],
+	problem : [],
 	score : 0,
 	scoreTotal : 0,
 	sound : soundCookie,

@@ -27,12 +27,12 @@ function update(dt) {
 			if (gameArea.refTime > 1 && gameArea.entities.length == 4 && gameArea.entities[2].index < gameArea.entities[2].frames - 1) {
 				gameArea.refTime -= 1;
 				gameArea.entities[2].index += 1;
+				getProblem(timeAttackDifficulty(gameArea.score + 1, gameArea.difficulty), gameArea.difficulty);
 			} else if (gameArea.refTime > 1 && gameArea.entities.length == 4 && gameArea.entities[2].index == gameArea.entities[2].frames - 1) {
 				gameArea.clear();
 				gameArea.refTime = 0;
 				gameArea.loaded = load.gameScreen();
 				gameArea.parse();
-				getProblem(timeAttackDifficulty(gameArea.score + 1, gameArea.difficulty), gameArea.difficulty);
 			} else if (gameArea.strings.length > 0) {//loaded game logic
 				if (gameArea.entities[11].index != gameArea.entities[11].indexInit && gameArea.entities[11].index > gameArea.entities[11].indexInit - 1 && goup == false) {
 					gameArea.entities[11].index -= 0.04;
@@ -50,6 +50,13 @@ function update(dt) {
 							gameArea.entities[11].index += 0.04;
 						}
 					}
+				}
+
+				if (gameArea.strings[1].parameter != gameArea.problem[1] && gameArea.entities[3].index != 1) {
+					gameArea.strings[1].parameter = gameArea.problem[1];
+					gameArea.strings[2].parameter = gameArea.problem[2];
+					gameArea.strings[3].parameter = gameArea.problem[3];
+					gameArea.strings[4].parameter = gameArea.problem[4];
 				}
 
 				if (gameArea.refTime < 1) {
@@ -71,6 +78,12 @@ function update(dt) {
 				}
 
 				if (gameArea.entities[3].ticks > gameArea.entities[3].ticksPer) {
+					if (gameArea.entities[3].index == 1) {
+						gameArea.strings[1].parameter = gameArea.problem[1];
+						gameArea.strings[2].parameter = gameArea.problem[2];
+						gameArea.strings[3].parameter = gameArea.problem[3];
+						gameArea.strings[4].parameter = gameArea.problem[4];
+					}
 					gameArea.entities[3].index = 0;
 					gameArea.entities[3].ticks = 0;
 					disableDrag(0); //enable drag
@@ -105,22 +118,28 @@ function update(dt) {
 							if (gameArea.difficulty == 0) {
 								if (gameArea.refTime < 180 && checkTime1Easy() == false) {
 									unlockTime1Easy();
+									gameArea.entities[11].index = 1;
 								}
 								if (gameArea.refTime < 120 && checkTime2Easy() == false) {
 									unlockTime2Easy();
+									gameArea.entities[10].index = 1;
 								}
 								if (gameArea.refTime < 60 && checkTime3Easy() == false) {
 									unlockTime3Easy();
+									gameArea.entities[9].index = 1;
 								}
 							} else {
 								if (gameArea.refTime < 180 && checkTime1Hard() == false) {
 									unlockTime1Hard();
+									gameArea.entities[11].index = 1;
 								}
 								if (gameArea.refTime < 120 && checkTime2Hard() == false) {
 									unlockTime2Hard();
+									gameArea.entities[10].index = 1;
 								}
 								if (gameArea.refTime < 60 && checkTime3Hard() == false) {
 									unlockTime3Hard();
+									gameArea.entities[9].index = 1;
 								}
 								if (gameArea.refTime < 180 && checkTime1Easy() == false) {
 									unlockTime1Easy();
@@ -186,6 +205,14 @@ function update(dt) {
 			if (gameArea.strings.length > 0) {//Loaded endless logic
 				gameArea.problemTime += dt;
 				gameArea.totalTime += dt;
+
+				if (gameArea.strings[1].parameter != gameArea.problem[1] && gameArea.entities[3].index != 1) {
+					gameArea.strings[1].parameter = gameArea.problem[1];
+					gameArea.strings[2].parameter = gameArea.problem[2];
+					gameArea.strings[3].parameter = gameArea.problem[3];
+					gameArea.strings[4].parameter = gameArea.problem[4];
+				}
+
 				if (gameArea.entities[10].index != gameArea.entities[10].indexInit && gameArea.entities[10].index > gameArea.entities[10].indexInit - 1 && goup == false) {
 					gameArea.entities[10].index -= 0.04;
 				} else if (gameArea.entities[10].index != gameArea.entities[10].indexInit) {
@@ -218,7 +245,10 @@ function update(dt) {
 
 				if (gameArea.entities[3].ticks > gameArea.entities[3].ticksPer) {
 					if(gameArea.entities[3].index == 1){
-						getProblem(timeAttackDifficulty(gameArea.score + 1, gameArea.difficulty), gameArea.difficulty); //load new problem
+						gameArea.strings[1].parameter = gameArea.problem[1];
+						gameArea.strings[2].parameter = gameArea.problem[2];
+						gameArea.strings[3].parameter = gameArea.problem[3];
+						gameArea.strings[4].parameter = gameArea.problem[4];
 					}
 					gameArea.entities[3].index = 0;
 					gameArea.entities[3].ticks = 0;
@@ -294,7 +324,7 @@ function update(dt) {
 						gameArea.refTime += calcTime(gameArea.score);
 						gameArea.strings[5].parameter = gameArea.scoreTotal;
 
-						if (gameArea.scoreTotal >= 1000000 && checkMillionaire() == false && gameArea.diffficult == 1 && popup) {
+						if (gameArea.scoreTotal >= 1000000 && checkMillionaire() == false && gameArea.diffficulty == 1 && popup) {
 							unlockMillionaire();
 							popup = false;
 							gameArea.entities[10].indexInit = 21;
@@ -306,7 +336,7 @@ function update(dt) {
 							gameArea.entities[10].indexInit = 17;
 							gameArea.entities[10].index = 17;
 							gameArea.entities[10].index -= 0.02;
-						} else if (gameArea.score >= 24 && checkJackBauer() == false && popup) {
+						} else if (gameArea.score >= 24 && checkJackBauer() == false && popup && gameArea.difficulty == 1) {
 							unlockJackBauer();
 							popup = false;
 							gameArea.entities[10].indexInit = 19;
@@ -380,11 +410,11 @@ function update(dt) {
 				gameArea.refTime = 24;
 				gameArea.loaded = load.gameScreen();
 				gameArea.parse();
-				getProblem(difficultyCurve(gameArea.score + 1, gameArea.difficulty), gameArea.difficulty);
 			} else if (gameArea.refTime < 1 && gameArea.entities.length == 4 && gameArea.entities[2].index == 1) {//Pre-load screen
 				gameArea.entities[2].index += 1;
 			} else if (gameArea.refTime < 2 && gameArea.entities.length == 4 && gameArea.entities[2].index == 0) {//Pre-load screen
 				gameArea.entities[2].index += 1;
+				getProblem(difficultyCurve(gameArea.score + 1, gameArea.difficulty), gameArea.difficulty);
 			}
 
 			break;

@@ -39,10 +39,10 @@ function getProblem(difficulty, level) {
 /*On AJAX success, calls this function
 to feed the data into the card data*/
 function callback(data) {
-	gameArea.strings[1].parameter = data.card1;
-	gameArea.strings[2].parameter = data.card2;
-	gameArea.strings[3].parameter = data.card3;
-	gameArea.strings[4].parameter = data.card4;
+	gameArea.problem[1] = data.card1;
+	gameArea.problem[2] = data.card2;
+	gameArea.problem[3] = data.card3;
+	gameArea.problem[4] = data.card4;
 }
 
 /*Validates the problem set and operators in BEDMAS order*/

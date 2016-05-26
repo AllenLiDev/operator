@@ -903,7 +903,7 @@ function Loader() {//Load constructor
 					/*Loads new problem and resets operators*/
 					clicked : function() {
 						sfx[0].play();
-						getProblem(timeAttackDifficulty(gameArea.score + 1, gameArea.difficulty), gameArea.difficulty);
+						getProblem(difficultyCurve(gameArea.score + 1, gameArea.difficulty), gameArea.difficulty);
 						for (var i = 0; i < gameArea.droppable.length; i++) {
 							if (gameArea.droppable[i].isFilled) {
 								gameArea.entities.pop();
@@ -1521,7 +1521,7 @@ function Loader() {//Load constructor
 		}
 
 		var finalTime = {
-			font : "px Calibri",
+			font : "px ArcadeClassic",
 			sizeInit : 50,
 			xPos : 527,
 			yPos : 183,
@@ -1589,7 +1589,7 @@ function Loader() {//Load constructor
 			isClicked : false
 		}
 
-		this.entities.push(background, scoreImage, replayImage, quitImage, letter1, letter2, letter3, overlay, border, submitImage);
+		this.entities.push(background, scoreImage, replayImage, quitImage, letter1, letter2, letter3, overlay, border);
 		this.clickable.push(quitBox);
 		this.strings.push(finalTime);
 
@@ -1634,7 +1634,77 @@ function Loader() {//Load constructor
 					}
 				}
 
+				var ribbon1 = {
+					src : "./assets/scoreAssets/60png.png",
+					width : 67,
+					height : 90,
+					xPos : 586,
+					yPos : 210,
+					index: (function() {
+						if (gameArea.difficulty == 0) {
+							if (checkTime3Easy()) {
+								return 1;
+							} else {
+								return 0;
+							}
+						} else {
+							if (checkTime3Hard()) {
+								return 1;
+							} else {
+								return 0;
+							}
+						}
+					})()
+				}
+
+				var ribbon2 = {
+					src : "./assets/scoreAssets/120png.png",
+					width : 67,
+					height : 90,
+					xPos : 446,
+					yPos : 210,
+					index: (function() {
+						if (gameArea.difficulty == 0) {
+							if (checkTime2Easy()) {
+								return 1;
+							} else {
+								return 0;
+							}
+						} else {
+							if (checkTime2Hard()) {
+								return 1;
+							} else {
+								return 0;
+							}
+						}
+					})()
+				}
+
+				var ribbon3 = {
+					src : "./assets/scoreAssets/180png.png",
+					width : 67,
+					height : 90,
+					xPos : 307,
+					yPos : 210,
+					index: (function() {
+						if (gameArea.difficulty == 0) {
+							if (checkTime1Easy()) {
+								return 1;
+							} else {
+								return 0;
+							}
+						} else {
+							if (checkTime1Hard()) {
+								return 1;
+							} else {
+								return 0;
+							}
+						}
+					})()
+				}
+
 				this.entities[1] = scoreImage;
+				this.entities.push(ribbon1, ribbon2, ribbon3);
 				this.clickable.push(replayBox, submitBox);
 				break;
 
@@ -1669,7 +1739,7 @@ function Loader() {//Load constructor
 				}
 
 				var totalNum = {
-					font : "px Calibri",
+					font : "px ArcadeClassic",
 					sizeInit : 50,
 					xPos : 527,
 					yPos : 298,
@@ -1693,7 +1763,7 @@ function Loader() {//Load constructor
 				}
 
 				var completed = {
-					font : "px Calibri",
+					font : "px ArcadeClassic",
 					sizeInit : 50,
 					xPos : 527,
 					yPos : 241,
@@ -1707,6 +1777,7 @@ function Loader() {//Load constructor
 				this.strings.push(completed, totalNum);
 				break;
 		}
+		this.entities.push(submitImage);
 
 		this.fill();
 
