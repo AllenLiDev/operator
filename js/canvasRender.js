@@ -288,6 +288,7 @@ function dropCollision() {
 			}
 
 			if (gameArea.entities[i].isClicked && gameArea.entities[i].isScrollable2) {
+				sfx[0].play();
 				gameArea.entities[i].index = Math.round(gameArea.entities[i].index);
 				switch (gameArea.entities[i].index) {
 					case 0:
@@ -421,6 +422,7 @@ function dropCollision() {
 				}
 				gameArea.entities[i].isClicked = false;
 			} else if (gameArea.entities[i].isClicked && gameArea.entities[i].isScrollable) {
+				sfx[0].play();
 				gameArea.entities[i].index = Math.round(gameArea.entities[i].index);
 				gameArea.entities[i].isClicked = false;
 			} else if(gameArea.entities[i].isClicked) {
