@@ -36,6 +36,7 @@ function update(dt) {
 				gameArea.parse();
 			/*Loaded game logic*/
 			} else if (gameArea.strings.length > 0) {
+				/*Pop down flag for correct, incorrect, and achievement feedback*/
 				if (gameArea.entities[11].index != gameArea.entities[11].indexInit && gameArea.entities[11].index > gameArea.entities[11].indexInit - 1 && goup == false) {
 					gameArea.entities[11].index -= 0.04;
 				} else if (gameArea.entities[11].index != gameArea.entities[11].indexInit) {
@@ -54,6 +55,7 @@ function update(dt) {
 					}
 				}
 
+				/*Loads in new problem sets if they exist*/
 				if (gameArea.strings[1].parameter != gameArea.problem[1] && gameArea.entities[3].index != 1) {
 					gameArea.strings[1].parameter = gameArea.problem[1];
 					gameArea.strings[2].parameter = gameArea.problem[2];
@@ -61,12 +63,14 @@ function update(dt) {
 					gameArea.strings[4].parameter = gameArea.problem[4];
 				}
 
+				/*Updates the timer*/
 				if (gameArea.refTime < 1) {
 					gameArea.strings[0].parameter = Math.floor(gameArea.refTime) + "." + Math.floor(gameArea.refTime * 10);
 				} else {
 					gameArea.strings[0].parameter = Math.floor(gameArea.refTime) + "." + (Math.floor(gameArea.refTime * 10) % (Math.floor(gameArea.refTime) * 10));
 				}
 
+				/*Updates the text width based on number of characters*/
 				for (var i = 1; i < gameArea.strings.length; i++) {
 					if (gameArea.strings[i].parameter > 9) {
 						gameArea.strings[i].xPos = gameArea.strings[i].xInit - (gameArea.strings[i].maxWidth / 6);
@@ -75,10 +79,12 @@ function update(dt) {
 					}
 				}
 
+				/*User feedback for cards animation*/
 				if (gameArea.entities[3].ticks != 0) {
 					gameArea.entities[3].ticks += 1;
 				}
 
+				/*Loads in the problem when the user feedback is done*/
 				if (gameArea.entities[3].ticks > gameArea.entities[3].ticksPer) {
 					if (gameArea.entities[3].index == 1) {
 						gameArea.strings[1].parameter = gameArea.problem[1];
@@ -91,6 +97,7 @@ function update(dt) {
 					disableDrag(0); //enable drag
 				}
 				
+				/*Response to all operators being filled*/
 				if (gameArea.droppable[0].isFilled && gameArea.droppable[1].isFilled && gameArea.droppable[2].isFilled) {
 					//if answer is correct
 					if (validate(gameArea.strings[1].parameter, gameArea.strings[2].parameter, gameArea.strings[3].parameter, gameArea.strings[4].parameter, gameArea.droppable[0].parameter, gameArea.droppable[1].parameter, gameArea.droppable[2].parameter)) {
@@ -153,7 +160,7 @@ function update(dt) {
 									unlockTime3Easy();
 								}
 							}
-						} else { //if game incomplete
+						} else { //if game incomplete, reset
 							getProblem(timeAttackDifficulty(gameArea.score + 1, gameArea.difficulty), gameArea.difficulty);
 							gameArea.entities[10].index = gameArea.score;
 
@@ -208,6 +215,7 @@ function update(dt) {
 				gameArea.problemTime += dt;
 				gameArea.totalTime += dt;
 
+				/*Loads in problem set*/
 				if (gameArea.strings[1].parameter != gameArea.problem[1] && gameArea.entities[3].index != 1) {
 					gameArea.strings[1].parameter = gameArea.problem[1];
 					gameArea.strings[2].parameter = gameArea.problem[2];
@@ -215,6 +223,7 @@ function update(dt) {
 					gameArea.strings[4].parameter = gameArea.problem[4];
 				}
 
+				/*Pop down flag for correct, incorrect, and achievement feedback*/
 				if (gameArea.entities[10].index != gameArea.entities[10].indexInit && gameArea.entities[10].index > gameArea.entities[10].indexInit - 1 && goup == false) {
 					gameArea.entities[10].index -= 0.04;
 				} else if (gameArea.entities[10].index != gameArea.entities[10].indexInit) {
@@ -233,6 +242,7 @@ function update(dt) {
 					}
 				}
 
+				/*Updates the text width based on number of characters*/
 				for (var i = 1; i < gameArea.strings.length - 1; i++) {
 					if (gameArea.strings[i].parameter > 9) {
 						gameArea.strings[i].xPos = gameArea.strings[i].xInit - (gameArea.strings[i].maxWidth / 6);
@@ -241,10 +251,12 @@ function update(dt) {
 					}
 				}
 
+				/*User feedback for cards animation*/
 				if (gameArea.entities[3].ticks != 0) {
 					gameArea.entities[3].ticks += 1;
 				}
 
+				/*Loads in the problem when the user feedback is done*/
 				if (gameArea.entities[3].ticks > gameArea.entities[3].ticksPer) {
 					if(gameArea.entities[3].index == 1){
 						gameArea.strings[1].parameter = gameArea.problem[1];
@@ -257,14 +269,16 @@ function update(dt) {
 					disableDrag(0); //enable drag
 				}
 
+				/*Updates the timer*/
 				if (gameArea.refTime < 1) {
 					gameArea.strings[0].parameter = Math.floor(gameArea.refTime) + "." + (Math.floor(gameArea.refTime * 10));
 				} else {
 					gameArea.strings[0].parameter = Math.floor(gameArea.refTime) + "." + (Math.floor(gameArea.refTime * 10) % (Math.floor(gameArea.refTime) * 10));
 				}
 				
+				/*Response to all operators being filled*/
 				if (gameArea.droppable[0].isFilled && gameArea.droppable[1].isFilled && gameArea.droppable[2].isFilled) {
-
+					//if answer is correct
 					if (validate(gameArea.strings[1].parameter, gameArea.strings[2].parameter, gameArea.strings[3].parameter, gameArea.strings[4].parameter, gameArea.droppable[0].parameter, gameArea.droppable[1].parameter, gameArea.droppable[2].parameter)) {
 						sfx[3].play();						
 						disableDrag(1); //disable drag
