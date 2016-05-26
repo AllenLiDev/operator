@@ -944,7 +944,7 @@ function Loader() {//Load constructor
 		var sliderImage = {
 			src : "./assets/gameAssets/sliders.png",
 			width : 419,
-			height : 113,
+			height : 115,
 			xPos : 270,
 			yPos : 75,
 			index: 1,
