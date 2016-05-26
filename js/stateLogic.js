@@ -28,12 +28,14 @@ function update(dt) {
 				gameArea.refTime -= 1;
 				gameArea.entities[2].index += 1;
 				getProblem(timeAttackDifficulty(gameArea.score + 1, gameArea.difficulty), gameArea.difficulty);
+			/*Loads game screen, post-load screen*/
 			} else if (gameArea.refTime > 1 && gameArea.entities.length == 4 && gameArea.entities[2].index == gameArea.entities[2].frames - 1) {
 				gameArea.clear();
 				gameArea.refTime = 0;
 				gameArea.loaded = load.gameScreen();
 				gameArea.parse();
-			} else if (gameArea.strings.length > 0) {//loaded game logic
+			/*Loaded game logic*/
+			} else if (gameArea.strings.length > 0) {
 				if (gameArea.entities[11].index != gameArea.entities[11].indexInit && gameArea.entities[11].index > gameArea.entities[11].indexInit - 1 && goup == false) {
 					gameArea.entities[11].index -= 0.04;
 				} else if (gameArea.entities[11].index != gameArea.entities[11].indexInit) {
