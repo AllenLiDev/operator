@@ -601,9 +601,12 @@ function Loader() {//Load constructor
 				music[1].setCurrentTime(0);
 				music[1].stop();
 				music[0].play();
-				gameArea.state = 0;
 				gameArea.refTime = 0;
 				gameArea.score = 0;
+				gameArea.state = 0;
+				gameArea.totalTime = 0;
+				gameArea.scoreTotal = 0;
+				gameArea.combo = 1;
 				return load.menuScreen();
 			}
 		}

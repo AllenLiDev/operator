@@ -282,7 +282,10 @@ function update(dt) {
 					if (validate(gameArea.strings[1].parameter, gameArea.strings[2].parameter, gameArea.strings[3].parameter, gameArea.strings[4].parameter, gameArea.droppable[0].parameter, gameArea.droppable[1].parameter, gameArea.droppable[2].parameter)) {					
 						disableDrag(1); //disable drag
 
-						getProblem(difficultyCurve(gameArea.score + 1, gameArea.difficulty), gameArea.difficulty);
+						/*difficultyCurve is a probability generator; result needs to be saved for consistency*/
+						var difficulty = difficultyCurve(gameArea.score + 1, gameArea.difficulty);
+
+						getProblem(difficulty, gameArea.difficulty);
 
 						gameArea.entities[3].index = 1;
 
@@ -290,7 +293,7 @@ function update(dt) {
 
 						gameArea.score += 1;
 
-						if (calcScore(difficultyCurve(gameArea.score + 1, gameArea.difficulty), gameArea.problemTime, gameArea.combo) == 666 && checkSatan() == false) {
+						if (calcScore(difficulty, gameArea.problemTime, gameArea.combo) == 666 && checkSatan() == false) {
 							unlockSatan();
 							sfx[2].play();
 							popup = false;
@@ -298,7 +301,7 @@ function update(dt) {
 							gameArea.entities[10].index = 23;
 							gameArea.entities[10].index -= 0.02;
 						}
-						if (calcScore(difficultyCurve(gameArea.score + 1, gameArea.difficulty), gameArea.problemTime, gameArea.combo) == 1337 && checkLEET() == false) {
+						if (calcScore(difficulty, gameArea.problemTime, gameArea.combo) == 1337 && checkLEET() == false) {
 							unlockLEET();
 							sfx[2].play();
 							popup = false;
@@ -340,7 +343,7 @@ function update(dt) {
 						}
 						
 
-						gameArea.scoreTotal += calcScore(difficultyCurve(gameArea.score + 1, gameArea.difficulty), gameArea.problemTime, gameArea.combo);
+						gameArea.scoreTotal += calcScore(difficulty, gameArea.problemTime, gameArea.combo);
 						gameArea.problemTime = 0;
 						gameArea.refTime += calcTime(gameArea.score);
 						gameArea.strings[5].parameter = gameArea.scoreTotal;
