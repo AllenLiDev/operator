@@ -279,8 +279,7 @@ function update(dt) {
 				/*Response to all operators being filled*/
 				if (gameArea.droppable[0].isFilled && gameArea.droppable[1].isFilled && gameArea.droppable[2].isFilled) {
 					//if answer is correct
-					if (validate(gameArea.strings[1].parameter, gameArea.strings[2].parameter, gameArea.strings[3].parameter, gameArea.strings[4].parameter, gameArea.droppable[0].parameter, gameArea.droppable[1].parameter, gameArea.droppable[2].parameter)) {
-						sfx[3].play();						
+					if (validate(gameArea.strings[1].parameter, gameArea.strings[2].parameter, gameArea.strings[3].parameter, gameArea.strings[4].parameter, gameArea.droppable[0].parameter, gameArea.droppable[1].parameter, gameArea.droppable[2].parameter)) {					
 						disableDrag(1); //disable drag
 
 						getProblem(difficultyCurve(gameArea.score + 1, gameArea.difficulty), gameArea.difficulty);
@@ -293,6 +292,7 @@ function update(dt) {
 
 						if (calcScore(difficultyCurve(gameArea.score + 1, gameArea.difficulty), gameArea.problemTime, gameArea.combo) == 666 && checkSatan() == false) {
 							unlockSatan();
+							sfx[4].play();
 							popup = false;
 							gameArea.entities[10].indexInit = 23;
 							gameArea.entities[10].index = 23;
@@ -300,6 +300,7 @@ function update(dt) {
 						}
 						if (calcScore(difficultyCurve(gameArea.score + 1, gameArea.difficulty), gameArea.problemTime, gameArea.combo) == 1337 && checkLEET() == false) {
 							unlockLEET();
+							sfx[4].play();
 							popup = false;
 							gameArea.entities[10].indexInit = 25;
 							gameArea.entities[10].index = 25;
@@ -307,6 +308,7 @@ function update(dt) {
 						}
 						if (gameArea.score >= 10 && checkCombo1() == false && popup) {
 							unlockCombo1();
+							sfx[4].play();
 							popup = false;
 							gameArea.entities[10].indexInit = 27;
 							gameArea.entities[10].index = 27;
@@ -314,6 +316,7 @@ function update(dt) {
 						}
 						if (gameArea.score >= 25 && checkCombo2() == false && popup) {
 							unlockCombo2();
+							sfx[4].play();
 							popup = false;
 							gameArea.entities[10].indexInit = 29;
 							gameArea.entities[10].index = 29;
@@ -321,6 +324,7 @@ function update(dt) {
 						}
 						if (gameArea.score >= 50 && checkCombo3() == false && popup) {
 							unlockCombo3();
+							sfx[4].play();
 							popup = false;
 							gameArea.entities[10].indexInit = 31;
 							gameArea.entities[10].index = 31;
@@ -328,6 +332,7 @@ function update(dt) {
 						}
 						if (gameArea.score >= 100 && checkCombo4() == false && popup) {
 							unlockCombo4();
+							sfx[4].play();
 							popup = false;
 							gameArea.entities[10].indexInit = 33;
 							gameArea.entities[10].index = 33;
@@ -342,23 +347,27 @@ function update(dt) {
 
 						if (gameArea.scoreTotal >= 1000000 && checkMillionaire() == false && gameArea.diffficulty == 1 && popup) {
 							unlockMillionaire();
+							sfx[4].play();
 							popup = false;
 							gameArea.entities[10].indexInit = 21;
 							gameArea.entities[10].index = 21;
 							gameArea.entities[10].index -= 0.02;
 						} else if (gameArea.scoreTotal >= 5280 && checkMileHighClub() == false && popup) {
 							unlockMileHighClub();
+							sfx[4].play();
 							popup = false;
 							gameArea.entities[10].indexInit = 17;
 							gameArea.entities[10].index = 17;
 							gameArea.entities[10].index -= 0.02;
 						} else if (gameArea.score >= 24 && checkJackBauer() == false && popup && gameArea.difficulty == 1) {
 							unlockJackBauer();
+							sfx[4].play();
 							popup = false;
 							gameArea.entities[10].indexInit = 19;
 							gameArea.entities[10].index = 19;
 							gameArea.entities[10].index -= 0.02;
 						} else {
+							sfx[3].play();
 							popup = false;
 							gameArea.entities[10].indexInit = 1;
 							gameArea.entities[10].index = 1;
