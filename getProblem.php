@@ -2,12 +2,46 @@
 session_start();
 
 // retrieve data from ajax request
-$difficulty = $_GET['difficulty'];
+$difficulty = intval($_GET['difficulty']);
 $hard = $_GET['hard'];
 if ($hard) {
     $upperCard = 13;
+    switch ($difficulty) {
+    case 1:
+        $randUpperBound = 1291;
+        break;
+    case 2:
+        $randUpperBound = 1881;
+        break;
+    case 3:
+        $randUpperBound = 1641;
+        break;
+    case 4:
+        $randUpperBound = 1685;
+        break;
+    case 5:
+        $randUpperBound = 812;
+        break;
+    }
 } else {
     $upperCard = 9;
+    switch ($difficulty) {
+        case 1:
+            $randUpperBound = 375;
+            break;
+        case 2:
+            $randUpperBound = 30;
+            break;
+        case 3:
+            $randUpperBound = 488;
+            break;
+        case 4:
+            $randUpperBound = 637;
+            break;
+        case 5:
+            $randUpperBound = 255;
+            break;
+    }
 }
 
 $servername = "localhost";
@@ -22,10 +56,6 @@ if ($conn->connect_error) {
     die("connection failed: " . $conn->connect_error);
 }
 
-// chooses table based on $upperCard value and $difficulty and gets the number of rows
-$sql = "SELECT * FROM `1-" . $upperCard . "Lv" . $difficulty . "`";
-$result = $conn->query($sql);
-$randUpperBound = $result->num_rows;
 
 // random row number from table
 $rowNum = rand(1, $randUpperBound);
