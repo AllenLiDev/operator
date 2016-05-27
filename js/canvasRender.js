@@ -175,11 +175,13 @@ function clickCollision() {
 	var yCoord = gameArea.yMouse;
 
 	for (var i = 0; i < gameArea.clickable.length; i++) {
+		/*Screen loader handler*/
 		if (gameArea.clickable[i].xMin * gameArea.ratioX <= xCoord && gameArea.clickable[i].xMax * gameArea.ratioX >= xCoord && gameArea.clickable[i].yMin * gameArea.ratioY <= yCoord && gameArea.clickable[i].yMax * gameArea.ratioY >= yCoord && gameArea.clickable[i].LOADER == true) {
 			gameArea.clear();
 			gameArea.loaded = load.clickable[i].clicked();
 			gameArea.parse();
 			break;
+		/*Other object handler*/
 		} else if (gameArea.clickable[i].xMin * gameArea.ratioX <= xCoord && gameArea.clickable[i].xMax * gameArea.ratioX >= xCoord && gameArea.clickable[i].yMin * gameArea.ratioY <= yCoord && gameArea.clickable[i].yMax * gameArea.ratioY >= yCoord) {
 			load.clickable[i].clicked();
 			break;
@@ -212,11 +214,13 @@ function touchCollision(event) {
 
 	if (gameArea.clickable.length > 0) {
 		for (var i = 0; i < gameArea.clickable.length; i++) {
+			/*Screen loader handler*/
 			if (gameArea.clickable[i].xMin * gameArea.ratioX <= xCoord && gameArea.clickable[i].xMax * gameArea.ratioX >= xCoord && gameArea.clickable[i].yMin * gameArea.ratioY <= yCoord && gameArea.clickable[i].yMax * gameArea.ratioY >= yCoord && gameArea.clickable[i].LOADER == true) {
 				gameArea.clear();
 				gameArea.loaded = load.clickable[i].clicked();
 				gameArea.parse();
 				break;
+			/*Other object handler*/	
 			} else if (gameArea.clickable[i].xMin * gameArea.ratioX <= xCoord && gameArea.clickable[i].xMax * gameArea.ratioX >= xCoord && gameArea.clickable[i].yMin * gameArea.ratioY <= yCoord && gameArea.clickable[i].yMax * gameArea.ratioY >= yCoord) {
 				load.clickable[i].clicked();
 				break;
@@ -224,6 +228,7 @@ function touchCollision(event) {
 		}
 	}
 	
+	/*Draggable collision handler*/
 	for (var i = 0; i < gameArea.entities.length; i++) {
 		if (gameArea.entities[i].xMin * gameArea.ratioX <= xCoord && gameArea.entities[i].xMax * gameArea.ratioX >= xCoord && gameArea.entities[i].yMin * gameArea.ratioY <= yCoord && gameArea.entities[i].yMax * gameArea.ratioY >= yCoord && gameArea.entities[i].isDraggable == true) {
 			gameArea.entities[i].isClicked = true;
@@ -238,6 +243,7 @@ function dropCollision() {
 	for (var i = 0; i < gameArea.entities.length; i++) {
 		if (gameArea.entities[i].isClicked) {
 			for (var d = 0; d < gameArea.droppable.length; d++) {
+				/*Drop zone conditions*/
 				if ((((gameArea.entities[i].xPos * gameArea.ratioX) >= (load.droppable[d].xMin * gameArea.ratioX)
 					&& (gameArea.entities[i].xPos * gameArea.ratioX) <= (load.droppable[d].xMax * gameArea.ratioX)
 					&& ((gameArea.entities[i].yPos + gameArea.entities[i].height) * gameArea.ratioY) >= (load.droppable[d].yMin * gameArea.ratioY)
@@ -256,8 +262,7 @@ function dropCollision() {
 					&& (gameArea.entities[i].yPos * gameArea.ratioY) <= (load.droppable[d].yMax * gameArea.ratioY)))
 					&& gameArea.entities[i].isClicked) {
 
-					
-
+					/*Filled drop zone*/
 					if (gameArea.droppable[d].isFilled) {
 						for (var pos = 0; pos < gameArea.entities.length; pos++) {
 							if (load.droppable[d].position == gameArea.entities[pos].position) {
@@ -273,6 +278,7 @@ function dropCollision() {
 								load.droppable[d].isFilled = true;
 							}
 						}
+					/*Empty drop zone*/
 					} else {
 						gameArea.entities[i].drop();
 						gameArea.entities[gameArea.entities.length - 1].xPos = load.droppable[d].xMin;
@@ -287,6 +293,7 @@ function dropCollision() {
 				}
 			}
 
+			/*Updates achievement images based on unlock status*/
 			if (gameArea.entities[i].isClicked && gameArea.entities[i].isScrollable2) {
 				sfx[0].play();
 				gameArea.entities[i].index = Math.round(gameArea.entities[i].index);
@@ -348,7 +355,7 @@ function dropCollision() {
 						gameArea.entities[6].index = 6;
 						break;
 					case 7:
-						if (checkJackBauer()) {
+						if (checkMillionaire()) {
 							gameArea.entities[5].index = 1;
 						} else {
 							gameArea.entities[5].index = 0;
@@ -356,7 +363,7 @@ function dropCollision() {
 						gameArea.entities[6].index = 7;
 						break;
 					case 8:
-						if (checkMillionaire()) {
+						if (checkJackBauer()) {
 							gameArea.entities[5].index = 1;
 						} else {
 							gameArea.entities[5].index = 0;
@@ -421,10 +428,12 @@ function dropCollision() {
 						break;
 				}
 				gameArea.entities[i].isClicked = false;
+			/*Score submission release wheel handler*/
 			} else if (gameArea.entities[i].isClicked && gameArea.entities[i].isScrollable) {
 				sfx[0].play();
 				gameArea.entities[i].index = Math.round(gameArea.entities[i].index);
 				gameArea.entities[i].isClicked = false;
+			/*Operator dragging handler*/
 			} else if(gameArea.entities[i].isClicked) {
 				gameArea.entities[i].xPos = gameArea.entities[i].xInit;
 				gameArea.entities[i].yPos = gameArea.entities[i].yInit;
@@ -437,6 +446,7 @@ function dropCollision() {
 /*Handles draggable location on click*/
 function handleInput(dt) {
 	for (var i = 0; i < gameArea.entities.length; i++) {
+		/*Final score scroll wheel handler*/
 		if (gameArea.entities[i].isClicked && gameArea.entities[i].isScrollable) {
 			var dp = gameArea.yMouse - gameArea.yRef;
 			if (dp > 118) {
@@ -452,6 +462,7 @@ function handleInput(dt) {
 			}
 
 			gameArea.entities[i].index += (1 * ((dp * -1) / 826));
+		/*Achievement scroll wheel handler*/
 		} else if (gameArea.entities[i].isClicked && gameArea.entities[i].isScrollable2) {
 			var dp = gameArea.yMouse - gameArea.yRef;
 			if (dp > 118) {
