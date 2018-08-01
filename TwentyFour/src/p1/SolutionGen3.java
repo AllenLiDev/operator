@@ -15,6 +15,8 @@ public class SolutionGen3 {
         return min;
     }
     
+    public static char delim = ',';
+
     public static void main(String[] args) {
         int cap = 14;
         int count = 0;
@@ -22,6 +24,7 @@ public class SolutionGen3 {
         boolean[][][][] test = new boolean[cap][cap][cap][cap];
         String[][][][] solutions = new String[cap][cap][cap][cap];
         int[][][][] lowestDifficulty = new int[cap][cap][cap][cap];
+        System.out.println("Card1" + delim + "Card2" + delim + "Card3" + delim + "Card4" + delim + "Lv");
         for (int c1 = 1; c1 < cap; c1++) {
             for (int c2 = 1; c2 < cap; c2++) {
                 for (int c3 = 1; c3 < cap; c3++) {
@@ -41,345 +44,345 @@ public class SolutionGen3 {
                         if (i + j + k + l == sum) {
                             test[c1][c2][c3][c4] = true;
                             //System.out.println("1");
-                            solutions[c1][c2][c3][c4] += "111\t";
+                            solutions[c1][c2][c3][c4] += "111" + delim;
                         }
                         if (i + j + k - l == sum) {
                             test[c1][c2][c3][c4] = true;
                             //System.out.println("2");
-                            solutions[c1][c2][c3][c4] += "112\t";
+                            solutions[c1][c2][c3][c4] += "112" + delim;
                         }
                         if (i + j + k * l == sum) {
                             test[c1][c2][c3][c4] = true;
                             //System.out.println("3");
-                            solutions[c1][c2][c3][c4] += "113\t";
+                            solutions[c1][c2][c3][c4] += "113" + delim;
                         }
                         if (i + j + k / l == sum) {
                             test[c1][c2][c3][c4] = true;
                             //System.out.println("4");
-                            solutions[c1][c2][c3][c4] += "114\t";
+                            solutions[c1][c2][c3][c4] += "114" + delim;
                         }
                         
                         if (i + j - k + l == sum) {
                             test[c1][c2][c3][c4] = true;
                             //System.out.println("5");
-                            solutions[c1][c2][c3][c4] += "121\t";
+                            solutions[c1][c2][c3][c4] += "121" + delim;
                         }
                         if (i + j - k - l == sum) {
                             test[c1][c2][c3][c4] = true;
                             //System.out.println("6");
-                            solutions[c1][c2][c3][c4] += "122\t";
+                            solutions[c1][c2][c3][c4] += "122" + delim;
                         }
                         if (i + j - k * l == sum) {
                             test[c1][c2][c3][c4] = true;
                             //System.out.println("7");
-                            solutions[c1][c2][c3][c4] += "123\t";
+                            solutions[c1][c2][c3][c4] += "123" + delim;
                         }
                         if (i + j - k / l == sum) {
                             test[c1][c2][c3][c4] = true;
                             //System.out.println("8");
-                            solutions[c1][c2][c3][c4] += "124\t";
+                            solutions[c1][c2][c3][c4] += "124" + delim;
                         }
                         
                         if (i + j * k + l == sum) {
                             test[c1][c2][c3][c4] = true;
                             //System.out.println("9");
-                            solutions[c1][c2][c3][c4] += "131\t";
+                            solutions[c1][c2][c3][c4] += "131" + delim;
                         }
                         if (i + j * k - l == sum) {
                             test[c1][c2][c3][c4] = true;
                             //System.out.println("10");
-                            solutions[c1][c2][c3][c4] += "132\t";
+                            solutions[c1][c2][c3][c4] += "132" + delim;
                         }
                         if (i + j * k * l == sum) {
                             test[c1][c2][c3][c4] = true;
                             //System.out.println("11");
-                            solutions[c1][c2][c3][c4] += "133\t";
+                            solutions[c1][c2][c3][c4] += "133" + delim;
                         }
                         if (i + j * k / l == sum) {
                             test[c1][c2][c3][c4] = true;
                             //System.out.println("12");
-                            solutions[c1][c2][c3][c4] += "134\t";
+                            solutions[c1][c2][c3][c4] += "134" + delim;
                         }
                         
                         if (i + j / k + l == sum) {
                             test[c1][c2][c3][c4] = true;
                             //System.out.println("13");
-                            solutions[c1][c2][c3][c4] += "141\t";
+                            solutions[c1][c2][c3][c4] += "141" + delim;
                         }
                         if (i + j / k - l == sum) {
                             test[c1][c2][c3][c4] = true;
                             //System.out.println("14");
-                            solutions[c1][c2][c3][c4] += "142\t";
+                            solutions[c1][c2][c3][c4] += "142" + delim;
                         }
                         if (i + j / k * l == sum) {
                             test[c1][c2][c3][c4] = true;
                             //System.out.println("15");
-                            solutions[c1][c2][c3][c4] += "143\t";
+                            solutions[c1][c2][c3][c4] += "143" + delim;
                         }
                         if (i + j / k / l == sum) {
                             test[c1][c2][c3][c4] = true;
                             //System.out.println("16");
-                            solutions[c1][c2][c3][c4] += "144\t";
+                            solutions[c1][c2][c3][c4] += "144" + delim;
                         }
                         
                         
                         if (i - j + k + l == sum) {
                             test[c1][c2][c3][c4] = true;
                             //System.out.println("17");
-                            solutions[c1][c2][c3][c4] += "211\t";
+                            solutions[c1][c2][c3][c4] += "211" + delim;
                         }
                         if (i - j + k - l == sum) {
                             test[c1][c2][c3][c4] = true;
                             //System.out.println("18");
-                            solutions[c1][c2][c3][c4] += "212\t";
+                            solutions[c1][c2][c3][c4] += "212" + delim;
                         }
                         if (i - j + k * l == sum) {
                             test[c1][c2][c3][c4] = true;
                             //System.out.println("19");
-                            solutions[c1][c2][c3][c4] += "213\t";
+                            solutions[c1][c2][c3][c4] += "213" + delim;
                         }
                         if (i - j + k / l == sum) {
                             test[c1][c2][c3][c4] = true;
                             //System.out.println("20");
-                            solutions[c1][c2][c3][c4] += "214\t";
+                            solutions[c1][c2][c3][c4] += "214" + delim;
                         }
                         
                         if (i - j - k + l == sum) {
                             test[c1][c2][c3][c4] = true;
                             //System.out.println("21");
-                            solutions[c1][c2][c3][c4] += "221\t";
+                            solutions[c1][c2][c3][c4] += "221" + delim;
                         }
                         if (i - j - k - l == sum) {
                             test[c1][c2][c3][c4] = true;
                             //System.out.println("22");
-                            solutions[c1][c2][c3][c4] += "222\t";
+                            solutions[c1][c2][c3][c4] += "222" + delim;
                         }
                         if (i - j - k * l == sum) {
                             test[c1][c2][c3][c4] = true;
                             //System.out.println("23");
-                            solutions[c1][c2][c3][c4] += "223\t";
+                            solutions[c1][c2][c3][c4] += "223" + delim;
                         }
                         if (i - j - k / l == sum) {
                             test[c1][c2][c3][c4] = true;
                             //System.out.println("24");
-                            solutions[c1][c2][c3][c4] += "224\t";
+                            solutions[c1][c2][c3][c4] += "224" + delim;
                         }
                         
                         if (i - j * k + l == sum) {
                             test[c1][c2][c3][c4] = true;
                             //System.out.println("25");
-                            solutions[c1][c2][c3][c4] += "231\t";
+                            solutions[c1][c2][c3][c4] += "231" + delim;
                         }
                         if (i - j * k - l == sum) {
                             test[c1][c2][c3][c4] = true;
                             //System.out.println("26");
-                            solutions[c1][c2][c3][c4] += "232\t";
+                            solutions[c1][c2][c3][c4] += "232" + delim;
                         }
                         if (i - j * k * l == sum) {
                             test[c1][c2][c3][c4] = true;
                             //System.out.println("27");
-                            solutions[c1][c2][c3][c4] += "233\t";
+                            solutions[c1][c2][c3][c4] += "233" + delim;
                         }
                         if (i - j * k / l == sum) {
                             test[c1][c2][c3][c4] = true;
                             //System.out.println("28");
-                            solutions[c1][c2][c3][c4] += "234\t";
+                            solutions[c1][c2][c3][c4] += "234" + delim;
                         }
                         
                         if (i - j / k + l == sum) {
                             test[c1][c2][c3][c4] = true;
                             //System.out.println("29");
-                            solutions[c1][c2][c3][c4] += "241\t";
+                            solutions[c1][c2][c3][c4] += "241" + delim;
                         }
                         if (i - j / k - l == sum) {
                             test[c1][c2][c3][c4] = true;
                             //System.out.println("30");
-                            solutions[c1][c2][c3][c4] += "242\t";
+                            solutions[c1][c2][c3][c4] += "242" + delim;
                         }
                         if (i - j / k * l == sum) {
                             test[c1][c2][c3][c4] = true;
                             //System.out.println("31");
-                            solutions[c1][c2][c3][c4] += "243\t";
+                            solutions[c1][c2][c3][c4] += "243" + delim;
                         }
                         if (i - j / k / l == sum) {
                             test[c1][c2][c3][c4] = true;
                             //System.out.println("32");
-                            solutions[c1][c2][c3][c4] += "244\t";
+                            solutions[c1][c2][c3][c4] += "244" + delim;
                         }
                         
                         
                         if (i * j + k + l == sum) {
                             test[c1][c2][c3][c4] = true;
                             //System.out.println("33");
-                            solutions[c1][c2][c3][c4] += "311\t";
+                            solutions[c1][c2][c3][c4] += "311" + delim;
                         }
                         if (i * j + k - l == sum) {
                             test[c1][c2][c3][c4] = true;
                             //System.out.println("34");
-                            solutions[c1][c2][c3][c4] += "312\t";
+                            solutions[c1][c2][c3][c4] += "312" + delim;
                         }
                         if (i * j + k * l == sum) {
                             test[c1][c2][c3][c4] = true;
                             //System.out.println("35");
-                            solutions[c1][c2][c3][c4] += "313\t";
+                            solutions[c1][c2][c3][c4] += "313" + delim;
                         }
                         if (i * j + k / l == sum) {
                             test[c1][c2][c3][c4] = true;
                             //System.out.println("36");
-                            solutions[c1][c2][c3][c4] += "314\t";
+                            solutions[c1][c2][c3][c4] += "314" + delim;
                         }
                         
                         if (i * j - k + l == sum) {
                             test[c1][c2][c3][c4] = true;
                             //System.out.println("37");
-                            solutions[c1][c2][c3][c4] += "321\t";
+                            solutions[c1][c2][c3][c4] += "321" + delim;
                         }
                         if (i * j - k - l == sum) {
                             test[c1][c2][c3][c4] = true;
                             //System.out.println("38");
-                            solutions[c1][c2][c3][c4] += "322\t";
+                            solutions[c1][c2][c3][c4] += "322" + delim;
                         }
                         if (i * j - k * l == sum) {
                             test[c1][c2][c3][c4] = true;
                             //System.out.println("39");
-                            solutions[c1][c2][c3][c4] += "323\t";
+                            solutions[c1][c2][c3][c4] += "323" + delim;
                         }
                         if (i * j - k / l == sum) {
                             test[c1][c2][c3][c4] = true;
                             //System.out.println("40");
-                            solutions[c1][c2][c3][c4] += "324\t";
+                            solutions[c1][c2][c3][c4] += "324" + delim;
                         }
                         
                         if (i * j * k + l == sum) {
                             test[c1][c2][c3][c4] = true;
                             //System.out.println("41");
-                            solutions[c1][c2][c3][c4] += "331\t";
+                            solutions[c1][c2][c3][c4] += "331" + delim;
                         }
                         if (i * j * k - l == sum) {
                             test[c1][c2][c3][c4] = true;
                             //System.out.println("42");
-                            solutions[c1][c2][c3][c4] += "332\t";
+                            solutions[c1][c2][c3][c4] += "332" + delim;
                         }
                         if (i * j * k * l == sum) {
                             test[c1][c2][c3][c4] = true;
                             //System.out.println("43");
-                            solutions[c1][c2][c3][c4] += "333\t";
+                            solutions[c1][c2][c3][c4] += "333" + delim;
                         }
                         if (i * j * k / l == sum) {
                             test[c1][c2][c3][c4] = true;
                             //System.out.println("44");
-                            solutions[c1][c2][c3][c4] += "334\t";
+                            solutions[c1][c2][c3][c4] += "334" + delim;
                         }
                         
                         if (i * j / k + l == sum) {
                             test[c1][c2][c3][c4] = true;
                             //System.out.println("45");
-                            solutions[c1][c2][c3][c4] += "341\t";
+                            solutions[c1][c2][c3][c4] += "341" + delim;
                         }
                         if (i * j / k - l == sum) {
                             test[c1][c2][c3][c4] = true;
                             //System.out.println("46");
-                            solutions[c1][c2][c3][c4] += "342\t";
+                            solutions[c1][c2][c3][c4] += "342" + delim;
                         }
                         if (i * j / k * l == sum) {
                             test[c1][c2][c3][c4] = true;
                             //System.out.println("47");
-                            solutions[c1][c2][c3][c4] += "343\t";
+                            solutions[c1][c2][c3][c4] += "343" + delim;
                         }
                         if (i * j / k / l == sum) {
                             test[c1][c2][c3][c4] = true;
                             //System.out.println("48");
-                            solutions[c1][c2][c3][c4] += "344\t";
+                            solutions[c1][c2][c3][c4] += "344" + delim;
                         }
                         
                         
                         if (i / j + k + l == sum) {
                             test[c1][c2][c3][c4] = true;
                             //System.out.println("49");
-                            solutions[c1][c2][c3][c4] += "411\t";
+                            solutions[c1][c2][c3][c4] += "411" + delim;
                         }
                         if (i / j + k - l == sum) {
                             test[c1][c2][c3][c4] = true;
                             //System.out.println("50");
-                            solutions[c1][c2][c3][c4] += "412\t";
+                            solutions[c1][c2][c3][c4] += "412" + delim;
                         }
                         if (i / j + k * l == sum) {
                             test[c1][c2][c3][c4] = true;
                             //System.out.println("51");
-                            solutions[c1][c2][c3][c4] += "413\t";
+                            solutions[c1][c2][c3][c4] += "413" + delim;
                         }
                         if (i / j + k / l == sum) {
                             test[c1][c2][c3][c4] = true;
                             //System.out.println("52");
-                            solutions[c1][c2][c3][c4] += "414\t";
+                            solutions[c1][c2][c3][c4] += "414" + delim;
                         }
                         
                         if (i / j - k + l == sum) {
                             test[c1][c2][c3][c4] = true;
-                            solutions[c1][c2][c3][c4] += "421\t";
+                            solutions[c1][c2][c3][c4] += "421" + delim;
                             //System.out.println("53");
                         }
                         if (i / j - k - l == sum) {
                             test[c1][c2][c3][c4] = true;
                             //System.out.println("54");
-                            solutions[c1][c2][c3][c4] += "422\t";
+                            solutions[c1][c2][c3][c4] += "422" + delim;
                         }
                         if (i / j - k * l == sum) {
                             test[c1][c2][c3][c4] = true;
                             //System.out.println("55");
-                            solutions[c1][c2][c3][c4] += "423\t";
+                            solutions[c1][c2][c3][c4] += "423" + delim;
                         }
                         if (i / j - k / l == sum) {
                             test[c1][c2][c3][c4] = true;
                             //System.out.println("56");
-                            solutions[c1][c2][c3][c4] += "424\t";
+                            solutions[c1][c2][c3][c4] += "424" + delim;
                         }
                         
                         if (i / j * k + l == sum) {
                             test[c1][c2][c3][c4] = true;
                             //System.out.println("57");
-                            solutions[c1][c2][c3][c4] += "431\t";
+                            solutions[c1][c2][c3][c4] += "431" + delim;
                         }
                         if (i / j * k - l == sum) {
                             test[c1][c2][c3][c4] = true;
                             //System.out.println("58");
-                            solutions[c1][c2][c3][c4] += "432\t";
+                            solutions[c1][c2][c3][c4] += "432" + delim;
                         }
                         if (i / j * k * l == sum) {
                             test[c1][c2][c3][c4] = true;
                             //System.out.println("59");
-                            solutions[c1][c2][c3][c4] += "433\t";
+                            solutions[c1][c2][c3][c4] += "433" + delim;
                         }
                         if (i / j * k / l == sum) {
                             test[c1][c2][c3][c4] = true;
                             //System.out.println("60");
-                            solutions[c1][c2][c3][c4] += "434\t";
+                            solutions[c1][c2][c3][c4] += "434" + delim;
                         }
                         
                         if (i / j / k + l == sum) {
                             test[c1][c2][c3][c4] = true;
                             //System.out.println("61");
-                            solutions[c1][c2][c3][c4] += "441\t";
+                            solutions[c1][c2][c3][c4] += "441" + delim;
                         }
                         if (i / j / k - l == sum) {
                             test[c1][c2][c3][c4] = true;
                             //System.out.println("62");
-                            solutions[c1][c2][c3][c4] += "442\t";
+                            solutions[c1][c2][c3][c4] += "442" + delim;
                         }
                         if (i / j / k * l == sum) {
                             test[c1][c2][c3][c4] = true;
                             //System.out.println("63");
-                            solutions[c1][c2][c3][c4] += "443\t";
+                            solutions[c1][c2][c3][c4] += "443" + delim;
                         }
                         if (i / j / k / l == sum) {
                             test[c1][c2][c3][c4] = true;
                             //System.out.println("64");
-                            solutions[c1][c2][c3][c4] += "444\t";
+                            solutions[c1][c2][c3][c4] += "444" + delim;
                         }
                         if (test[c1][c2][c3][c4]) {
-                            System.out.print(c1 + "\t" + c2 + "\t" + c3 + "\t" + c4);
+                            System.out.print(c1 + "" + delim + c2 + "" + delim + c3 + "" + delim + c4);
                             solutions[c1][c2][c3][c4] = solutions[c1][c2][c3][c4].replaceAll("\t$", "");
-                            String[] temp = solutions[c1][c2][c3][c4].split("\t");
+                            String[] temp = solutions[c1][c2][c3][c4].split("" + delim);
                             int[] diff = new int[temp.length];
                             for (int x = 0; x < temp.length; x++) {
 //                                searches for multiplications and divisions
@@ -409,8 +412,8 @@ public class SolutionGen3 {
                                 diff[x] += ops;
                             }
                             lowestDifficulty[c1][c2][c3][c4] = min(diff);
-                            System.out.print("\t" + lowestDifficulty[c1][c2][c3][c4]);
-                            System.out.print("\t" + solutions[c1][c2][c3][c4]);
+                            System.out.print("" + delim + lowestDifficulty[c1][c2][c3][c4]);
+                            // System.out.print("" + delim + solutions[c1][c2][c3][c4]);
                             System.out.println();
                             count++;
                         }
@@ -418,6 +421,6 @@ public class SolutionGen3 {
                 }
             }
         }
-        System.out.println(count);
+        // System.out.println(count);
     }
 }
